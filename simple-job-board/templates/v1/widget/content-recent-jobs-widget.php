@@ -13,5 +13,7 @@ global $post;
 ?>
 <li >
     <a href="<?php the_permalink(); ?>"><?php esc_attr(the_title()); ?></a>
+    <?php if(!is_plugin_active('sjb-job-date-removal/sjb-job-date-removal.php')) {?>
     <div><i class="fa  fa-calendar-times-o"></i> <?php echo esc_attr( date_i18n(get_option('date_format'), strtotime(get_the_date('F jS, Y'))) ); ?></div>
+    <?php } ?>
 </li>

@@ -29,7 +29,12 @@ if(strpos(esc_url(home_url('/')), '?lang=')){
     $action_page_url =  esc_url(home_url('/')) . $slug;
 }
 
-echo '<div class="no-job-listing">'.'<img src="' . esc_attr(apply_filters('sjb_no_jobs_found_img_url',  WP_PLUGIN_URL  . '/simple-job-board/public/images/not-found.png')) . '" alt="' . esc_html__('No jobs found', 'simple-job-board') . '" id="sjb-not-found-v1"/>'.'<p class="no-job-listing-text">' . esc_html__('No jobs found', 'simple-job-board') . '</p>';
+if (!wp_doing_ajax()){
+    echo '<div class="no-job-listing">'.'<img src="' . esc_attr(apply_filters('sjb_no_jobs_found_img_url',  WP_PLUGIN_URL  . '/simple-job-board/public/images/not-found.png')) . '" alt="' . esc_html__('No jobs found', 'simple-job-board') . '" id="sjb-not-found-v1"/>'.'<p class="no-job-listing-text">' . esc_html__('No jobs found', 'simple-job-board') . '</p>';
+}else{
+    echo '<div class="no-job-listing grid-item">'.'<img src="' . esc_attr(apply_filters('sjb_no_jobs_found_img_url',  WP_PLUGIN_URL  . '/simple-job-board/public/images/not-found.png')) . '" alt="' . esc_html__('No jobs found', 'simple-job-board') . '" id="sjb-not-found-v1"/>'.'<p class="no-job-listing-text">' . esc_html__('No jobs found', 'simple-job-board') . '</p>';
+}
+
 
 if ( ( NULL != filter_input( INPUT_GET, 'selected_category' ) || NULL != filter_input( INPUT_GET, 'selected_jobtype' ) || NULL != filter_input( INPUT_GET, 'selected_location' ) || filter_input( INPUT_GET, 'search_keywords' ) ) ) {
     echo '<p><a href="' . esc_url($action_page_url) . '" class="btn btn-primary">' . __( 'Back to Jobs Page', 'simple-job-board') . '</a></p></div>';

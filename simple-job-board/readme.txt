@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 2.12.6
+Stable tag: 2.12.7
 License: GPLv3
 Requires PHP: 7.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -82,6 +82,7 @@ Manage your Job Board from anywhere with the Simple Job Board mobile app on [And
 * [Job Expirator](https://market.presstigers.com/product/job-expirator-add-on)
 * [Location Base Hiring](https://market.presstigers.com/product/location-base-hiring)
 * [Category Base Hiring](https://market.presstigers.com/product/category-base-hiring)
+* [Job Alerts](https://market.presstigers.com/product/job-alerts-add-on/)
 * Not in the list, for custom add-on please [contact us](https://market.presstigers.com/contact-us)
 
 = Plugin Features =
@@ -206,9 +207,14 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 
 == Changelog ==
 
+= 2.12.7 =
+
+* Tweak - Added add-ons update notifications.
+* Fix   - Fixed the widget issue.
+
 = 2.12.6 =
 
-* Fix - Improved security for yearly directories.
+* Fix - Updated year directory files access.
 
 = 2.12.5 =
 

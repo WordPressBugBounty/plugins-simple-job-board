@@ -64,9 +64,11 @@ class Simple_Job_Board_Shortcode_Jobpost {
         );
 
         $atts = is_array($atts) ? apply_filters('sjb_shortcode_atts', array_map('sanitize_text_field', $atts)) : '';
-
+        
         // Combine User Defined Shortcode Attributes with Known Attributes
         $shortcode_args = shortcode_atts(apply_filters('sjb_output_jobs_defaults', $shortcode_args, $atts), $atts);
+
+        
         // Get paged variable.
         if (get_query_var('paged')) {
             $paged = (int) get_query_var('paged');
@@ -92,7 +94,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
             'jobpost_tag' => (!empty($_GET['selected_tag'])) ? sanitize_text_field($_GET['selected_tag']) : '',
                 ), $atts
         );
-        
+      
         // Job Query
         $job_query = new WP_Query($args);
         /**
@@ -121,7 +123,9 @@ class Simple_Job_Board_Shortcode_Jobpost {
              * 
              * Search jobs by keywords, category, location & type.
              */
+            if (!wp_doing_ajax()) {
             get_simple_job_board_template('job-filters.php', array('per_page' => $shortcode_args['posts'], 'order' => $shortcode_args['order'], 'categories' => $shortcode_args['category'], 'job_types' => $shortcode_args['type'], 'atts' => $atts, 'location' => $shortcode_args['location'], 'keywords' => $shortcode_args['keywords']));
+            }
         endif;
 
         /**
@@ -181,6 +185,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
              * 
              * - Display Message on No Job Found.
              */
+            
             get_simple_job_board_template_part('listing/content-no-jobs-found');
         endif;
 

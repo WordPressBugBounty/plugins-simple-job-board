@@ -58,7 +58,7 @@ do_action('sjb_job_application_before');
         $keys = get_post_custom_keys(get_the_ID());
         $section_no = 1;
         $total_sections = 0;
-
+	
         // Get total sections
         if (NULL != $keys):
             foreach ($keys as $key):

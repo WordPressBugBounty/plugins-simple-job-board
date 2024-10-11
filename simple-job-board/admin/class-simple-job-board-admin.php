@@ -105,6 +105,11 @@ class Simple_Job_Board_Admin {
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-simple-job-board-privacy-exporter.php';
 
         /**
+         * This class is responsible for integrating user data exporter implementation with core WP exporter.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-simple-job-board-admin-alerts.php';
+
+        /**
          * ADDONS
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-simple-job-board-extensions-package.php';

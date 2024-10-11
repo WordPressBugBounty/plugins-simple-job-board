@@ -1038,20 +1038,29 @@ if (!function_exists('sjb_get_slugs')) {
      */
     function sjb_get_slugs() {
         global $post;
-
+    
+       
         if (is_archive()) {
             $link = get_post_type_archive_link('jobpost');
-        } else {
+        } 
+        
+        elseif (!empty($post) && isset($post->ID)) {
             $link = get_permalink($post->ID);
-        }
-
-        if (empty($link)) {
-            return FALSE;
         } else {
+            
+            return false;
+        }
+    
+   
+        if (empty($link)) {
+            return false;
+        } else {
+            
             $link = str_replace(home_url('/'), '', $link);
             return $link;
         }
     }
+    
 
 }
 

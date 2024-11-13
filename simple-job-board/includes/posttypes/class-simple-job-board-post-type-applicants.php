@@ -68,8 +68,13 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
 
             // Filter - Update query for getting all applications of a job
             add_filter('parse_query', array($this, 'get_all_applications'));
-        }
 
+            // Filter - Remove Quick Edit Action
+            add_filter('post_row_actions',array($this,'remove_quick_edit_actions'),10,2);
+
+           
+        }
+        
         /**
          * Create Applicants Post Type.
          *
@@ -393,6 +398,17 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
             $columns['selected_information'] = 'selected_information';
             return $columns;
         }
+
+        /**
+         * Action ->  Quick Edit
+         *
+         * @since   2.10.0
+         */
+
+        function remove_quick_edit_actions( $actions, $post ) { 
+            unset($actions['inline hide-if-no-js']);
+            return $actions;
+       }
 
     }
 

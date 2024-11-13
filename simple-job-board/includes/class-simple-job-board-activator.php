@@ -20,7 +20,9 @@ class Simple_Job_Board_Activator {
      * @since    1.0.0
      */
     public static function activate() {
-        
+        // Create custom page
+        self::create_jobpost_page();
+
         // Options-> General Settings -> List Jobs with Logo & Detail
         add_option('job_board_jobpost_slug', 'jobs' );
         add_option('job_board_job_category_slug', 'job-category');
@@ -58,6 +60,26 @@ class Simple_Job_Board_Activator {
 
         // Flush Rewrite Rules 
         flush_rewrite_rules();
+    }
+
+    private static function create_jobpost_page()
+    {
+        $page_title = __('Current Jobs', 'simple-job-board');
+        $page_content = '[jobpost]'; 
+
+        $page = array(
+            'post_title'     => $page_title,
+            'post_content'   => $page_content,
+            'post_status'    => 'publish',
+            'post_type'      => 'page',
+            'post_author'    => 1,
+        );
+        
+        $page_id = wp_insert_post($page);
+
+        if($page_id){
+            update_option('sjb_job_post_page_id', $page_id);
+        }
     }
 
 }

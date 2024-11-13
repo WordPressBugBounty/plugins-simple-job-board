@@ -67,7 +67,7 @@ class Simple_Job_Board_Admin_Alerts
                                         <?php
                                         echo sprintf(
                                             esc_html__('Simple Job Board has launched a new add-on %s with awesome features to let the job seekers subscribe for your new job openings.', 'simple-job-board'),
-                                            '<strong>' . esc_html__('Job Alerts', 'simple-job-board') . '</strong>'
+                                            '<strong><a href="https://market.presstigers.com/product/job-alerts-add-on/" target="_blank">' . esc_html__('Job Alerts', 'simple-job-board') . '</a></strong>'
                                         );
                                         ?>
                                     </p>
@@ -75,7 +75,7 @@ class Simple_Job_Board_Admin_Alerts
                                 </div>
                                 <div class="banner-col-3">
                                     <ul class="banner-features">
-                                        <li><?php esc_html_e('Create and manage job alerts as per preferences of job seeker.', 'simple-job-board'); ?></li>
+                                        <li><?php esc_html_e('Job seekers can create and manage job alerts.', 'simple-job-board'); ?></li>
                                         <li><?php esc_html_e('Set daily, weekly, fortnightly, or monthly alerts.', 'simple-job-board'); ?></li>
                                         <li><?php esc_html_e('Get job alerts through email, and share with others.', 'simple-job-board'); ?></li>
                                     </ul>
@@ -156,33 +156,44 @@ class Simple_Job_Board_Admin_Alerts
     }
 
     public function check_addon_versions_and_display_notifications() {
-        // Your WooCommerce API credentials
-        $consumer_key = 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7';  // Replace with your WooCommerce consumer key
-        $consumer_secret = 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97';  // Replace with your WooCommerce consumer secret
-
-       // Base URL for the WooCommerce API
+        // Base URL for the WooCommerce API
         $api_url = 'https://market.presstigers.com/wc-api/v3/products';
 
-        // Request to get all products without pagination
-        $response = wp_remote_get($api_url, array(
-            'headers' => array(
-                'Authorization' => 'Basic ' . base64_encode($consumer_key . ':' . $consumer_secret)
-            ),
-            'sslverify' => true, // Disable SSL verification (temporary solution)
-            'timeout' => 30,
-            'body' => array(
-                'filter[limit]' => -1, // Get all products without pagination
-                'type' => 'variable'   // You can filter by product type if needed
-            )
-        ));
+        // Https Authentication args
+        $params = array(
+            'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
+            'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
+            'filter[limit]' => -1,
+            'type' => 'variable'
+        );
 
-        if (is_wp_error($response)) {
-            return; // Stop if there is an error with the request
+        $url = esc_url_raw($api_url) . '?' . http_build_query($params);
+
+        // Make API request
+        $response = wp_remote_get(
+                $url, array(
+            'method' => 'GET',
+            'timeout' => 45,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'blocking' => true,
+            'headers' => array(),
+            'body' => $params,
+            'cookies' => array(),
+            ));
+        // Check the response code
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_message = wp_remote_retrieve_response_message($response);
+
+        if (200 != $response_code && !empty($response_message)) {
+            return new WP_Error($response_code, $response_message);
+        } elseif (200 != $response_code) {
+            return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
+        } else {
+            // Decode the response body
+            $body = wp_remote_retrieve_body($response);
+            $products = json_decode($body, true); // Decode the JSON response
         }
-
-        // Decode the response body
-        $body = wp_remote_retrieve_body($response);
-        $products = json_decode($body, true); // Decode the JSON response
 
         // Prepare the $addons array from the API response
         $addons = array();

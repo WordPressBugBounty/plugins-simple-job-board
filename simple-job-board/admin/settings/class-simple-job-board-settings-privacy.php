@@ -61,109 +61,160 @@ class Simple_Job_Board_Privacy {
         <!-- Filters Setting -->
         <div data-id="settings-privacy_settings" class="sjb-admin-settings tab">
 
-            <?php
-            /**
-             * Action -> Add new section before GDPR settings .  
-             * 
-             * @since 2.6.0 
-             */
-            do_action('sjb_privacy_settings_section_start');
-            ?>
-            <h4 class="first"><?php esc_html_e('Configure Privacy Policy Settings', 'simple-job-board'); ?></h4>
+            <ul class="sjb-privacy-subtabs">
+                <li class="sjb-privacy-subtab active" data-subtab="privacy-options"><?php echo esc_html__('Privacy Policy', 'simple-job-board'); ?></li>
+                <li class="sjb-privacy-subtab" data-subtab="term-conditions"><?php echo esc_html__('Terms & Conditions', 'simple-job-board'); ?></li>
+                <li class="sjb-privacy-subtab" data-subtab="erase-personal-data"><?php echo esc_html__('Erase Personal Data', 'simple-job-board'); ?></li>
+            </ul>
             <form method="post" id="privacy-settings-form">
-                <div class="sjb-section">
-                    <div class="sjb-content">
-                        <?php
-                        /**
-                         * Action -> Add new fields at the start of GDPR settings section.  
-                         * 
-                         * @since 2.6.0 
-                         */
-                        do_action('sjb_privacy_settings_start');
+                <?php 
+                    //Enable GDPR Settings
+                    $sjb_privacy_settings = get_option('job_board_privacy_settings', 'no');
+                    $sjb_terms_conditions = get_option('job_board_terms_condition_settings', 'no');
+                    //Enable Settings to Remove Personal Data from the Applicants
+                    $remove_applicant_data = get_option('sjb_erasure_request_removes_applicant_data', 'no');
 
-                        //Enable GDPR Settings
-                        $sjb_privacy_settings = get_option('job_board_privacy_settings', 'no');
+                    $job_board_privacy_policy_label = get_option('job_board_privacy_policy_label', '');
+                    $job_board_privacy_policy_content = get_option('job_board_privacy_policy_content', '');
 
-                        //Enable Settings to Remove Personal Data from the Applicants
-                        $remove_applicant_data = get_option('sjb_erasure_request_removes_applicant_data', 'no');
+                    $job_board_term_conditions_label = get_option('job_board_term_conditions_label', '');
+                    $job_board_term_conditions_content = get_option('job_board_term_conditions_content', '');
+                ?>
+                <!-- Privacy Options -->
+                <div id="privacy-options" class="sjb-privacy-subtab-content active">
+                    <?php
+                    /**
+                     * Action -> Add new section before GDPR settings .  
+                     * 
+                     * @since 2.6.0 
+                     */
+                    do_action('sjb_privacy_settings_section_start');
+                    
+                    ?>
+                    <!-- <h4 class="first"><?php esc_html_e('Configure Privacy Policy Settings', 'simple-job-board'); ?></h4> -->
+                    
+                        <div class="sjb-section">
+                            <div class="sjb-content">
+                                <?php
+                                /**
+                                 * Action -> Add new fields at the start of GDPR settings section.  
+                                 * 
+                                 * @since 2.6.0 
+                                 */
+                                do_action('sjb_privacy_settings_start');
+                                
+                                ?>
+                                
+                                <div class="sjp-form-field-note">
+                                    <span><?php echo esc_html__('Note: The privacy label and content entered here will appear as plain text in the application form on the job detail page.', 'simple-job-board'); ?></span>
+                                </div>
+                                <div class="sjb-form-group">
+                                    <input type="checkbox" name="job_privacy_settings" id="enable-terms" value="yes"  <?php checked('yes', esc_attr($sjb_privacy_settings)); ?> />
+                                    <label for="enable-terms"><?php echo esc_html__('Enable Privacy Ploicy', 'simple-job-board'); ?></label>
+                                    <input type='hidden' name="empty_privacy_settings" value="empty_privacy_settings" >
+                                </div>
+                                <div class="sjb-form-group">
+                                    <label class="font-bold"><?php echo esc_html__('Privacy Policy Label (Opt.)', 'simple-job-board'); ?></label>
+                                </div>
+                                <div>
+                                    <input type="text" id="setting_privacy_policy_label" name="privacy_policy_label" class="form-control full-width" value="<?php echo esc_attr( $job_board_privacy_policy_label ); ?>" >
+                                    
+                                </div>
+                                <div class="sjb-form-group">
+                                    <label class="font-bold"><?php echo esc_html__('Privacy Policy Content', 'simple-job-board'); ?></label>
+                                </div>
+                                <div>
+                                    <?php wp_editor('' . stripslashes_deep(trim(implode("", explode("\\", $job_board_privacy_policy_content)))) . '', 'privacy_policy_content'); ?>
+                                    
+                                </div>
 
-                        $job_board_privacy_policy_label = get_option('job_board_privacy_policy_label', '');
-                        $job_board_privacy_policy_content = get_option('job_board_privacy_policy_content', '');
-
-                        $job_board_term_conditions_label = get_option('job_board_term_conditions_label', '');
-                        $job_board_term_conditions_content = get_option('job_board_term_conditions_content', '');
-                        ?>
-                        <div class="sjb-form-group">
-                            <input type="checkbox" name="job_privacy_settings" id="enable-terms" value="yes"  <?php checked('yes', esc_attr($sjb_privacy_settings)); ?> />
-                            <label for="enable-terms"><?php echo esc_html__('Enable Terms & Conditions Field', 'simple-job-board'); ?></label>
-                            <input type='hidden' name="empty_privacy_settings" value="empty_privacy_settings" >
-                        </div>
-                        <div class="sjb-form-group">
-                            <label class="font-bold"><?php echo esc_html__('Privacy Policy Label (Opt.)', 'simple-job-board'); ?></label>
-                        </div>
-                        <div>
-                            <input type="text" id="setting_privacy_policy_label" name="privacy_policy_label" class="form-control full-width" value="<?php echo esc_attr( $job_board_privacy_policy_label ); ?>" >
-                        </div>
-                        <div class="sjb-form-group">
-                            <label class="font-bold"><?php echo esc_html__('Privacy Policy Content', 'simple-job-board'); ?></label>
-                        </div>
-                        <div>
-                            <?php wp_editor('' . stripslashes_deep(trim(implode("", explode("\\", $job_board_privacy_policy_content)))) . '', 'privacy_policy_content'); ?>
-                        </div>
-                        <div class="sjb-form-group">
-                            <label class="font-bold"><?php echo esc_html__('Terms & Conditions Label (Opt.)', 'simple-job-board'); ?></label>
-                        </div>
-                        <div>
-                            <input type="text" id="setting_term_conditions_label" name="term_conditions_label" class="form-control full-width" value="<?php echo esc_attr($job_board_term_conditions_label); ?>">
-                        </div>
-                        <div class="sjb-form-group">
-                            <label class="font-bold"><?php echo esc_html__('Terms & Conditions Content', 'simple-job-board'); ?></label>
-                        </div>
-                        <div>
-                            <?php wp_editor('' . stripslashes_deep(trim(implode("", explode("\\", $job_board_term_conditions_content)))) . '', 'term_conditions_content'); ?>
-                        </div>
-
-                        <?php
-                        /**
-                         * Action -> Add new fields at the end of GDPR settings section.  
-                         * 
-                         * @since 2.6.0 
-                         */
-                        do_action('sjb_privacy_settings_end');
-                        ?>
-
-                        <?php
-                        /**
-                         * Action -> Add new section before Remove Personal Data Settings settings.  
-                         * 
-                         * @since 2.6.0 
-                         */
-                        do_action('sjb_eraser_applicant_data_section_start');
-                        ?>
-                        <h4 class = "first"><?php esc_html_e('Remove Personal Data Settings', 'simple-job-board'); ?></h4>
-
-
-                        <div class = "sjb-form-group">
-                            <input type = "checkbox" id="remove-personal-data" name = "job_remove_applicant_data_settings" value = "yes" <?php checked('yes', esc_attr($remove_applicant_data)); ?> />
-                            <label for="remove-personal-data"><?php echo esc_html__('Remove personal data from applications including resumes.', 'simple-job-board'); ?></label>
-                            <input type='hidden' name="empty_remove_applicant_data_settings" value="empty_remove_applicant_data_settings" >
+                                <?php
+                                /**
+                                 * Action -> Add new fields at the end of GDPR settings section.  
+                                 * 
+                                 * @since 2.6.0 
+                                 */
+                                do_action('sjb_privacy_settings_end');
+                                ?>
+                            </div>
                         </div>
                     </div>
+
+                <!-- Term&Conditions Options -->
+                <div id="term-conditions" class="sjb-privacy-subtab-content">
+                    <div class="sjb-section">
+                        <div class="sjb-content">
+                            <?php
+                            /**
+                             * Action -> Add new fields at the start of GDPR settings section.  
+                             * 
+                             * @since 2.6.0 
+                             */
+                            do_action('sjb_privacy_settings_start');
+                            ?>
+                            <div class="sjp-form-field-note">
+                                    <span><?php echo esc_html__('Note: The terms & conditions label and content entered here will appear as a checkbox in the application form on the job detail page.', 'simple-job-board'); ?></span>
+                            </div>
+                            <div class="sjb-form-group">
+                                    <input type="checkbox" name="job_terms_conditions_settings" id="enable-terms" value="yes"  <?php checked('yes', esc_attr($sjb_terms_conditions)); ?> />
+                                    <label for="enable-terms"><?php echo esc_html__('Enable Terms & Conditions', 'simple-job-board'); ?></label>
+                                    <input type='hidden' name="empty_tems_condition_settings" value="empty_tems_condition_settings" >
+                                </div>
+                            <div class="sjb-form-group">
+                                <label class="font-bold"><?php echo esc_html__('Terms & Conditions Label (Opt.)', 'simple-job-board'); ?></label>
+                            </div>
+                            <div>
+                                <input type="text" id="setting_term_conditions_label" name="term_conditions_label" class="form-control full-width" value="<?php echo esc_attr($job_board_term_conditions_label); ?>">
+                            </div>
+                            <div class="sjb-form-group">
+                                <label class="font-bold"><?php echo esc_html__('Terms & Conditions Content', 'simple-job-board'); ?></label>
+                            </div>
+                            <div>
+                                <?php wp_editor('' . stripslashes_deep(trim(implode("", explode("\\", $job_board_term_conditions_content)))) . '', 'term_conditions_content'); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Erase Personal Data Options -->
+                <div id="erase-personal-data" class="sjb-privacy-subtab-content">
+
+                    <?php
+                    /**
+                     * Action -> Add new section before Remove Personal Data Settings settings.  
+                     * 
+                     * @since 2.6.0 
+                     */
+                    do_action('sjb_eraser_applicant_data_section_start');
+                    ?>
+                    
+                    <div class="sjb-section">
+                        <div class="sjb-content">
+                            <div class="sjp-form-field-note">
+                                    <span><?php echo esc_html__('Note: This will work with WordPress native tool of removing personal data.', 'simple-job-board'); ?></span>
+                            </div>
+                            <!-- <h4 class = "first"><?php esc_html_e('Remove Personal Data Settings', 'simple-job-board'); ?></h4> -->
+                            <div class = "sjb-form-group">
+                                <input type = "checkbox" id="remove-personal-data" name = "job_remove_applicant_data_settings" value = "yes" <?php checked('yes', esc_attr($remove_applicant_data)); ?> />
+                                <label for="remove-personal-data"><?php echo esc_html__('Remove personal data from applications including resumes.', 'simple-job-board'); ?></label>
+                                <input type='hidden' name="empty_remove_applicant_data_settings" value="empty_remove_applicant_data_settings" >
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    /**
+                     * Action -> Add new section after Remove Personal Data Settings settings. 
+                     * 
+                     * @since 2.6.0 
+                     */
+                    do_action('sjb_eraser_applicant_data_section_end');
+                    ?>
                 </div>
 
                 <input type="hidden" value="1" name="admin_notices" />
                 <input type="hidden" name="settings_privacy_nonce" value="<?php echo wp_create_nonce('jobpost_privacy_settings'); ?>" >
                 <input type="submit" name="privacysettings_submit" id="privacy_settings" class="button button-primary" value="<?php echo esc_html__('Save Changes', 'simple-job-board'); ?>" />
             </form>
-
-            <?php
-            /**
-             * Action -> Add new section after Remove Personal Data Settings settings. 
-             * 
-             * @since 2.6.0 
-             */
-            do_action('sjb_eraser_applicant_data_section_end');
-            ?>
         </div>
         <?php
     }
@@ -196,6 +247,10 @@ class Simple_Job_Board_Privacy {
         $empty_privacy_settings = isset($_POST['empty_privacy_settings']) ? sanitize_text_field($_POST['empty_privacy_settings']) : '';
         $privacy_settings = 0;
 
+        $sjb_terms_condition_settings = isset($_POST['job_terms_conditions_settings']) ? sanitize_text_field($_POST['job_terms_conditions_settings']) : '';
+        $empty_terms_condition_settings = isset($_POST['empty_tems_condition_settings']) ? sanitize_text_field($_POST['empty_tems_condition_settings']) : '';
+        $terms_condition_settings = 0;
+
         $enable_applicant_erasure = isset($_POST['job_remove_applicant_data_settings']) ? sanitize_text_field($_POST['job_remove_applicant_data_settings']) : '';
         $empty_applicant_settings = isset($_POST['empty_remove_applicant_data_settings']) ? sanitize_text_field($_POST['empty_remove_applicant_data_settings']) : '';
         $applicant_settings = 0;
@@ -225,19 +280,7 @@ class Simple_Job_Board_Privacy {
                 update_option('job_board_privacy_policy_content', sanitize_text_field( $privacy_policy_content ) );
             }
 
-            // Update T&C Label
-            if (!empty($term_conditions_label)) {
-                update_option('job_board_term_conditions_label', sanitize_text_field( stripslashes(  $term_conditions_label) ) );
-            } elseif ('' === $term_conditions_label) {
-                update_option('job_board_term_conditions_label', sanitize_text_field( $term_conditions_label ) );
-            }
-
-            // Update T&C Content
-            if (!empty($term_conditions_content)) {
-                update_option('job_board_term_conditions_content', wp_kses_post( $term_conditions_content ) );
-            } elseif ('' === $term_conditions_content) {
-                update_option('job_board_term_conditions_content', sanitize_text_field( $term_conditions_content ) );
-            }
+            
 
             // Save GDPR Remove Application Data Settings
             if (!empty($empty_applicant_settings)) {
@@ -251,5 +294,33 @@ class Simple_Job_Board_Privacy {
                 }
             }
         }
+
+        if (!empty($empty_terms_condition_settings)) {
+
+            if (!empty($sjb_terms_condition_settings)) {
+                update_option('job_board_terms_condition_settings', sanitize_text_field( $sjb_terms_condition_settings ) );
+                $terms_condition_settings = 1;
+            }
+    
+            if (0 === $terms_condition_settings) {
+                update_option('job_board_terms_condition_settings', 'no');
+            }
+    
+            // Update T&C Label
+            if (!empty($term_conditions_label)) {
+                update_option('job_board_term_conditions_label', sanitize_text_field( stripslashes(  $term_conditions_label) ) );
+            } elseif ('' === $term_conditions_label) {
+                update_option('job_board_term_conditions_label', sanitize_text_field( $term_conditions_label ) );
+            }
+    
+            // Update T&C Content
+            if (!empty($term_conditions_content)) {
+                update_option('job_board_term_conditions_content', wp_kses_post( $term_conditions_content ) );
+            } elseif ('' === $term_conditions_content) {
+                update_option('job_board_term_conditions_content', sanitize_text_field( $term_conditions_content ) );
+            }
+        }
+        
+
     }
 }

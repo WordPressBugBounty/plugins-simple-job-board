@@ -76,6 +76,7 @@ $delete_data_option = get_option('delete_data_on_uninstall');
 
         // Delete Options-> Privacy
         delete_option('job_board_privacy_settings');
+        delete_option('job_board_terms_condition_settings');
         delete_option('job_board_privacy_policy_label');
         delete_option('job_board_privacy_policy_content');
         delete_option('job_board_term_conditions_label');

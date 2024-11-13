@@ -33,11 +33,15 @@ do_action("sjb_job_features_before");
     $keys = sjb_job_features_count();
     $job_category = wp_get_post_terms($post->ID, 'jobpost_category');
     $metas = '';
-
+    $job_features_heading = get_option('job_board_job_features');
+    if (empty($job_features_heading)) {
+        // Make the default text translatable
+        $job_features_heading = __('Job Features', 'simple-job-board');
+    }
     // Show Job Features Title, If Features Exist.
     if (0 < $keys || NULL != $job_category) :
     ?>
-        <h3><?php echo apply_filters('sjb_job_features_title', esc_html__('Job Features', 'simple-job-board')); ?></h3>
+        <h3><?php echo apply_filters('sjb_job_features_title', esc_html($job_features_heading)); ?></h3>
     <?php
     endif;
     ?>

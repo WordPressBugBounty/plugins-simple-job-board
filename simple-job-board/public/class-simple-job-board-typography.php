@@ -38,11 +38,12 @@ class Simple_Job_Board_Typography {
 
         // Load Inline Styles Only for SJB Pages        
 
-            global $post;
+            $job_board_typography = array();
             if (get_option('job_board_typography')) {
                 $job_board_typography = get_option('job_board_typography');
             }
-            
+            $job_pages_layout  = get_option('job_board_pages_layout');
+            //var_dump($job_pages_layout);
             // Job Listing Page Typography
             $filters_bg_color = isset($job_board_typography['filters_background_color']) ? esc_attr($job_board_typography['filters_background_color']) : '#f2f2f2';
             $job_title_color = isset($job_board_typography['job_listing_title_color']) ? esc_attr($job_board_typography['job_listing_title_color']) : '#3b3a3c';
@@ -55,97 +56,100 @@ class Simple_Job_Board_Typography {
             $pagination_bg_color = isset($job_board_typography['pagination_background_color']) ? esc_attr($job_board_typography['pagination_background_color']) : '#3297fa';
             $enable_fonts = get_option( 'sjb_fonts' )  ? get_option('sjb_fonts') : 'enable-fonts';
             ?>
-
-            <style type="text/css">
-                
-            /* SJB Fonts */
-            <?php if ( 'enable-fonts' === $enable_fonts ) { ?>
-                    .sjb-page {
-                        font-family: "Roboto", sans-serif;
-                    }
-            <?php } ?>
-
-                /* Job Filters Background Color */
-                .sjb-page .sjb-filters
-                {
-                    background-color: <?php echo esc_attr( $filters_bg_color ); ?>;
-                }
-                                                    
-                /* Listing & Detail Page Title Color */
-                .sjb-page .list-data .v1 .job-info h4 a , 
-                .sjb-page .list-data .v2 .job-info h4 a              
-                {
-                    color: <?php echo esc_attr( $job_title_color ); ?>;
-                }                
-                                                    
-                /* Job Detail Page Headings */
-                .sjb-page .sjb-detail .list-data .v1 h3,
-                .sjb-page .sjb-detail .list-data .v2 h3,
-                .sjb-page .sjb-detail .list-data ul li::before,
-                .sjb-page .sjb-detail .list-data .v1 .job-detail h3,
-                .sjb-page .sjb-detail .list-data .v2 .job-detail h3,
-                .sjb-page .sjb-archive-page .job-title,
-                .sjb-page .job-features h3
-                {
-                    color: <?php echo esc_attr( $heading_color ); ?>; 
-                }
-                                                    
-                /* Fontawesome Icon Color */
-                .sjb-page .list-data .v1 .job-type i,
-                .sjb-page .list-data .v1 .job-location i,
-                .sjb-page .list-data .v1 .job-date i,
-                .sjb-page .list-data .v2 .job-type i,
-                .sjb-page .list-data .v2 .job-location i,
-                .sjb-page .list-data .v2 .job-date i,
-                .sjb-page .sjb-detail .list-data .v2 .job-features .sjb-title-value h4 i,
-                .sjb-listing .list-data .v2 .job-features .sjb-title-value h4 i
-                {
-                    color: <?php echo esc_attr( $fontawesome_icon_color ); ?>;
-                }
-
-                /* Fontawesome Text Color */
-                .sjb-page .list-data .v1 .job-type,
-                .sjb-page .list-data .v1 .job-location,
-                .sjb-page .list-data .v1 .job-date,
-                .sjb-page .list-data .v2 .job-type,
-                .sjb-page .list-data .v2 .job-location,
-                .sjb-page .list-data .v2 .job-date
-                {
-                    color: <?php echo esc_attr( $fontawesome_text_color ); ?>;
-                }
-                                                    
-                /* Job Filters-> All Buttons Background Color */
-                .sjb-page .btn-primary,
-                .sjb-page .btn-primary:hover,
-                .sjb-page .btn-primary:active:hover,
-                .sjb-page .btn-primary:active:focus,
-                .sjb-page .sjb-detail .jobpost-form .file div,                
-                .sjb-page .sjb-detail .jobpost-form .file:hover div
-                {
-                    background-color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
-                    color: <?php echo esc_attr( $btn_color ); ?> !important;
-                }
-                
-                .sjb-page .sjb-listing a.sjb_view_more_btn,
-                .sjb-page .sjb-listing a.sjb_view_less_btn
-                {
+            
+            <?php if ( 'sjb-layout' === $job_pages_layout ) { ?>
+                <style type="text/css">
                     
-                    color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
-                }
+                /* SJB Fonts */
+                <?php if ( 'enable-fonts' === $enable_fonts ) { ?>
+                        .sjb-page {
+                            font-family: "Roboto", sans-serif;
+                        }
+                <?php } ?>
 
-                /* Pagination Text Color */
-                /* Pagination Background Color */                
-                .sjb-page .pagination li.list-item span.current,
-                .sjb-page .pagination li.list-item a:hover, 
-                .sjb-page .pagination li.list-item span.current:hover
-                {
-                    background: <?php echo esc_attr( $pagination_bg_color ); ?>;
-                    border-color: <?php echo esc_attr( $pagination_bg_color ); ?>;                    
-                    color: <?php echo esc_attr( $pagination_text_color ); ?>;
-                }
-                                                    
-            </style>        
-            <?php
+                    /* Job Filters Background Color */
+                    .sjb-page .sjb-filters
+                    {
+                        background-color: <?php echo esc_attr( $filters_bg_color ); ?>;
+                    }
+                                                        
+                    /* Listing & Detail Page Title Color */
+                    .sjb-page .list-data .v1 .job-info h4 a , 
+                    .sjb-page .list-data .v2 .job-info h4 a              
+                    {
+                        color: <?php echo esc_attr( $job_title_color ); ?>;
+                    }                
+                                                        
+                    /* Job Detail Page Headings */
+                    .sjb-page .sjb-detail .list-data .v1 h3,
+                    .sjb-page .sjb-detail .list-data .v2 h3,
+                    .sjb-page .sjb-detail .list-data ul li::before,
+                    .sjb-page .sjb-detail .list-data .v1 .job-detail h3,
+                    .sjb-page .sjb-detail .list-data .v2 .job-detail h3,
+                    .sjb-page .sjb-archive-page .job-title,
+                    .sjb-page .job-features h3
+                    {
+                        color: <?php echo esc_attr( $heading_color ); ?>; 
+                    }
+                                                        
+                    /* Fontawesome Icon Color */
+                    .sjb-page .list-data .v1 .job-type i,
+                    .sjb-page .list-data .v1 .job-location i,
+                    .sjb-page .list-data .v1 .job-date i,
+                    .sjb-page .list-data .v2 .job-type i,
+                    .sjb-page .list-data .v2 .job-location i,
+                    .sjb-page .list-data .v2 .job-date i,
+                    .sjb-page .sjb-detail .list-data .v2 .job-features .sjb-title-value h4 i,
+                    .sjb-listing .list-data .v2 .job-features .sjb-title-value h4 i
+                    {
+                        color: <?php echo esc_attr( $fontawesome_icon_color ); ?>;
+                    }
+
+                    /* Fontawesome Text Color */
+                    .sjb-page .list-data .v1 .job-type,
+                    .sjb-page .list-data .v1 .job-location,
+                    .sjb-page .list-data .v1 .job-date,
+                    .sjb-page .list-data .v2 .job-type,
+                    .sjb-page .list-data .v2 .job-location,
+                    .sjb-page .list-data .v2 .job-date
+                    {
+                        color: <?php echo esc_attr( $fontawesome_text_color ); ?>;
+                    }
+                                                        
+                    /* Job Filters-> All Buttons Background Color */
+                    .sjb-page .btn-primary,
+                    .sjb-page .btn-primary:hover,
+                    .sjb-page .btn-primary:active:hover,
+                    .sjb-page .btn-primary:active:focus,
+                    .sjb-page .sjb-detail .jobpost-form .file div,                
+                    .sjb-page .sjb-detail .jobpost-form .file:hover div
+                    {
+                        background-color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
+                        border: none !important;
+                        color: <?php echo esc_attr( $btn_color ); ?> !important;
+                    }
+                    
+                    .sjb-page .sjb-listing a.sjb_view_more_btn,
+                    .sjb-page .sjb-listing a.sjb_view_less_btn
+                    {
+                        
+                        color: <?php echo esc_attr( $btn_bg_color ); ?> !important;
+                    }
+
+                    /* Pagination Text Color */
+                    /* Pagination Background Color */                
+                    .sjb-page .pagination li.list-item span.current,
+                    .sjb-page .pagination li.list-item a:hover, 
+                    .sjb-page .pagination li.list-item span.current:hover
+                    {
+                        background: <?php echo esc_attr( $pagination_bg_color ); ?>;
+                        border-color: <?php echo esc_attr( $pagination_bg_color ); ?>;                    
+                        color: <?php echo esc_attr( $pagination_text_color ); ?>;
+                    }
+                                                        
+                </style>        
+                <?php
+            } /// end if sjb-layout
     }
 }
 

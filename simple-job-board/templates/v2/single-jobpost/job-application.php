@@ -22,12 +22,16 @@ global $post;
  * @since   2.1.0                   
  */
 do_action('sjb_job_application_before');
+$job_apply_heading = get_option('job_board_apply_for_job');
+if (empty($job_apply_heading)) {
+    $job_apply_heading =  __('Apply For This Job', 'simple-job-board');
+}
 ?>
 
 <!-- Start Job Application Form
 ================================================== -->
 <form class="jobpost-form" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
-    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html__('Apply Online', 'simple-job-board')); ?></h3>    
+    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($job_apply_heading)); ?></h3>    
     <div class="row">
         <?php
         /**
@@ -247,7 +251,7 @@ do_action('sjb_job_application_before');
          */
         //Enable GDPR Settings
         $sjb_gdpr_settings = get_option('job_board_privacy_settings');
-
+        $sjb_terms_conditions_settings = get_option('job_board_terms_condition_settings');
         $privacy_policy_label = get_option('job_board_privacy_policy_label', '');
         $privacy_policy_content = get_option('job_board_privacy_policy_content', '');
         $term_conditions_label = get_option('job_board_term_conditions_label', '');
@@ -284,6 +288,8 @@ do_action('sjb_job_application_before');
                     <?php
                 }
             }
+        }
+        if ('yes' == $sjb_terms_conditions_settings) {
             if ($term_conditions_content) {
                 if (0 < $total_sections) {
                     ?>

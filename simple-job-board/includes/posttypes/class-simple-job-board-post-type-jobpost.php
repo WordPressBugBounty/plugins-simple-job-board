@@ -42,7 +42,7 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
          * @since   2.2.0
          */
         public function simple_job_board_init() {
-
+            
             $count = 0;
             if ( !post_type_exists('jobpost') ) {
                 
@@ -55,7 +55,6 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                 }
                 
             }
-
             // Select job pages layout
             if ($sjb_layout = get_option('job_board_pages_layout')) {
 
@@ -75,7 +74,10 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
         
             // Add Filter to redirect Archive Page Template
             add_filter('archive_template', array($this, 'get_simple_job_board_archive_template'), 10, 1);
+           
+           
         }
+        
 
         /**
          * Add extra content when showing job content
@@ -155,8 +157,39 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
 
             // Hook - Post Type -> Applicants ->  Enable Sorting for Columns
             add_filter('manage_edit-jobpost_sortable_columns', array($this, 'sortable_columns'),11);
+            
+            // Hook - Taxonomy -> Job Category ->  Remove View Action
+            add_filter('jobpost_category_row_actions', array($this,'remove_view_link_from_jobpost_category'), 10, 2);
+
+            // Hook - Taxonomy -> Job Type ->  Remove View Action
+            add_filter('jobpost_job_type_row_actions', array($this,'remove_view_link_from_jobpost_job_type'), 10, 2);
+
+            // Hook - Taxonomy -> Job Location ->  Remove View Action
+            add_filter('jobpost_location_row_actions', array($this,'remove_view_link_from_jobpost_location'), 10, 2);
+
+            // Hook - Taxonomy -> Job Tag ->  Remove View Action
+            add_filter('jobpost_tag_row_actions', array($this,'remove_view_link_from_jobpost_tag'), 10, 2);
+
+            // Hook - Taxonomy -> Job Industry ->  Remove View Action
+            if (taxonomy_exists('jobpost_job_industry')) {
+                add_filter('jobpost_job_industry_row_actions', array($this, 'remove_view_link_from_jobpost_industry'), 10, 2);
+            }
+
+            // Hook - Taxonomy -> Job Level ->  Remove View Action
+            if (taxonomy_exists('jobpost_job_level')) {
+                add_filter('jobpost_job_level_row_actions', array($this, 'remove_view_link_from_jobpost_job_level'), 10, 2);
+            }
+
+            // Hook - Taxonomy -> Job Company ->  Remove View Action
+            if (taxonomy_exists('jobpost_company')) {
+                add_filter('jobpost_company_row_actions', array($this, 'remove_view_link_from_jobpost_company'), 10, 2);
+            }
+
+            // Hook - Post Type -> JobPost ->  Remove View Posts 
+            add_filter('admin_bar_menu', array($this,'remove_view_posts_link_from_admin_bar'),999);
         }
 
+        
         /**
          * Add "View Applicant" Column
          *
@@ -265,7 +298,6 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                     'editor',
                     'excerpt',
                     'author',
-                    'comments',
                     'thumbnail',
                     'page-attributes',
                 ),
@@ -626,6 +658,159 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
             $columns['taxonomy-jobpost_job_type'] = 'taxonomy-jobpost_job_type';
             $columns['taxonomy-jobpost_location'] = 'taxonomy-jobpost_location';
             return $columns;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+       public function remove_view_link_from_jobpost_category($actions, $term) {
+                
+            if ($term->taxonomy === 'jobpost_category') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+        public function remove_view_link_from_jobpost_job_type($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_job_type') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+        public function remove_view_link_from_jobpost_location($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_location') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+        public function remove_view_link_from_jobpost_tag($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_tag') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+         public function remove_view_link_from_jobpost_industry($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_job_industry') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+         public function remove_view_link_from_jobpost_job_level($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_job_level') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View" Action
+         *
+         * @since   2.5.0
+         * 
+         * @param   array   $actions    Taxonomy Actions.
+         * @return  array   $term    Taxonomy Terms.
+         */
+
+         public function remove_view_link_from_jobpost_company($actions, $term) {
+            
+            if ($term->taxonomy === 'jobpost_company') {
+                // Remove the 'View' link if it exists.
+                if (isset($actions['view'])) {
+                    unset($actions['view']);
+                }
+            }
+            return $actions;
+        }
+
+        /**
+         * Remove "View Posts" Link
+         *
+         * @since   2.5.0
+         * 
+         */
+
+        function remove_view_posts_link_from_admin_bar($wp_admin_bar) {
+            if (is_admin() && isset($_GET['post_type']) && $_GET['post_type'] === 'jobpost') {
+                $wp_admin_bar->remove_node('archive'); 
+            }
         }
     }
 }

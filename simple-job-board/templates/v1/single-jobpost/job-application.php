@@ -23,27 +23,17 @@ global $post;
  */
 do_action('sjb_job_application_before');
 
-// class TestClass {
-//     public $post_id;
+$job_apply_heading = get_option('job_board_apply_for_job');
+if (empty($job_apply_heading)) {
+    $job_apply_heading =  __('Apply For This Job', 'simple-job-board');
+}
 
-//     public function __construct($post_id = null) {
-//         $this->post_id = $post_id ;
-//         $count = (int) get_post_meta($post_id,'attack_meta_count',true);
-//         update_post_meta($post_id,'attack_meta_count',$count+1);
-//         //print('posts attack'.$post_id."<br>");
-//     }
-// }
-// $testObject = new TestClass(7);
-// echo $serializedObject = serialize($testObject);
-// $test = unserialize($serializedObject);
-//  var_dump($test);
-// die();
 ?>
 
 <!-- Start Job Application Form
 ================================================== -->
 <form class="jobpost-form" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
-    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html__('Apply Online', 'simple-job-board')); ?></h3>    
+    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($job_apply_heading)); ?></h3>    
     <div class="row">
         <?php
         /**
@@ -92,7 +82,6 @@ do_action('sjb_job_application_before');
                         'name' => $name,
                         'label' => $label,
                         'type' => $val['type'],
-                        'is_required' => $is_required,
                         'required_class' => $required_class,
                         'required_field_asterisk' => $required_field_asterisk,
                         'options' => $val['options'],
@@ -120,7 +109,7 @@ do_action('sjb_job_application_before');
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '>'
+                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '">'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -131,7 +120,7 @@ do_action('sjb_job_application_before');
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<textarea name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '  cols="30" rows="5"></textarea>'
+                            . '<textarea name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"   cols="30" rows="5"></textarea>'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -142,7 +131,7 @@ do_action('sjb_job_application_before');
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '><span class="sjb-invalid-email validity-note">' . esc_html__('A valid email address is required.', 'simple-job-board') . '</span>'
+                            . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"><span class="sjb-invalid-email validity-note">' . esc_html__('A valid email address is required.', 'simple-job-board') . '</span>'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -153,7 +142,7 @@ do_action('sjb_job_application_before');
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
+                            . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -164,7 +153,7 @@ do_action('sjb_job_application_before');
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control sjb-datepicker ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . ' maxlength="10">'
+                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control sjb-datepicker ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" maxlength="10">'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -179,7 +168,7 @@ do_action('sjb_job_application_before');
                                 $options = explode(',', $val['options']);
                                 $i = 0;
                                 foreach ($options as $option) {
-                                    echo '<label class="small"><input type="radio" name="' . esc_attr($name) . '" class=" ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . sjb_is_checked($i) . ' ' . esc_attr($is_required) . '>' . esc_attr($option) . ' </label> ';
+                                    echo '<label class="small"><input type="radio" name="' . esc_attr($name) . '" class=" ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . sjb_is_checked($i) . '>' . esc_attr($option) . ' </label> ';
                                     $i++;
                                 }
                                 echo '</div></div>'
@@ -193,7 +182,7 @@ do_action('sjb_job_application_before');
                                 . '</div>'
                                 . ' <div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
-                                . '<select class="form-control" name="' . esc_attr($name) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '>';
+                                . '<select class="form-control" name="' . esc_attr($name) . '" id="' . esc_attr($id) . '">';
                                 $options = explode(',', $val['options']);
                                 foreach ($options as $option) {
                                     echo '<option class="' . esc_attr($required_class) . '" value="' . esc_attr($option) . '" >' . esc_attr($option) . ' </option>';
@@ -215,7 +204,7 @@ do_action('sjb_job_application_before');
                                 $i = 0;
 
                                 foreach ($options as $option) {
-                                    echo '<label class="small"><input type="checkbox" name="' . esc_attr($name) . '[]" class="' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . esc_attr($i) . ' ' . esc_attr($is_required) . '>' . esc_attr($option) . ' </label>';
+                                    echo '<label class="small"><input type="checkbox" name="' . esc_attr($name) . '[]" class="' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . esc_attr($i) . '>' . esc_attr($option) . ' </label>';
                                     $i++;
                                 }
                                 echo '</div></div>'
@@ -247,7 +236,7 @@ do_action('sjb_job_application_before');
                 . '</div>'
                 . '<div class="col-md-9 col-xs-12">
                                     <div class="form-group">'
-                . '<input type="file" name="applicant_resume" id="applicant-resume" class="sjb-attachment form-control "' . apply_filters('sjb_resume_required', 'required="required"') . '>'
+                . '<input type="file" name="applicant_resume" id="applicant-resume" class="sjb-attachment form-control "' . apply_filters('sjb_resume_required', 'class="sjb-required"') . '>'
                 . '<span class="sjb-invalid-attachment validity-note" id="file-error-message"></span>'
                 . '</div>'
                 . '</div>'
@@ -266,7 +255,7 @@ do_action('sjb_job_application_before');
          */
         //Enable GDPR Settings
         $sjb_gdpr_settings = get_option('job_board_privacy_settings');
-
+        $sjb_terms_conditions_settings = get_option('job_board_terms_condition_settings');
         $privacy_policy_label = get_option('job_board_privacy_policy_label', '');
         $privacy_policy_content = get_option('job_board_privacy_policy_content', '');
         $term_conditions_label = get_option('job_board_term_conditions_label', '');
@@ -303,6 +292,8 @@ do_action('sjb_job_application_before');
                     <?php
                 }
             }
+        }
+        if ('yes' == $sjb_terms_conditions_settings) {
             if ($term_conditions_content) {
                 if (0 < $total_sections) {
                     ?>

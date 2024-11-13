@@ -3,8 +3,8 @@ Contributors: PressTigers
 Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
-Tested up to: 6.6
-Stable tag: 2.12.7
+Tested up to: 6.7
+Stable tag: 2.13.0
 License: GPLv3
 Requires PHP: 7.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -14,15 +14,36 @@ Powerful & robust plugin to create a job board on your website in a simple & ele
 == Description ==
 
 = Simple Job Board provides an efficient solution for showcasing job openings on your careers page, and to receive job applications, ready to use with minimal configuration. =
+= Looking for an easy, user-friendly and robust Job board plugin? = 
+Simple Job Board by <a href="https://www.presstigers.com">PressTigers</a> is an easy, light weight plugin that adds a job board to your WordPress website. 
+This plugin is extendible and easy to use. A customized job board is created to manage various job openings via Wordpress with the Simple Job Board. You can add multiple job listings different types of shortcodes. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard. See below for more awesome features of this plugin:
+
+= Features in free version =
+* **Ready to Use:** Pre-configured plugin, just install and start adding jobs.
+* **Customizable Appearance:** Either use theme's style or customize the appearance.
+* **Manage Jobs:** Easily manage jobs with all the information you want to display.
+* **Multi-Language Support:** Fully compatible with WPML and WordPress's native translation features.
+* **Job Specifications:** Add unlimited job specifications to attract potential candidates.
+* **Multi-Company Job Posting:** Feature to associate multiple companies with jobs.
+* **Application Form Builder:** Add unlimited fields to customize the job application form.
+* **Receive Applications:** Applications are received via email and stored in the admin panel.
+* **View Applicants:** View the list of applicants for a specific job.
+* **Jobs Categories:** Taxonomy to add categories to manage jobs.
+* **Manage Location:** Taxonomy to add location for a job.
+* **Types of Jobs:** Taxonomy to manage job types.
+* **Jobs Tags:** Taxonomy add tags for jobs.
+All taxonomies are used in listing filter to search the desired jobs.
 
 The plugin is available in English, French(Français), Arabic (العربية), Brazilian Portuguese(Português do Brasil), Italian(Italiano), Russian(Русский), Chinese(简体中文), Dutch(Nederlands), Serbian(Српски језик), Swedish(Svenska), Urdu(اردو), Japanese(日本語), Polish(Polski) and Galician(Galego).
 
-= Looking for an easy, user-friendly and robust Job board plugin? = 
-Simple Job Board by <a href="https://www.presstigers.com">PressTigers</a> is an easy, light weight plugin that adds a job board to your WordPress website. 
-This plugin is extendible and easy to use. A customized job board is created to manage various job openings via Wordpress with the Simple Job Board. You can add multiple job listings and can show them on any page by inserting [jobpost] shortcode. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard.
-
-= Shortcode =
-` [jobpost] `
+= Shortcodes =
+**[jobpost]:** Use this shortcode to show jobs on a page, along with search form.
+**[jobpost layout="grid"]:** To list all the jobs as a grid view.
+**[jobpost category="category-slug"]:** To list jobs for a particular category.
+**[jobpost type="type-slug"]:** To list jobs for a particular type.
+**[jobpost location="location-slug"]:** To list jobs for a particular location.
+**[jobpost location="location-slug" category="category-slug" type="type-slug"]:** To list jobs with a combinations of taxonomies and terms.
+**[jobpost posts="5"]:** To limit the number of jobs per page with pagination.
 
 = Live Demo =
 Please click here for [Simple Job Board Demo](https://jobboardextensions.demo.presstigers.com).
@@ -84,24 +105,6 @@ Manage your Job Board from anywhere with the Simple Job Board mobile app on [And
 * [Category Base Hiring](https://market.presstigers.com/product/category-base-hiring)
 * [Job Alerts](https://market.presstigers.com/product/job-alerts-add-on/)
 * Not in the list, for custom add-on please [contact us](https://market.presstigers.com/contact-us)
-
-= Plugin Features =
-
-*  Add, categorize and manage all jobs using the granular WordPress User Interface.
-*  Allow job listers to add job types in job listings.
-*  Add job location to an individual job created.
-*  Add category shortcode to any post to enlist job listing of that particular category.
-*  A job can contain an unlimited amount of information about both the job itself and the company.
-*  Add job location to any post by using specified shortcode.
-*  Add job type to any post by using specified shortcode.
-*  Add a combination of multiple shortcodes for a job listing.
-*  Use the anti-hotlinking option to enhance the security of your documents.
-*  Upload documents in various extensions.	
-*  Job Seeker can apply for job by submitting the job application form, located on single job post.
-*  The job application form is prepared for immediate use with preconfigured input fields.
-*  View Applicants' list who applied for a particular job.
-*  Set job listing, job features, application form, filters and email notifications for a job through global settings.
-*  Compatible with WPML since SJB version 2.9.0 
 
 = Can you contribute? =
 If you are an awesome contributor for translations or plugin development, please contact us at support@presstigers.com
@@ -206,6 +209,15 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.13.0 =
+
+* Feature - JavaScript validation has been added to the application form.
+* Feature - The theme's style is enabled upon first-time activation.
+* Feature - Added the ability to merge default job features into previously added jobs.
+* Feature - Added the ability to merge default application form fields into previously added jobs.
+* Feature - Added options to customize headings.
+* Tweak - Reorganized the settings options to enhance the user experience.
 
 = 2.12.7 =
 

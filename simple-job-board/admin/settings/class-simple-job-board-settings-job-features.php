@@ -71,81 +71,95 @@ class Simple_Job_Board_Settings_Job_Features {
             $job_post_layout_version = 'v1';
         }
         $allowed_tags = sjb_get_allowed_html_tags();
+        $enable_job_features =  get_option('job_board_features_enable', 'no');
         ?>
         <!-- Job Features -->
         <div data-id="settings-job_features" class="sjb-admin-settings tab">
-            <h4 class="first"><?php esc_html_e('Default Feature List', 'simple-job-board'); ?></h4>
-            <div class="sjb-section settings-fields features-short">
-                <?php
-                /**
-                 * Action -> Add new section before job feature section.  
-                 * 
-                 * @since   2.5.0 
-                 */
-                do_action('sjb_jobfeature_before');
-                ?>
-                <form method="post" action="" id="job_feature_form">
-                    <ul id="settings_job_features">
-                        <?php
-                        // Get Job Features From DB
-                        $job_features = get_option('jobfeature_settings_options');
-                        $fields = $job_features;
+            <form method="post" action="" id="job_feature_form">
+                <h4 class="first"><?php esc_html_e('Enable Job Features For Existing Jobs', 'simple-job-board'); ?></h4>
+                <div class="sjb-section settings-fields features-short">
+                    
+                    <div class="sjb-form-group">
+                        <input type="checkbox" name="job_features_enable" id="enable-features" value="yes"  <?php checked('yes', esc_attr($enable_job_features)); ?> />
+                        <label for="enable-features" class="enable-features-label"><?php echo esc_html__('Display these features in previously added jobs, by default, these will apply to jobs added afterward', 'simple-job-board'); ?></label>
+                    </div>
+                    <div class="sjp-form-field-note">
+                            <span><?php echo esc_html__('Note: If this checkbox is selected, it will add the features only in the jobs in backend, to display the fields on the job detail page you have to update each job post.', 'simple-job-board'); ?></span>
+                        </div>
+                </div>
+                <h4 class="first"><?php esc_html_e('Default Feature List', 'simple-job-board'); ?></h4>
+                <div class="sjb-section settings-fields features-short">
+                    <?php
+                    /**
+                     * Action -> Add new section before job feature section.  
+                     * 
+                     * @since   2.5.0 
+                     */
+                    do_action('sjb_jobfeature_before');
+                    ?>
+                    
+                        <ul id="settings_job_features">
+                            
+                            <?php
+                            // Get Job Features From DB
+                            $job_features = get_option('jobfeature_settings_options');
+                            $fields = $job_features;
 
-                        // Display Job Features
-                        if (NULL != $fields):
-                            foreach ($fields as $field => $val) {
-                                if ('jobfeature_' == substr($field, 0, 11)) {
+                            // Display Job Features
+                            if (NULL != $fields):
+                                foreach ($fields as $field => $val) {
+                                    if ('jobfeature_' == substr($field, 0, 11)) {
 
-                                    if ($job_post_layout_version == 'v2') {
-                                        $list_class = 'sjb-modern-list';
-                                    } else {
-                                        $list_class = 'sjb-classic-list';
-                                    }
-
-                                    // Escaping all array value
-                                    $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);
-                                    $field = preg_replace('/[^\p{L} 0-9]/u', '_', $field);
-
-                                    /**
-                                     * New Label Index Insertion:
-                                     * 
-                                     * - Addition of new index "label"
-                                     * - Data Legacy Checking  
-                                     */
-                                    $label = isset($val['label']) ? $val['label'] : esc_html__(ucwords(str_replace('_', ' ', substr($field, 11))), 'simple-job-board');
-                                    $value = isset($val['value']) ? $val['value'] : $val;
-                                    $feature_value = ( 'empty' === $value ) ? '<input type="text" id="' . esc_attr($field) . ' value=" "  name="' . esc_attr($field) . '[value]" />' : '<input type="text" id="' . esc_attr($field) . '" value="' . $value . '"  name="' . esc_attr($field) . '[value]" />';                                    
-                                    echo '<li class="' . esc_attr($field) . ' ' . esc_attr($list_class) . '"><strong>' . esc_html__('Field Name', 'simple-job-board') . ': </strong><label class="sjb-editable-label">' . esc_attr($label) . '</label><input type="hidden" name="' . esc_attr($field) . '[label]" value="' . esc_attr( $label ) . '"  >' . wp_kses( $feature_value, $allowed_tags ) . ' &nbsp;';
-
-                                    
-                                    if ($job_post_layout_version == 'v2') {
-
-                                        if (isset($val['icon']) && '' !== $val['icon']) {
-
-                                            $icon_value = $val['icon'];
-                                        } else if (isset($fields['icon_' . $field])) {
-                                            $icon_value = $fields['icon_' . $field]['icon'];
-                                        } else if (!isset($icon_value) || '' === $icon_value) {
-                                            $icon_value = 'fa-briefcase';
+                                        if ($job_post_layout_version == 'v2') {
+                                            $list_class = 'sjb-modern-list';
+                                        } else {
+                                            $list_class = 'sjb-classic-list';
                                         }
-                                        if(substr($icon_value,0,3) == 'fa-'){
-                                            $icon_value = 'fa  '.$icon_value;
-                                        }
-                                        echo '<input type="text" id="icon_' . esc_attr($field) . '" class="sjb-job-feature-icon" name="icon_' . esc_attr($field) . '[icon]" value="' . esc_attr($icon_value) . '" placeholder="fa  fa-briefcase" /><span class="input-group-addon"><i class="' . esc_attr($icon_value) . '"></i></span> ';
-                                    }
 
-                                    echo '<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div></li>';
+                                        // Escaping all array value
+                                        $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);
+                                        $field = preg_replace('/[^\p{L} 0-9]/u', '_', $field);
+
+                                        /**
+                                         * New Label Index Insertion:
+                                         * 
+                                         * - Addition of new index "label"
+                                         * - Data Legacy Checking  
+                                         */
+                                        $label = isset($val['label']) ? $val['label'] : esc_html__(ucwords(str_replace('_', ' ', substr($field, 11))), 'simple-job-board');
+                                        $value = isset($val['value']) ? $val['value'] : $val;
+                                        $feature_value = ( 'empty' === $value ) ? '<input type="text" id="' . esc_attr($field) . ' value=" "  name="' . esc_attr($field) . '[value]" />' : '<input type="text" id="' . esc_attr($field) . '" value="' . $value . '"  name="' . esc_attr($field) . '[value]" />';                                    
+                                        echo '<li class="' . esc_attr($field) . ' ' . esc_attr($list_class) . '"><strong>' . esc_html__('Field Name', 'simple-job-board') . ': </strong><label class="sjb-editable-label">' . esc_attr($label) . '</label><input type="hidden" name="' . esc_attr($field) . '[label]" value="' . esc_attr( $label ) . '"  >' . wp_kses( $feature_value, $allowed_tags ) . ' &nbsp;';
+
+                                        
+                                        if ($job_post_layout_version == 'v2') {
+
+                                            if (isset($val['icon']) && '' !== $val['icon']) {
+
+                                                $icon_value = $val['icon'];
+                                            } else if (isset($fields['icon_' . $field])) {
+                                                $icon_value = $fields['icon_' . $field]['icon'];
+                                            } else if (!isset($icon_value) || '' === $icon_value) {
+                                                $icon_value = 'fa-briefcase';
+                                            }
+                                            if(substr($icon_value,0,3) == 'fa-'){
+                                                $icon_value = 'fa  '.$icon_value;
+                                            }
+                                            echo '<input type="text" id="icon_' . esc_attr($field) . '" class="sjb-job-feature-icon" name="icon_' . esc_attr($field) . '[icon]" value="' . esc_attr($icon_value) . '" placeholder="fa  fa-briefcase" /><span class="input-group-addon"><i class="' . esc_attr($icon_value) . '"></i></span> ';
+                                        }
+
+                                        echo '<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div></li>';
+                                    }
                                 }
-                            }
-                        endif;
-                        ?>
-                    </ul>
-                    <input type="hidden" name="job_features" value="job_features" />
-                    <input type="hidden" value="1" name="admin_notices" />
-                    <input type="hidden" name="settings_jobfeatures_nonce" value="<?php echo wp_create_nonce('jobpost_jobfeatures_settings'); ?>" >
-                </form>
-            </div> 
-
+                            endif;
+                            ?>
+                        </ul>
+                        <input type="hidden" name="job_features" value="job_features" />
+                        <input type="hidden" value="1" name="admin_notices" />
+                        <input type="hidden" name="settings_jobfeatures_nonce" value="<?php echo wp_create_nonce('jobpost_jobfeatures_settings'); ?>" >
+                    
+                </div> 
+            </form>
             <!-- Add Job Features -->
             <?php
             if ($job_post_layout_version == 'v2') {
@@ -213,7 +227,8 @@ class Simple_Job_Board_Settings_Job_Features {
         check_admin_referer('jobpost_jobfeatures_settings', 'settings_jobfeatures_nonce');
         $POST_data = filter_input_array(INPUT_POST);
         $features = filter_input(INPUT_POST, 'job_features');
-
+        $enable_job_features = isset($_POST['job_features_enable']) ? sanitize_text_field($_POST['job_features_enable']) : '';
+        
         // Save Form Data to WP Option
         if (!empty($POST_data) && ( $features )) {
 
@@ -233,6 +248,10 @@ class Simple_Job_Board_Settings_Job_Features {
                             update_option('jobfeature_settings_options', $job_features) :
                             add_option('jobfeature_settings_options', $job_features, '', 'no');
         }
+
+        update_option('job_board_features_enable', sanitize_text_field( $enable_job_features ) );
+            
+        
     }
 
 }

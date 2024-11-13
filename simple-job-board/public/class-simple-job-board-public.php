@@ -114,8 +114,8 @@ class Simple_Job_Board_Public
     {
         $sjb_date_format = (!empty(apply_filters('sjb_date_format', get_option('sjb_date_format'))))? $this->convert_date(get_option('sjb_date_format')) : 'dd-mm-yy' ;
         // Register Simple Job Board Front-end Core JS
+        wp_enqueue_script('jquery-validation', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js', array('jquery'), '1.19.3', true);
         wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
-
         // Register Input Telephone JS
         wp_register_script($this->simple_job_board . '-validate-telephone-input', plugin_dir_url(__FILE__) . 'js/intlTelInput.min.js', array('jquery'), '17.0.0', true);
         wp_register_script($this->simple_job_board . '-validate-telephone-input-utiliy', plugin_dir_url(__FILE__) . 'js/intlTelInput-utils.js', array('jquery'), '7.7.3', true);
@@ -134,6 +134,9 @@ class Simple_Job_Board_Public
                     'application_not_submitted' => apply_filters('sjb_job_not_submitted_alert', esc_html__('Your application could not be processed.', 'simple-job-board')),
                     'successful_job_submission' => apply_filters( 'sjb_job_submission_alert', __('Your application has been received. We will get back to you soon.', 'simple-job-board') ),
                     'sjb_quick_job_close' => apply_filters( 'sjb_quick_job_close', __('Are you sure you want to close? All the unsaved data will be lost.', 'simple-job-board') ),
+                    'sjb_application_input_required' => apply_filters( 'sjb_application_input_required', __('This field is required.', 'simple-job-board') ),
+                    'sjb_application_email_invalid' => apply_filters( 'sjb_application_email_invalid', __('Valid email is required.', 'simple-job-board') ),
+                    'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume is required.', 'simple-job-board') ),
                 ),
                 'file' => array(
                     'browse' => esc_html__('Browse', 'simple-job-board'),
@@ -142,6 +145,8 @@ class Simple_Job_Board_Public
                 'sjb_date_format' => $sjb_date_format,
             )
         );
+        
+
     }
 
     /**

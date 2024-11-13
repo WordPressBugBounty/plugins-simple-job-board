@@ -39,11 +39,16 @@ do_action('sjb_enqueue_scripts');
  */
 do_action('sjb_before_main_content');
 
+
+$container_width = get_option('job_board_container_width');
+    if($container_width == false){
+        $container_width = '100%';
+    }
 ?>
 
 <!-- Start Content Wrapper
 ================================================== -->
-<div class="sjb-page">
+<div class="sjb-page"  style="width: <?php echo esc_attr($container_width); ?>;">
     <div class="sjb-archive-page">
 
         <!-- Start Job Title

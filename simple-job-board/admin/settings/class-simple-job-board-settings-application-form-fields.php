@@ -71,12 +71,24 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
             );
 
             $field_types = apply_filters( 'sjb_form_field_types', $field_types );
+            $enable_job_application_form_fields =  get_option('job_board_application_form_fields_enable', 'no');
             ?>
-            <h4 class="first"><?php esc_html_e('Default Application Form Fields', 'simple-job-board'); ?></h4>
-            <div class="sjb-section settings-fields features-short-form">
-            <span class="sjp-form-field-note" >
-                <?php echo esc_html__('Note: The new added field will be shown when you add a new job, it will not be shown in the existing jobs.', 'simple-job-board'); ?>
-            </span>
+            <form method="post" id="job_app_form">
+                <h4 class="first"><?php esc_html_e('Enable Application Form Fields For Existing Jobs', 'simple-job-board'); ?></h4>
+                    <div class="sjb-section settings-fields features-short">
+                        <div class="sjb-form-group">
+                            <input type="checkbox" name="job_application_fields_enable" id="enable-fields" value="yes"  <?php checked('yes', esc_attr($enable_job_application_form_fields)); ?> />
+                            <label for="enable-fields" class="enable-features-label"><?php echo esc_html__('Display these fields in previously added jobs, by default, these will apply to jobs added afterward', 'simple-job-board'); ?></label>
+                        </div>
+                        <div class="sjp-form-field-note">
+                            <span><?php echo esc_html__('Note: If this checkbox is selected, it will add the application fields only in the jobs in backend, to display the fields on the job detail page you have to update each job post.', 'simple-job-board'); ?></span>
+                        </div>
+                    </div>
+                <h4 class="first"><?php esc_html_e('Default Application Form Fields', 'simple-job-board'); ?></h4>
+                <div class="sjb-section settings-fields features-short-form">
+                <!-- <span class="sjp-form-field-note" >
+                    <?php echo esc_html__('Note: The new added field will be shown when you add a new job, it will not be shown in the existing jobs.', 'simple-job-board'); ?>
+                </span> -->
                 <?php
                 /**
                  * Action -> Add new section before application fields section.  
@@ -85,7 +97,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                  */
                 do_action('sjb_jobapp_fields_before');
                 ?>
-                <form method="post" id="job_app_form">
+                
                     <ul id="settings_app_form_fields">
                         <?php
                         // Get Application Form Data
@@ -119,6 +131,8 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                         
                         // Retrieve jobapp_settings_options and unserialize it
                         $jobapp_fields = get_option('jobapp_settings_options');
+
+                        
                          // If jobapp_settings_options is empty or missing, initialize it with default fields
                          if ($count === 0 || $count == '0') {
                             // Update jobapp_settings_options with default fields
@@ -219,8 +233,8 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                     <input type="hidden" name="empty_jobapp" value="empty_jobapp">
                     <input type="hidden" value="1" name="admin_notices">
                     <input type="hidden" name="settings_form_fields_nonce" value="<?php echo wp_create_nonce('jobpost_form_fields_settings'); ?>" >
-                </form>
-            </div>
+                </div>
+            </form>
             <div class="clearfix clear"></div>
 
             <!-- Add Application Form Fields -->
@@ -286,6 +300,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
     
         $POST_data = filter_input_array(INPUT_POST);
         $empty_jobapp = filter_input(INPUT_POST, 'empty_jobapp');
+        $enable_job_application_form_fields = isset($_POST['job_application_fields_enable']) ? sanitize_text_field($_POST['job_application_fields_enable']) : '';
     
         if (!empty($POST_data) && ( NULL != $empty_jobapp )) {
             $job_data = array();
@@ -320,6 +335,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                 add_option('jobapp_settings_options', $job_data, '', 'no');
             }
         }
+        update_option('job_board_application_form_fields_enable', sanitize_text_field( $enable_job_application_form_fields ) );
     }
     
 

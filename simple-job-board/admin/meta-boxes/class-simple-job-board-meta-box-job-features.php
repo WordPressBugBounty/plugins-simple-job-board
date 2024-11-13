@@ -44,7 +44,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
         } else {
             $job_post_layout_version = 'v1';
         }
-
+        $enable_job_features =  get_option('job_board_features_enable');
         /*
          * Use get_post_meta() to retrieve an existing value
          * from the database and use the value for the form.
@@ -116,7 +116,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                     endforeach;
                 endif;
 
-                if (NULL != $removed_options && !isset($_GET['action'])):
+                if (NULL != $removed_options && $enable_job_features == 'yes'):
                     foreach ($removed_options as $key => $val):
                         if (substr($key, 0, 11) == 'jobfeature_') {
                             $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);

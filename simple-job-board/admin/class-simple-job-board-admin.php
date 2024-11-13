@@ -158,6 +158,7 @@ class Simple_Job_Board_Admin {
 
             // Enqueue Fontawesome Icon Picker CSS File
             wp_enqueue_style("sjb-fontawesome-icon-picker", plugin_dir_url(__FILE__) . 'css/fontawesome-iconpicker.min.css', array(), '1.2.2', 'all');
+            
         }
 
         wp_register_style( 'simple-job-board-dashboard-widget', plugin_dir_url( __FILE__ ) . 'css/simple-job-board-dashboard-widget.css', false, '1.0', 'all' );

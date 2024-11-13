@@ -842,4 +842,52 @@
             $(this).siblings('.resume-file-links').slideToggle();
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Select all subtab buttons and content sections
+        const subtabs = document.querySelectorAll('.sjb-general-subtab');
+        const contents = document.querySelectorAll('.sjb-general-subtab-content');
+    
+        subtabs.forEach(subtab => {
+            subtab.addEventListener('click', function () {
+                // Remove active class from all subtabs and content
+                subtabs.forEach(tab => tab.classList.remove('active'));
+                contents.forEach(content => content.classList.remove('active'));
+    
+                // Add active class to clicked subtab and corresponding content
+                subtab.classList.add('active');
+                document.getElementById(subtab.dataset.subtab).classList.add('active');
+            });
+        });
+
+        const privacytabs = document.querySelectorAll('.sjb-privacy-subtab');
+        const privacycontents = document.querySelectorAll('.sjb-privacy-subtab-content');
+    
+        privacytabs.forEach(privacysubtab => {
+            privacysubtab.addEventListener('click', function () {
+                // Remove active class from all subtabs and content
+                privacytabs.forEach(tab => tab.classList.remove('active'));
+                privacycontents.forEach(content => content.classList.remove('active'));
+    
+                // Add active class to clicked subtab and corresponding content
+                privacysubtab.classList.add('active');
+                document.getElementById(privacysubtab.dataset.subtab).classList.add('active');
+            });
+        });
+
+        const appearancetabs = document.querySelectorAll('.sjb-appearance-subtab');
+        const appearancecontents = document.querySelectorAll('.sjb-appearance-subtab-content');
+    
+        appearancetabs.forEach(appearancesubtab => {
+            appearancesubtab.addEventListener('click', function () {
+                // Remove active class from all subtabs and content
+                appearancetabs.forEach(tab => tab.classList.remove('active'));
+                appearancecontents.forEach(content => content.classList.remove('active'));
+    
+                // Add active class to clicked subtab and corresponding content
+                appearancesubtab.classList.add('active');
+                document.getElementById(appearancesubtab.dataset.subtab).classList.add('active');
+            });
+        });
+    });
 })(jQuery);

@@ -283,6 +283,10 @@ body.jobpost_page_sjb-add-ons {
 .sjb-wrap [role="button"] {
     cursor: pointer;
 }
+
+.sjb-clearfix{
+    clear: both;
+}
 /*--------------------------
 # Normalize
 ----------------------------*/
@@ -1445,9 +1449,9 @@ select#jobapp_field_type {
 }
 #settings_job_features li:before {
     content: "\f142  \f142";
-    font-family: FontAwesome;
+    font-family: 'Font Awesome 5 Free';
     font-style: normal;
-    font-weight: normal;
+    font-weight: 600;
     text-decoration: inherit;
     margin-top: 4px;
 }
@@ -2610,6 +2614,7 @@ li
     font-weight: bold;
     color: rgb(16, 84, 173);
     font-size: 14px;
+    display: block;
 }
 
 i.fas.fa-angle-down {
@@ -2617,4 +2622,123 @@ i.fas.fa-angle-down {
 }
 .sjb-section .sjb-content .sjb-form-group #display_job_tags{
     margin-top: 1px;
+}
+
+.sjb-form-group.border-top {
+    border-top: 1px solid #ccc; 
+    padding-top: 2px !important; 
+}
+
+.sjb-delete-data-label{
+    color: red !important;
+}
+
+.sjb-form-group .delete-warning {
+    display: block;
+    margin-top: 10px;
+    color: gray;
+}
+
+ /* General SubTabs */
+.sjb-general-subtabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.sjb-general-subtab {
+    margin-right: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #0073aa;
+}
+
+.sjb-general-subtab.active {
+    color: #000;
+}
+
+.sjb-general-subtab-content {
+    display: none;
+}
+
+.sjb-general-subtab-content.active {
+    display: block;
+}
+
+
+.sjb-shortcodes-heading{
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.sjb-shortcodes-heading h4{
+    padding-top: 0;
+    margin:0
+}
+
+.sjb-shortcodes-description{
+    margin-bottom: 10px;
+}
+
+ /* Privacy SubTabs */
+ .sjb-privacy-subtabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.sjb-privacy-subtab {
+    margin-right: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #0073aa;
+}
+
+.sjb-privacy-subtab.active {
+    color: #000;
+}
+
+.sjb-privacy-subtab-content {
+    display: none;
+}
+
+.sjb-privacy-subtab-content.active {
+    display: block;
+}
+
+ /* Appearance SubTabs */
+ .sjb-appearance-subtabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.sjb-appearance-subtab {
+    margin-right: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #0073aa;
+}
+
+.sjb-appearance-subtab.active {
+    color: #000;
+}
+
+.sjb-appearance-subtab-content {
+    display: none;
+}
+
+.sjb-appearance-subtab-content.active {
+    display: block;
+}
+
+
+.jobpost-page-selector{
+    width:240px;
+    float: none !important;
+}
+
+.enable-features-label{
+    display: contents !important;
 }

@@ -209,6 +209,7 @@ class Simple_Job_Board_Ajax {
         
         // Save Applicant Details
         foreach ( $POST_data as $key => $val ) :
+            
             if (substr($key, 0, 7) == 'jobapp_'):
                 $allow_special_char = apply_filters("allow_special_char",false);
                 if (is_array($val)) {
@@ -216,22 +217,29 @@ class Simple_Job_Board_Ajax {
                     if($allow_special_char == true){
                         $sanitized_string_val = sanitize_text_field(preg_replace('/[^\p{L}a-zA-Z0-9_@. -]/u', '', $string_val));
                     }else{
-                        $sanitized_string_val = sanitize_text_field(preg_replace('/[^a-zA-Z0-9_@. -]/s', '', $string_val));
+                        // $sanitized_string_val = sanitize_text_field(preg_replace('/[^a-zA-Z0-9_@. -]/s', '', $string_val));
+                        $sanitized_string_val = sanitize_textarea_field($string_val);
                     }
                     $val = $sanitized_string_val;
+                    
                     update_post_meta( $pid, $key, $val );
                 }else{
                     if($allow_special_char == true){
                         update_post_meta( $pid, $key, sanitize_text_field( preg_replace('/[^\p{L}a-zA-Z0-9_@. -]/u','', $val) ) );
                     }else{
-                        update_post_meta( $pid, $key, sanitize_text_field( preg_replace('/[^a-zA-Z0-9_@. -]/s','', $val) ) );
+                       
+                 
+                        // update_post_meta( $pid, $key, sanitize_text_field( preg_replace('/[^a-zA-Z0-9_@. -]/s','', $val) ) );
+                        update_post_meta($pid, $key, sanitize_textarea_field($val));
+
                     }
+                  
                 }
                 
                 
             endif;          
         endforeach;         
-   
+
         /**
          * Fires after inserting applicant's post meta.
          *

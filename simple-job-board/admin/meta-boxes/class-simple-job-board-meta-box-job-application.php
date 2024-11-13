@@ -62,7 +62,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
 
                 // Getting setting page saved options
                 $jobapp_settings_options = get_option('jobapp_settings_options');
-            
+                $enable_job_application_form_fields =  get_option('job_board_application_form_fields_enable');
                 //check Array differnce when $keys is not NULL
                 if (NULL == $keys) {
 
@@ -146,7 +146,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                  * Settings Job Application Form        
                  */
                 if ( NULL != $jobapp_removed_options ):
-                    if ( !isset( $_GET['action'] ) ):
+                    if ( $enable_job_application_form_fields == 'yes' ):
                         foreach ($jobapp_removed_options as $jobapp_field_name => $val):
 
                             if (isset($val['type']) && isset($val['option']) || isset($val['optional'])):

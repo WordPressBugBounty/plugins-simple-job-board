@@ -53,7 +53,7 @@ switch ($template) {
         echo '<div id="primary" class="content-area twentysixteen"><main id="main" class="site-main" role="main"><div class="sjb-archive-wrapper">';
         break;
     default :
-        echo '<div class="' . esc_attr( $container_class ) . '" id="' . esc_attr( $container_id ) . '"><div id="content" class="sjb-content" role="main">';
+        echo '<div class="sjb-container-main ' . esc_attr( $container_class ) . '" id="' . esc_attr( $container_id ) . '"><div id="content" class="sjb-content" role="main">';
         break;
 }
 

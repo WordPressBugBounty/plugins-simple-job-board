@@ -15,7 +15,7 @@
  * Plugin Name:       Simple Job Board
  * Plugin URI:        https://market.presstigers.com
  * Description:       Powerful & Robust plugin to create a Job Board on your website in simple & elegant way.
- * Version:           2.13.0
+ * Version:           2.13.1
  * Author:            PressTigers
  * Author URI:        https://market.presstigers.com
  * License:           GPL-3.0+
@@ -30,7 +30,7 @@ if (!defined('WPINC')) {
 
 // Define Plugin Contant
 if (!defined('SJB_PLUGIN_VERSION')) {
-    define('SJB_PLUGIN_VERSION', '2.13.0');
+    define('SJB_PLUGIN_VERSION', '2.13.1');
 }
 
 // Define Plugin Upload DIR

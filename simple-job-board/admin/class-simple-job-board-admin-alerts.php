@@ -88,10 +88,10 @@ class Simple_Job_Board_Admin_Alerts
                                 </div>
                             </div>
                         </div>
-                    <script type="text/javascript">
-                        document.addEventListener('DOMContentLoaded', function() {
-                            var closeBtn = document.querySelector('.alert-close-btn');
-                            var alertBanner = document.querySelector('.sjb-alert-banner');
+                        <script type="text/javascript">
+                        jQuery(document).ready(function () {
+                            var $closeBtn = jQuery('.alert-close-btn');
+                            var $alertBanner = jQuery('.sjb-alert-banner');
 
                             // Function to set cookies
                             function setCookie(name, value, days) {
@@ -121,21 +121,22 @@ class Simple_Job_Board_Admin_Alerts
 
                             // Hide the banner if the click count is greater than 4
                             if (clickCount > 4) {
-                                alertBanner.style.display = 'none';
+                                $alertBanner.hide();
                             }
 
                             // Increment click count and update cookie on close button click
-                            closeBtn.addEventListener('click', function() {
+                            $closeBtn.on('click', function () {
                                 clickCount++;
                                 setCookie('alertCloseCount', clickCount, 30); // Cookie lasts 30 days
 
                                 if (clickCount > 4) {
-                                    alertBanner.style.display = 'none';
+                                    $alertBanner.hide();
                                 } else {
-                                    alertBanner.style.display = 'none'; // Hide the banner on each click
+                                    $alertBanner.hide(); // Hide the banner on each click
                                 }
                             });
                         });
+
                     </script>
                     <?php
                 }
@@ -156,6 +157,17 @@ class Simple_Job_Board_Admin_Alerts
     }
 
     public function check_addon_versions_and_display_notifications() {
+
+        // Define a unique transient key
+        $transient_key = 'mp_pt_api_products';
+
+        // Check if transient exists
+        $cached_data = get_transient($transient_key);
+
+        if ($cached_data !== false) {
+            // Use cached data 
+            $addons = $cached_data;
+        } else {
         // Base URL for the WooCommerce API
         $api_url = 'https://market.presstigers.com/wc-api/v3/products';
 
@@ -164,7 +176,8 @@ class Simple_Job_Board_Admin_Alerts
             'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
             'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
             'filter[limit]' => -1,
-            'type' => 'variable'
+            'type' => 'variable',
+            'version' => '2.13'
         );
 
         $url = esc_url_raw($api_url) . '?' . http_build_query($params);
@@ -173,13 +186,14 @@ class Simple_Job_Board_Admin_Alerts
         $response = wp_remote_get(
                 $url, array(
             'method' => 'GET',
-            'timeout' => 45,
+            'timeout' => 10,
             'redirection' => 5,
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => array(),
             'body' => $params,
             'cookies' => array(),
+            
             ));
         // Check the response code
         $response_code = wp_remote_retrieve_response_code($response);
@@ -213,8 +227,11 @@ class Simple_Job_Board_Admin_Alerts
                 }
             }
         }
-
-        // Check if the base (free) plugin is installed (instead of active)
+               
+            // Cache the data in a transient for 24 hours
+            set_transient($transient_key, $addons, DAY_IN_SECONDS);
+        }
+         // Check if the base (free) plugin is installed (instead of active)
         if (file_exists(WP_PLUGIN_DIR . '/simple-job-board/simple-job-board.php')) {
             foreach ($addons as $addon_slug => $addon_info) {
                 // Check if the add-on plugin is installed (file exists)
@@ -253,7 +270,6 @@ class Simple_Job_Board_Admin_Alerts
                 }
             }
         }
-
 
 }
     

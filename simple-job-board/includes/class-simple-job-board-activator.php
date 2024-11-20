@@ -53,7 +53,11 @@ class Simple_Job_Board_Activator {
         add_option('job_board_all_extensions_check', 'yes');
         add_option('job_board_anti_hotlinking', 'yes');
         update_option('job_board_allowed_extensions', array('pdf', 'doc', 'docx', 'odt', 'rtf', 'txt'));
-
+        $sjb_layout = get_option('job_board_pages_layout');
+        if(empty($sjb_layout)){
+            $sjb_layout = 'theme-layout';
+            update_option('job_board_pages_layout',$sjb_layout);
+        }
         // .htaccess Anti-Hotlinking Rules
         $sjbrObj = new Simple_Job_Board_Rewrite();
         $sjbrObj->job_board_rewrite(); 
@@ -64,22 +68,34 @@ class Simple_Job_Board_Activator {
 
     private static function create_jobpost_page()
     {
-        $page_title = __('Current Jobs', 'simple-job-board');
-        $page_content = '[jobpost]'; 
-
-        $page = array(
-            'post_title'     => $page_title,
-            'post_content'   => $page_content,
-            'post_status'    => 'publish',
-            'post_type'      => 'page',
-            'post_author'    => 1,
-        );
         
-        $page_id = wp_insert_post($page);
+        $existing_page_id = get_option('sjb_job_post_page_id');
 
-        if($page_id){
-            update_option('sjb_job_post_page_id', $page_id);
-        }
+        
+        if (!$existing_page_id) 
+         {
+            // Proceed with creating the page if it does not exist or is trashed
+            $page_title = __('Current Jobs', 'simple-job-board');
+            $page_content = '[jobpost]'; 
+
+            $page = array(
+                'post_title'     => $page_title,
+                'post_content'   => $page_content,
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'post_author'    => 1,
+            );
+            
+            $page_id = wp_insert_post($page);
+
+            if ($page_id) {
+                // Save the newly created page ID in the options
+                update_option('sjb_job_post_page_id', $page_id);
+            }
+        }    
+
+        
     }
+
 
 }

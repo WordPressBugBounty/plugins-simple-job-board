@@ -82,4 +82,7 @@ $delete_data_option = get_option('delete_data_on_uninstall');
         delete_option('job_board_term_conditions_label');
         delete_option('job_board_term_conditions_content');
         delete_option('sjb_erasure_request_removes_applicant_data');
+        
+        //Delete option -> Uninstall Data
+        delete_option('delete_data_on_uninstall');
     }

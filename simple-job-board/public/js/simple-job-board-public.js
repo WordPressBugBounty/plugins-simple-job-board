@@ -21,7 +21,6 @@
       var jobpost_submit_button = $(".app-submit");
   
       var jobpost_form_status = $("#jobpost_form_status");
-  
       $(document).ready(function () {
         // Add custom validation method for file extensions
         $.validator.addMethod(
@@ -89,11 +88,17 @@
                 });
             }
         });
-        var allowed_file_exts = application_form.allowed_extensions.join(",");
+        var allowed_file_exts = Array.isArray(application_form.setting_extensions)
+        ? application_form.setting_extensions.filter(ext => typeof ext === "string").join(",")
+        : "";
+        if(allowed_file_exts == ''){
+          allowed_file_exts = application_form.allowed_extensions.filter(ext => typeof ext === "string").join(",")
+        }
         var fileTypePattern = new RegExp(
           `(\\.${allowed_file_exts.replace(/,/g, "|")})$`,
           "i"
         );
+      
         // File type validation for applicant resume
         $("#applicant-resume").rules("add", {
           required: true,
@@ -105,9 +110,84 @@
           },
         });
       });
-  
+
+      
+      function initializePopupValidation() {
+        // Reapply validation to dynamically added popup form
+        const popupForm = $(".jobpost-form");
+        
+        
+          popupForm.validate({
+              ignore: [], // Ensure hidden fields are also validated
+              errorPlacement: function (error, element) {
+                  error.insertAfter(element);
+              },
+              submitHandler: function (form) {
+                  // Custom submission logic
+                  const formObj = $(form);
+                  const datastring = new FormData(formObj[0]);
+                  submitForm(datastring); 
+              },
+          });
+      
+          // Add rules for required fields with class 'sjb-required'
+          popupForm.find(".sjb-required").each(function () {
+              let fieldName = $(this).attr("name");
+              if (typeof fieldName === "string") {
+                  fieldName = fieldName.replace(/^jobapp_/, ""); 
+                  const fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+                  $(this).css("color", "black");
+                  $(this).rules("add", {
+                      required: true,
+                      messages: {
+                          required: `${fieldLabel} is required`,
+                      },
+                  });
+              }
+          });
+      
+          // Add email validation for fields with class 'sjb-email-address'
+          popupForm.find(".sjb-email-address").each(function () {
+              let fieldName = $(this).attr("name");
+              if (typeof fieldName === "string") {
+                  fieldName = fieldName.replace(/^jobapp_/, "");
+                  const fieldLabel = $(this).data("label") || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+                  $(this).css("color", "black");
+                  $(this).rules("add", {
+                      required: true,
+                      email: true,
+                      messages: {
+                          required: `${fieldLabel} is required`,
+                          email: `Please enter a valid ${fieldLabel}`,
+                      },
+                  });
+              }
+          });
+          
+          // File type validation for applicant resume
+          var allowed_file_exts = Array.isArray(application_form.setting_extensions)
+        ? application_form.setting_extensions.filter(ext => typeof ext === "string").join(",")
+        : "";
+
+        if(allowed_file_exts == ''){
+          allowed_file_exts = application_form.allowed_extensions.filter(ext => typeof ext === "string").join(",")
+        }
+          const fileTypePattern = new RegExp(`(\\.${allowed_file_exts.replace(/,/g, "|")})$`, "i");
+          popupForm.find("#applicant-resume").rules("add", {
+              required: true,
+              filetype: fileTypePattern,
+              messages: {
+                  required: application_form.jquery_alerts["sjb_application_resume_required"],
+                  filetype: application_form.jquery_alerts["invalid_extension"],
+              },
+          });
+      }
+    
       function submitForm(datastring) {
-       
+    
+        const jobpost_form_status = $("#jobpost_form_status"); 
+        const jobpost_submit_button = $(".jobpost-form .app-submit");
+    
         $(".sjb-loading").show();
         $.ajax({
           url: application_form.ajaxurl,
@@ -172,7 +252,8 @@
             }
           },
         });
-      }
+    }
+    
   
       /**
        * Initialize Datepicker
@@ -181,6 +262,7 @@
        */
       function initialize_date() {
         /* Date Picker */
+     
         $(".sjb-datepicker").datepicker({
           dateFormat: application_form.sjb_date_format,
           changeMonth: true,
@@ -452,11 +534,16 @@
       $(document).on("change", "input[type=file].sjb-attachment", function () {
         file.update($(this));
       });
-  
+      
       $(document).on("click", "body #quick-apply-btn", function (e) {
         e.preventDefault();
+        
         var obj = $(this);
         var job_id = obj.attr("job_id");
+        if (obj.data("loading")) {
+          return; 
+        }
+        obj.data("loading", true);
         $.ajax({
           url: application_form.ajaxurl,
           type: "POST",
@@ -472,11 +559,17 @@
             initialize_tel();
             initialize_checkbox();
             initialize_keypress();
-  
+            initializePopupValidation();
             $(".popup-outer .sjb-page .sjb-detail")
               .prepend(`<div class="sjb-quick-apply-modal-close-btn">
                   <span class="close">x</span>
             </div>`);
+          },
+          complete: function () {
+            obj.data("loading", false); 
+          },
+          error: function () {
+              obj.data("loading", false); 
           },
         });
       });

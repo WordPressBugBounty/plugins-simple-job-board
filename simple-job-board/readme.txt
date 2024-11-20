@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.0
+Stable tag: 2.13.1
 License: GPLv3
 Requires PHP: 7.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -209,6 +209,12 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.13.1 =
+
+* Fix - Fixed default layout.
+* Fix - Fixed the quick apply form issue.
+* Tweak - Improved notification for add-ons updates.
 
 = 2.13.0 =
 

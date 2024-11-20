@@ -25,11 +25,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-html {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
+.sjb-container-main{
+    width: 100%;
 }
-
+.sjb-page .row:after{
+    content: " ";
+    display: block;
+    clear: both;
+}
 .sjb-page a:hover,
 .sjb-page a:active {
     outline: 0;
@@ -3120,7 +3123,7 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
     border: 1px solid #e1e1e1;
     color: #666;
     font-family: "Roboto", sans-serif;
-    z-index: 999 !important;
+    z-index: 10000 !important;
 }
 .ui-datepicker .ui-datepicker-header {
     background: #f2f2f2;
@@ -3332,9 +3335,9 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
         clear: left;
     }
 }
-.sjb-page .sjb-detail {
+/* .sjb-page .sjb-detail {
     margin: 30px 0 0;
-}
+} */
 .sjb-page .sjb-detail .list-data .v2 {
     border: 0;
     margin: 0;
@@ -3930,7 +3933,7 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
     margin-right: 5px;
 }
 .sjb-page .sjb-detail {
-    margin: 30px 0 0;
+    margin: 30px 0;
 }
 .sjb-page .sjb-detail .list-data .v1 {
     border: 0;
@@ -4244,4 +4247,7 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
 .sjb-required input,
 .sjb-email-address {
     color: black !important;
+}
+.sjb-page .sjb-detail.sjb-v2 .list-data .v2, .sjb-page .sjb-detail.sjb-v1 .list-data .v1 {
+    padding: 22px;
 }

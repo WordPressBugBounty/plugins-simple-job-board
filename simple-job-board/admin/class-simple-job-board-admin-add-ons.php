@@ -139,7 +139,8 @@ class Simple_Job_Board_Add_Ons {
             'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
             'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
             'filter[limit]' => -1,
-            'type' => 'variable'
+            'type' => 'variable',
+            'version' => '2.13'
         );
 
         // Generate the URL

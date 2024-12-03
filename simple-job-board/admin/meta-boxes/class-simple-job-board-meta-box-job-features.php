@@ -88,7 +88,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                             $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
                             $value = isset($val['value']) ? $val['value'] : $val;
 
-                            echo '<li><label class="sjb-editable-label">'
+                            echo '<li><i class="fa fa-bars" aria-hidden="true"></i><label class="sjb-editable-label">'
                             . esc_attr($label)
                             . '</label>'
                             . '<input type="hidden" name="' . esc_attr( $key ) . '[label]" value="' .  esc_attr($label) . '" />';
@@ -116,7 +116,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                     endforeach;
                 endif;
 
-                if (NULL != $removed_options && $enable_job_features == 'yes'):
+                if (NULL != $removed_options && ($enable_job_features == 'yes' || !isset( $_GET['action'] ))):
                     foreach ($removed_options as $key => $val):
                         if (substr($key, 0, 11) == 'jobfeature_') {
                             $val = ( is_array($val) ) ? array_map('esc_attr', $val) : esc_attr($val);

@@ -45,6 +45,17 @@ if (empty($job_apply_heading)) {
         $keys = get_post_custom_keys(get_the_ID());
         $section_no = 1;
         $total_sections = 0;
+        $current_user = wp_get_current_user();
+        $user_email = '';
+        $user_value = '';
+        $phone_number = '';
+
+        if ($current_user->ID) {
+            $user_email  = $current_user->user_email;
+            if(is_plugin_active('sjb-job-seeker-dashboard/sjb-job-seeker-dashboard.php')){
+                $phone_number = get_user_meta($current_user->ID, 'jobseeker_phone_number', true);
+            }
+        }
 
         // Get total sections
         if (NULL != $keys):
@@ -71,6 +82,18 @@ if (empty($job_apply_heading)) {
                     $id = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
                     $name = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
                     $label = isset($val['label']) ? $val['label'] : ucwords(str_replace('_', ' ', substr($key, 7)));
+
+                    switch ($key) { 
+                        case 'jobapp_name': 
+                            $user_value = $current_user->display_name;
+                            break;
+                        case 'jobapp_first_name': 
+                            $user_value = get_user_meta($current_user->ID, 'first_name', true);
+                            break;
+                        case 'jobapp_last_name': 
+                            $user_value = get_user_meta($current_user->ID, 'last_name', true);
+                            break;
+                    }
 
                     // Field Type Meta
                     $field_type_meta = array(
@@ -106,7 +129,7 @@ if (empty($job_apply_heading)) {
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '>'
+                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . ' value="' . esc_attr($user_value) . '">'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -128,7 +151,7 @@ if (empty($job_apply_heading)) {
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '><span class="sjb-invalid-email validity-note">' . esc_html__('A valid email address is required.', 'simple-job-board') . '</span>'
+                            . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . ' value="' . esc_attr($user_email) . '"><span class="sjb-invalid-email validity-note">' . esc_html__('A valid email address is required.', 'simple-job-board') . '</span>'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';
@@ -139,7 +162,7 @@ if (empty($job_apply_heading)) {
                             . '</div>'
                             . '<div class="col-md-9 col-xs-12">'
                             . '<div class="form-group">'
-                            . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . $required_class . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . '><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
+                            . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . $required_class . '" id="' . esc_attr($id) . '" ' . esc_attr($is_required) . ' value="' . esc_attr($phone_number) . '"><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
                             . '</div>'
                             . '</div>'
                             . '<div class="clearfix"></div>';

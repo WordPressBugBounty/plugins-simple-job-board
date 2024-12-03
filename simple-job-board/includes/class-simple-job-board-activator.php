@@ -58,6 +58,38 @@ class Simple_Job_Board_Activator {
             $sjb_layout = 'theme-layout';
             update_option('job_board_pages_layout',$sjb_layout);
         }
+        $default_fields = array(
+            'jobapp_name' => array(
+                'label' => 'Name',
+                'type' => 'text',
+                'optional' => 'checked',
+                'applicant_column' => 'unchecked'
+            ),
+            'jobapp_email' => array(
+                'label' => 'Email',
+                'type' => 'email',
+                'optional' => 'checked',
+                'applicant_column' => 'unchecked'
+            ),
+            'jobapp_phone' => array(
+                'label' => 'Phone',
+                'type' => 'phone',
+                'optional' => 'checked',
+                'applicant_column' => 'unchecked'
+            ),
+            'jobapp_cover_letter' => array(
+                'label' => 'Cover Letter',
+                'type' => 'text_area',
+                'optional' => 'checked',
+                'applicant_column' => 'unchecked'
+            )
+        );
+
+        $jobapp_fields = get_option('jobapp_settings_options');
+        if(empty($jobapp_fields)){
+            update_option('jobapp_settings_options', $default_fields);
+            update_option('default_fields_count', 1);
+        }
         // .htaccess Anti-Hotlinking Rules
         $sjbrObj = new Simple_Job_Board_Rewrite();
         $sjbrObj->job_board_rewrite(); 

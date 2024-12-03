@@ -54,7 +54,8 @@ $delete_data_option = get_option('delete_data_on_uninstall');
         // Delete Options-> Settings Feature & Application Form
         delete_option('jobapp_settings_options');
         delete_option('jobfeature_settings_options');
-
+        delete_option('default_fields_count');
+        
         // Delete Options-> Search Filters
         delete_option('job_board_category_filter');
         delete_option('job_board_jobtype_filter');

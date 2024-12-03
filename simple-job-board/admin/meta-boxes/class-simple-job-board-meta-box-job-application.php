@@ -101,7 +101,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                             $label = isset($val['label']) ? $val['label'] : esc_html__(ucwords(str_replace('_', ' ', substr($key, 7))), 'simple-job-board');
 
                             echo '<li class="' .  esc_attr( $key ). '">'
-                            . '<label class="sjb-editable-label" for="">' . esc_attr( $label ) . '</label>'
+                            . '<i class="fa fa-bars" aria-hidden="true"></i><label class="sjb-editable-label" for="">' . esc_attr( $label ) . '</label>'
                             . '<input type="hidden" name="' .  esc_attr( $key ) . '[label]" value="' . esc_attr( $label ) . '"/>'
                             . '<div class="jobapp-field-div"><select class="jobapp_field_type" name="' .  esc_attr( $key ) . '[type]">'
                             .  wp_kses( $fields, $allowed_tags )
@@ -146,7 +146,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                  * Settings Job Application Form        
                  */
                 if ( NULL != $jobapp_removed_options ):
-                    if ( $enable_job_application_form_fields == 'yes' ):
+                    if ( $enable_job_application_form_fields == 'yes' || !isset( $_GET['action'] )):
                         foreach ($jobapp_removed_options as $jobapp_field_name => $val):
 
                             if (isset($val['type']) && isset($val['option']) || isset($val['optional'])):

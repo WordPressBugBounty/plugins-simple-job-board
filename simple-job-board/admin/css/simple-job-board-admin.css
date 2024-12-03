@@ -2742,3 +2742,11 @@ i.fas.fa-angle-down {
 .enable-features-label{
     display: contents !important;
 }
+.jobpost_fields .fa-bars{
+	font-size: 15px;
+    margin-right: 4px;
+    color: gray;
+    /* vertical-align: middle; */
+    position: relative;
+    top: 3px;
+}

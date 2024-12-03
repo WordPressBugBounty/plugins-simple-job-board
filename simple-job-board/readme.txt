@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.1
+Stable tag: 2.13.2
 License: GPLv3
 Requires PHP: 7.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -53,9 +53,9 @@ Manage your Job Board from anywhere with the Simple Job Board mobile app on [And
 
 = Simple Job Board Add-ons =
 
-* [Mobile App Connector](https://market.presstigers.com/product/mobile-app-connector-add-on/) (New)
-* [Job Seeker Dashboard Add-on](https://market.presstigers.com/product/job-seeker-dashboard-add-on/) (New)
-* [Frontend Job Posting with Paid Job Listing](https://market.presstigers.com/product/frontend-jobposting-add-on/) (New)
+* [Mobile App Connector](https://market.presstigers.com/product/mobile-app-connector-add-on/)
+* [Job Seeker Dashboard Add-on](https://market.presstigers.com/product/job-seeker-dashboard-add-on/)
+* [Frontend Job Posting with Paid Job Listing](https://market.presstigers.com/product/frontend-jobposting-add-on/)
 * [Custom Apply Link Add-on](https://market.presstigers.com/product/custom-apply-link-add-on/)
 * [Custom Redirection](https://market.presstigers.com/product/custom-redirection-add-on/)
 * [Job Board Add-on for WPBakery](https://market.presstigers.com/product/job-board-add-on-for-wpbakery/)
@@ -209,6 +209,14 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.13.2 =
+
+* Fix - Fixed the default application form fields issue.
+* Fix - Fixed the default job features issue.
+* Tweak - Improved drag & drop sorting for application form fields and job features.
+* Tweak - Included the pre-filled application form data for the logged-in user.
+* Tweak - Adjusted the default style to better align with the active theme.
 
 = 2.13.1 =
 

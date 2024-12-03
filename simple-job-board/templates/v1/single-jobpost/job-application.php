@@ -48,7 +48,17 @@ if (empty($job_apply_heading)) {
         $keys = get_post_custom_keys(get_the_ID());
         $section_no = 1;
         $total_sections = 0;
-	
+        $current_user = wp_get_current_user();
+        $user_email = '';
+        $user_value = '';
+        $phone_number = '';
+        if ($current_user->ID) {
+            $user_email  = $current_user->user_email;
+            if(is_plugin_active('sjb-job-seeker-dashboard/sjb-job-seeker-dashboard.php')){
+                $phone_number = get_user_meta($current_user->ID, 'jobseeker_phone_number', true);
+            }
+        }
+
         // Get total sections
         if (NULL != $keys):
             foreach ($keys as $key):
@@ -75,7 +85,18 @@ if (empty($job_apply_heading)) {
                     $id = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
                     $name = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
                     $label = isset($val['label']) ? $val['label'] : ucwords(str_replace('_', ' ', substr($key, 7)));
-
+                    
+                    switch ($key) { 
+                        case 'jobapp_name': 
+                            $user_value = $current_user->display_name;
+                            break;
+                        case 'jobapp_first_name': 
+                            $user_value = get_user_meta($current_user->ID, 'first_name', true);
+                            break;
+                        case 'jobapp_last_name': 
+                            $user_value = get_user_meta($current_user->ID, 'last_name', true);
+                            break;
+                    }
                     // Field Type Meta
                     $field_type_meta = array(
                         'id' => $id,
@@ -93,125 +114,129 @@ if (empty($job_apply_heading)) {
                      * @since   2.3.0                   
                      */
                     do_action('sjb_job_application_form_fields', $field_type_meta);
-
-                    switch ($val['type']) {
-                        case 'section_heading':
-                            if (1 < $section_no) {
-                                echo '</div>';
-                            }
-                            echo '<div class="form-box">'
-                            . '<h3>' . esc_attr($label) . '</h3>';
-                            $section_no++;
-                            break;
-                        case 'text':
-                            echo '<div class="col-md-3 col-xs-12">'
-                            . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                            . '</div>'
-                            . '<div class="col-md-9 col-xs-12">'
-                            . '<div class="form-group">'
-                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '">'
-                            . '</div>'
-                            . '</div>'
-                            . '<div class="clearfix"></div>';
-                            break;
-                        case 'text_area':
-                            echo '<div class="col-md-3 col-xs-12">'
-                            . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                            . '</div>'
-                            . '<div class="col-md-9 col-xs-12">'
-                            . '<div class="form-group">'
-                            . '<textarea name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"   cols="30" rows="5"></textarea>'
-                            . '</div>'
-                            . '</div>'
-                            . '<div class="clearfix"></div>';
-                            break;
-                        case 'email':
-                            echo '<div class="col-md-3 col-xs-12">'
-                            . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                            . '</div>'
-                            . '<div class="col-md-9 col-xs-12">'
-                            . '<div class="form-group">'
-                            . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"><span class="sjb-invalid-email validity-note">' . esc_html__('A valid email address is required.', 'simple-job-board') . '</span>'
-                            . '</div>'
-                            . '</div>'
-                            . '<div class="clearfix"></div>';
-                            break;
-                        case 'phone':
-                            echo '<div class="col-md-3 col-xs-12">'
-                            . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                            . '</div>'
-                            . '<div class="col-md-9 col-xs-12">'
-                            . '<div class="form-group">'
-                            . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
-                            . '</div>'
-                            . '</div>'
-                            . '<div class="clearfix"></div>';
-                            break;
-                        case 'date':
-                            echo '<div class="col-md-3 col-xs-12">'
-                            . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                            . '</div>'
-                            . '<div class="col-md-9 col-xs-12">'
-                            . '<div class="form-group">'
-                            . '<input type="text" name="' . esc_attr($name) . '" class="form-control sjb-datepicker ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" maxlength="10">'
-                            . '</div>'
-                            . '</div>'
-                            . '<div class="clearfix"></div>';
-                            break;
-                        case 'radio':
-                            if ($val['options'] != '') {
-                                echo '<div class="col-md-3 col-xs-12">'
-                                . '<label class="sjb-label-control" for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
-                                . '</div>'
-                                . '<div class="col-md-9 col-xs-12">'
-                                . '<div class="form-group">';
-                                $options = explode(',', $val['options']);
-                                $i = 0;
-                                foreach ($options as $option) {
-                                    echo '<label class="small"><input type="radio" name="' . esc_attr($name) . '" class=" ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . sjb_is_checked($i) . '>' . esc_attr($option) . ' </label> ';
-                                    $i++;
+              
+                        
+                        switch ($val['type']) {
+                            case 'section_heading':
+                                if (1 < $section_no) {
+                                    echo '</div>';
                                 }
-                                echo '</div></div>'
-                                . '<div class="clearfix"></div>';
-                            }
-                            break;
-                        case 'dropdown':
-                            if ($val['options'] != '') {
+                                echo '<div class="form-box">'
+                                . '<h3>' . esc_attr($label) . '</h3>';
+                                $section_no++;
+                                break;
+                            case 'text':
                                 echo '<div class="col-md-3 col-xs-12">'
                                 . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
-                                . ' <div class="col-md-9 col-xs-12">'
+                                . '<div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
-                                . '<select class="form-control" name="' . esc_attr($name) . '" id="' . esc_attr($id) . '">';
-                                $options = explode(',', $val['options']);
-                                foreach ($options as $option) {
-                                    echo '<option class="' . esc_attr($required_class) . '" value="' . esc_attr($option) . '" >' . esc_attr($option) . ' </option>';
-                                }
-                                echo '</select>'
+                                . '<input type="text" name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($user_value) . '">'
                                 . '</div>'
                                 . '</div>'
                                 . '<div class="clearfix"></div>';
-                            }
-                            break;
-                        case 'checkbox' :
-                            if ($val['options'] != '') {
+                                break;
+                            case 'text_area':
                                 echo '<div class="col-md-3 col-xs-12">'
                                 . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
                                 . '<div class="col-md-9 col-xs-12">'
-                                . '<div class="form-group">';
-                                $options = explode(',', $val['options']);
-                                $i = 0;
-
-                                foreach ($options as $option) {
-                                    echo '<label class="small"><input type="checkbox" name="' . esc_attr($name) . '[]" class="' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . esc_attr($i) . '>' . esc_attr($option) . ' </label>';
-                                    $i++;
-                                }
-                                echo '</div></div>'
+                                . '<div class="form-group">'
+                                . '<textarea name="' . esc_attr($name) . '" class="form-control ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '"   cols="30" rows="5"></textarea>'
+                                . '</div>'
+                                . '</div>'
                                 . '<div class="clearfix"></div>';
-                            }
-                            break;
-                    }
+                                break;
+                                case 'email':
+                                    echo '<div class="col-md-3 col-xs-12">'
+                                        . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                        . '</div>'
+                                        . '<div class="col-md-9 col-xs-12">'
+                                        . '<div class="form-group">'
+                                        . '<input type="email" name="' . esc_attr($name) . '" class="form-control sjb-email-address ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($user_email) . '">'
+                                        . '</div>'
+                                        . '</div>'
+                                        . '<div class="clearfix"></div>';
+                                    break;
+                            case 'phone':
+                                echo '<div class="col-md-3 col-xs-12">'
+                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '</div>'
+                                . '<div class="col-md-9 col-xs-12">'
+                                . '<div class="form-group">'
+                                . '<input type="tel" name="' . esc_attr($name) . '" class="form-control sjb-phone-number sjb-numbers-only ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($phone_number) . '"><span class="sjb-invalid-phone validity-note" id="' . esc_attr($id) . '-invalid-phone">' . esc_html__('A valid phone number is required.', 'simple-job-board') . ' </span>'
+                                . '</div>'
+                                . '</div>'
+                                . '<div class="clearfix"></div>';
+                                break;
+                            case 'date':
+                                echo '<div class="col-md-3 col-xs-12">'
+                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '</div>'
+                                . '<div class="col-md-9 col-xs-12">'
+                                . '<div class="form-group">'
+                                . '<input type="text" name="' . esc_attr($name) . '" class="form-control sjb-datepicker ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" maxlength="10">'
+                                . '</div>'
+                                . '</div>'
+                                . '<div class="clearfix"></div>';
+                                break;
+                            case 'radio':
+                                if ($val['options'] != '') {
+                                    echo '<div class="col-md-3 col-xs-12">'
+                                    . '<label class="sjb-label-control" for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '</div>'
+                                    . '<div class="col-md-9 col-xs-12">'
+                                    . '<div class="form-group">';
+                                    $options = explode(',', $val['options']);
+                                    $i = 0;
+                                    foreach ($options as $option) {
+                                        echo '<label class="small"><input type="radio" name="' . esc_attr($name) . '" class=" ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . sjb_is_checked($i) . '>' . esc_attr($option) . ' </label> ';
+                                        $i++;
+                                    }
+                                    echo '</div></div>'
+                                    . '<div class="clearfix"></div>';
+                                }
+                                break;
+                            case 'dropdown':
+                                if ($val['options'] != '') {
+                                    echo '<div class="col-md-3 col-xs-12">'
+                                    . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '</div>'
+                                    . ' <div class="col-md-9 col-xs-12">'
+                                    . '<div class="form-group">'
+                                    . '<select class="form-control" name="' . esc_attr($name) . '" id="' . esc_attr($id) . '">';
+                                    $options = explode(',', $val['options']);
+                                    foreach ($options as $option) {
+                                        echo '<option class="' . esc_attr($required_class) . '" value="' . esc_attr($option) . '" >' . esc_attr($option) . ' </option>';
+                                    }
+                                    echo '</select>'
+                                    . '</div>'
+                                    . '</div>'
+                                    . '<div class="clearfix"></div>';
+                                }
+                                break;
+                            case 'checkbox' :
+                                if ($val['options'] != '') {
+                                    echo '<div class="col-md-3 col-xs-12">'
+                                    . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '</div>'
+                                    . '<div class="col-md-9 col-xs-12">'
+                                    . '<div class="form-group">';
+                                    $options = explode(',', $val['options']);
+                                    $i = 0;
+    
+                                    foreach ($options as $option) {
+                                        echo '<label class="small"><input type="checkbox" name="' . esc_attr($name) . '[]" class="' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . esc_attr($i) . '>' . esc_attr($option) . ' </label>';
+                                        $i++;
+                                    }
+                                    echo '</div></div>'
+                                    . '<div class="clearfix"></div>';
+                                }
+                                break;
+                        }
+                    
+                  
+                    
                 endif;
             endforeach;
             if ($total_sections > 0 && $total_sections + 1 == $section_no) {

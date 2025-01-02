@@ -70,7 +70,7 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
             add_filter('parse_query', array($this, 'get_all_applications'));
 
             // Filter - Remove Quick Edit Action
-            add_filter('post_row_actions',array($this,'remove_quick_edit_actions'),10,2);
+            // add_filter('post_row_actions',array($this,'remove_quick_edit_actions'),10,2);
 
            
         }

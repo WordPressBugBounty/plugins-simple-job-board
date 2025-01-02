@@ -116,6 +116,7 @@ class Simple_Job_Board_Public
         // Register Simple Job Board Front-end Core JS
         wp_enqueue_script('jquery-validation', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js', array('jquery'), '1.19.3', true);
         wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
+        wp_enqueue_script('wp-i18n');
         // Register Input Telephone JS
         wp_register_script($this->simple_job_board . '-validate-telephone-input', plugin_dir_url(__FILE__) . 'js/intlTelInput.min.js', array('jquery'), '17.0.0', true);
         wp_register_script($this->simple_job_board . '-validate-telephone-input-utiliy', plugin_dir_url(__FILE__) . 'js/intlTelInput-utils.js', array('jquery'), '7.7.3', true);

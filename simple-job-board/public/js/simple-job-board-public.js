@@ -62,7 +62,7 @@
               $(this).rules("add", {
                   required: true,
                   messages: {
-                      required: `${fieldLabel} is required`, 
+                    required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
                   },
               });
           }
@@ -82,8 +82,11 @@
                     required: true,
                     email: true,
                     messages: {
-                        required: `${fieldLabel} is required`, 
-                        email: `Please enter a valid ${fieldLabel}`, 
+                        required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                        email: wp.i18n.sprintf(
+                          wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
+                          fieldLabel
+                      ),
                     },
                 });
             }
@@ -140,7 +143,7 @@
                   $(this).rules("add", {
                       required: true,
                       messages: {
-                          required: `${fieldLabel} is required`,
+                          required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
                       },
                   });
               }
@@ -157,8 +160,11 @@
                       required: true,
                       email: true,
                       messages: {
-                          required: `${fieldLabel} is required`,
-                          email: `Please enter a valid ${fieldLabel}`,
+                          required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                          email: wp.i18n.sprintf(
+                            wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
+                            fieldLabel
+                        ),
                       },
                   });
               }

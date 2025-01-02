@@ -32,7 +32,7 @@ do_action('sjb_job_listing_grid_view_start');
 ================================================== -->
 <div class="col-md-4 col-sm-6 grid-item">
     <div class="list-data">
-        <div class="v1 <?php echo apply_filters('sjb-listing-classes', esc_attr( '' )); ?>">
+        <div class="v1 <?php echo apply_filters('sjb-listing-classes', esc_attr( 'sjb-job-' . get_the_ID() )); ?>">
 
         <!-- Grid view header -->
         <header>

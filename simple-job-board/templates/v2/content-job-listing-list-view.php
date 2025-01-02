@@ -28,7 +28,7 @@ do_action('sjb_job_listing_list_view_before');
 <!-- Start Jobs List View 
 ================================================== -->
 <div class="list-data">
-    <div class="v2 <?php echo apply_filters('sjb-listing-classes', esc_attr( '' )); ?>">
+    <div class="v2 <?php echo apply_filters('sjb-listing-classes', esc_attr( 'sjb-job-' . get_the_ID() )); ?>">
 
         <!-- Jobs List view header -->
         <header>

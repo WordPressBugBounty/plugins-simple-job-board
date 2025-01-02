@@ -29,7 +29,7 @@ if (FALSE !== get_option('job_post_layout_settings')) {
 <div class="sjb-page">
     <div class="sjb-detail">
         <div class="list-data">
-            <div class="<?php echo esc_attr( $job_class ); ?>">
+            <div class="<?php echo esc_attr( $job_class . ' sjb-job-popup-' . get_the_ID() ); ?>">
             <?php
 
             $job_startwrapper = ob_get_clean();

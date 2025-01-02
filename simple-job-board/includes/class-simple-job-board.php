@@ -57,7 +57,7 @@ class Simple_Job_Board
     public function __construct()
     {
         $this->simple_job_board = 'simple-job-board';
-        $this->version = '2.13.2';
+        $this->version = '2.13.3';
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
@@ -94,6 +94,12 @@ class Simple_Job_Board
          * of the plugin.
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-simple-job-board-i18n.php';
+
+        /**
+         * The class responsible for including the template functions
+         * of the plugin.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/simple-job-board-template-functions.php';
 
         /**
          * The class responsible for defining all actions that occur in the admin area.

@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.2
+Stable tag: 2.13.3
 License: GPLv3
 Requires PHP: 7.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -31,7 +31,7 @@ This plugin is extendible and easy to use. A customized job board is created to 
 * **Jobs Categories:** Taxonomy to add categories to manage jobs.
 * **Manage Location:** Taxonomy to add location for a job.
 * **Types of Jobs:** Taxonomy to manage job types.
-* **Jobs Tags:** Taxonomy add tags for jobs.
+* **Jobs Tags:** Taxonomy to add tags for jobs.
 All taxonomies are used in listing filter to search the desired jobs.
 
 The plugin is available in English, French(Français), Arabic (العربية), Brazilian Portuguese(Português do Brasil), Italian(Italiano), Russian(Русский), Chinese(简体中文), Dutch(Nederlands), Serbian(Српски језик), Swedish(Svenska), Urdu(اردو), Japanese(日本語), Polish(Polski) and Galician(Galego).
@@ -209,6 +209,12 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.13.3 =
+
+* Fix - Resolved a logical issue that was causing a fatal error..
+* Fix - Fixed the quick edit.
+* Tweak - Added distinct classes to different sections to assist developers.
 
 = 2.13.2 =
 

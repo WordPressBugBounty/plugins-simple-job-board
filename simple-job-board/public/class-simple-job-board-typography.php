@@ -43,7 +43,7 @@ class Simple_Job_Board_Typography {
                 $job_board_typography = get_option('job_board_typography');
             }
             $job_pages_layout  = get_option('job_board_pages_layout');
-            //var_dump($job_pages_layout);
+          
             // Job Listing Page Typography
             $filters_bg_color = isset($job_board_typography['filters_background_color']) ? esc_attr($job_board_typography['filters_background_color']) : '#f2f2f2';
             $job_title_color = isset($job_board_typography['job_listing_title_color']) ? esc_attr($job_board_typography['job_listing_title_color']) : '#3b3a3c';

@@ -30,7 +30,7 @@ if (empty($job_apply_heading)) {
 
 <!-- Start Job Application Form
 ================================================== -->
-<form class="jobpost-form" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
+<form class="jobpost-form sjb-job-detail-<?php echo get_the_ID(); ?>" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
     <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($job_apply_heading)); ?></h3>    
     <div class="row">
         <?php
@@ -87,11 +87,17 @@ if (empty($job_apply_heading)) {
                         case 'jobapp_name': 
                             $user_value = $current_user->display_name;
                             break;
+                        case 'jobapp_full_name': 
+                            $user_value = $current_user->display_name;
+                            break;
                         case 'jobapp_first_name': 
                             $user_value = get_user_meta($current_user->ID, 'first_name', true);
                             break;
                         case 'jobapp_last_name': 
                             $user_value = get_user_meta($current_user->ID, 'last_name', true);
+                            break;
+                        default:
+                            $user_value = '';
                             break;
                     }
 

@@ -187,6 +187,8 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
 
             // Hook - Post Type -> JobPost ->  Remove View Posts 
             add_filter('admin_bar_menu', array($this,'remove_view_posts_link_from_admin_bar'),999);
+
+         
         }
 
         
@@ -291,8 +293,8 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                 'query_var' => TRUE,
                 'can_export' => TRUE,
                 'show_in_rest' => TRUE,
-		'rest_base' => 'jobpost',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
+		        'rest_base' => 'jobpost',
+		        'rest_controller_class' => 'WP_REST_Posts_Controller',
                 'supports' => array(
                     'title',
                     'editor',

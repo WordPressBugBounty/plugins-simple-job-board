@@ -57,7 +57,7 @@ class Simple_Job_Board
     public function __construct()
     {
         $this->simple_job_board = 'simple-job-board';
-        $this->version = '2.13.3';
+        $this->version = '2.13.4';
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
@@ -113,8 +113,11 @@ class Simple_Job_Board
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-simple-job-board-public.php';
 
         $this->loader = new Simple_Job_Board_Loader();
+
+       
     }
     
+     
     /**
      * Define the locale for this plugin for internationalization.
      *

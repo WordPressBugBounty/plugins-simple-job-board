@@ -24,24 +24,35 @@ class Simple_Job_Board_Shortcode_job_details {
         add_shortcode('job_details', array($this, 'sjb_job_form_function'));
     }
 
-	public function sjb_job_form_function() {
+	public function sjb_job_form_function($atts) {
+
+		$atts = shortcode_atts([
+
+			'show_job_features' => 'yes', 
+			'show_job_meta' => 'yes',
+
+		], $atts);
+
 		
 		do_action('sjb_enqueue_scripts');
 		
 		do_action('sjb_single_job_content_start');
 
-		do_action('sjb_single_job_listing_start') ?>
 		
-		<div class="job-description" id="job-desc">
-		
-			<?php
-			global $post;
-			
-			echo __( nl2br(get_post( $post->ID )->post_content) );
-			?>
-		</div>
-		<div class="clearfix"></div>
-		<?php
+		if(is_singular('jobpost')){
+
+			if($atts['show_job_meta'] === 'yes') {
+				do_action('sjb_single_job_listing_start'); 
+			}else{
+				remove_action('sjb_single_job_listing_start', 'sjb_job_listing_meta_display', 20);
+			}
+
+			if($atts['show_job_features'] === 'yes'){
+				add_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
+			}else{
+				remove_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
+			}
+		}
 
 		do_action('sjb_single_job_listing_end');
 		

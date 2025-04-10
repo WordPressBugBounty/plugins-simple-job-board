@@ -93,6 +93,13 @@ class Simple_Job_Board_Ajax {
      * @return void
      */
     public function process_applicant_form() {
+
+        $sjb_csrf_token = sanitize_key($_POST['sjb_csrf_token']);
+        $sjb_guest_id = sanitize_key($_POST['sjb_guest_id']);
+        if (!isset($sjb_csrf_token) || !sjb_verify_csrf_token($sjb_csrf_token, $sjb_guest_id)) {
+            wp_die(__('Invalid or expired CSRF token. Please refresh the page and try again.', 'simple-job-board'));
+        }
+         
         check_ajax_referer( 'jobpost_security_nonce', 'wp_nonce' );
         
         /**
@@ -295,7 +302,6 @@ class Simple_Job_Board_Ajax {
         // Validate the job_id parameter
         $job_id = isset($_POST['job_id']) ? absint($_POST['job_id']) : 0;
     
-    
         $args = array(
             'post_type'      => 'jobpost',
             'post_status'    => 'publish',
@@ -322,7 +328,9 @@ class Simple_Job_Board_Ajax {
                     ?>
                     <div class="job-description" id="job-desc">
                         <?php
-                        echo apply_filters('popup_post_content', wp_kses_post(nl2br(get_the_content())));
+                        if(!is_elementor_widget_added_to_jobpost('job-details')) { 
+                            echo apply_filters('popup_post_content', wp_kses_post(nl2br(get_the_content())));
+                        }
                         ?>
                     </div>
                     <div class="clearfix"></div>

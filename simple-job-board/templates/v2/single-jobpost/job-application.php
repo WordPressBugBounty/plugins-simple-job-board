@@ -22,16 +22,15 @@ global $post;
  * @since   2.1.0                   
  */
 do_action('sjb_job_application_before');
-$job_apply_heading = get_option('job_board_apply_for_job');
-if (empty($job_apply_heading)) {
-    $job_apply_heading =  __('Apply For This Job', 'simple-job-board');
-}
+    $job_apply_heading = get_option('job_board_apply_for_job', 'Apply For This Job');
+    // Use WPML or Loco Translate to translate it if the translation exists
+    $translated_heading = __( $job_apply_heading, 'simple-job-board' );
 ?>
 
 <!-- Start Job Application Form
 ================================================== -->
 <form class="jobpost-form sjb-job-detail-<?php echo get_the_ID(); ?>" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
-    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($job_apply_heading)); ?></h3>    
+    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($translated_heading)); ?></h3>    
     <div class="row">
         <?php
         /**

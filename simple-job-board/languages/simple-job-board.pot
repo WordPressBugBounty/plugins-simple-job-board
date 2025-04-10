@@ -63,6 +63,10 @@ msgstr ""
 msgid "Add %s"
 msgstr ""
 
+#: admin/settings/class-simple-job-board-settings-appearance.php:229
+msgid "Apply For This Job"
+msgstr ""
+
 #: admin/settings/class-simple-job-board-settings-appearance.php:299
 msgid ""
 "Add classes seprated by space or comma e.g. container sjb-container or "
@@ -1492,3 +1496,11 @@ msgstr ""
 #: admin/class-simple-job-board-widgets-recent-jobs.php:29
 msgid "Search by tag:"
 msgstr ""
+
+
+msgid "is required"
+msgstr ""
+
+msgid "%s is required"
+msgstr ""
+

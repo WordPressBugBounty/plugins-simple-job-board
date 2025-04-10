@@ -23,17 +23,16 @@ global $post;
  */
 do_action('sjb_job_application_before');
 
-$job_apply_heading = get_option('job_board_apply_for_job');
-if (empty($job_apply_heading)) {
-    $job_apply_heading =  __('Apply For This Job', 'simple-job-board');
-}
 
+    $job_apply_heading = get_option('job_board_apply_for_job', 'Apply For This Job');
+    // Use WPML or Loco Translate to translate it if the translation exists
+    $translated_heading = __( $job_apply_heading, 'simple-job-board' );
 ?>
 
 <!-- Start Job Application Form
 ================================================== -->
 <form class="jobpost-form sjb-job-<?php echo get_the_ID(); ?>" id="sjb-application-form" name="c-assignments-form"  enctype="multipart/form-data">
-    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($job_apply_heading)); ?></h3>    
+    <h3><?php echo apply_filters('sjb_job_application_form_title', esc_html($translated_heading)); ?></h3>    
     <div class="row">
         <?php
         /**
@@ -42,7 +41,6 @@ if (empty($job_apply_heading)) {
          * @since   2.3.0                   
          */
         do_action('sjb_job_application_form_fields_start');
-
         $allowed_tags = sjb_get_allowed_html_tags();
 
         $keys = get_post_custom_keys(get_the_ID());
@@ -263,11 +261,11 @@ if (empty($job_apply_heading)) {
         }
 
         $sjb_attach_resume = '<div class="col-md-3 col-xs-12">'
-                . '<label for="applicant_resume">' . apply_filters('sjb_resume_label', __('Attach Resume', 'simple-job-board')) . '<span class="sjb-required required">*</span></label>'
+                . '<label for="applicant-resume">' . apply_filters('sjb_resume_label', __('Attach Resume', 'simple-job-board')) . '<span class="sjb-required required">*</span></label>'
                 . '</div>'
                 . '<div class="col-md-9 col-xs-12">
                                     <div class="form-group">'
-                . '<input type="file" name="applicant_resume" id="applicant-resume" class="sjb-attachment form-control "' . apply_filters('sjb_resume_required', 'class="sjb-required"') . '>'
+                . '<input type="file" name="applicant_resume" id="applicant-resume" tabindex="0" class="sjb-attachment form-control "' . apply_filters('sjb_resume_required', 'class="sjb-required"') . '>'
                 . '<span class="sjb-invalid-attachment validity-note" id="file-error-message"></span>'
                 . '</div>'
                 . '</div>'
@@ -370,10 +368,18 @@ if (empty($job_apply_heading)) {
          * @since   2.2.0                   
          */
         do_action('sjb_job_application_form_fields_end');
+        $token_data = sjb_generate_csrf_token();
+        $sjb_csrf_token = $token_data['token'];
+        $sjb_guest_id = $token_data['guest_id'];
         ?>
         <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
         <input type="hidden" name="action" value="process_applicant_form" >
         <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
+        <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
+        <input type="hidden" name="action" value="process_applicant_form" >
+        <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
+        <input type="hidden" name="sjb_csrf_token" value="<?php echo esc_attr($sjb_csrf_token); ?>">
+        <input type="hidden" name="sjb_guest_id" value="<?php echo esc_attr($sjb_guest_id); ?>">
         <div class="clearfix"></div> 
         <?php if (0 === $total_sections) { ?>
             <div class="col-md-12 col-xs-12">

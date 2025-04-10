@@ -1055,12 +1055,9 @@
 .sjb-page input[type="file"] {
     display: block;
 }
-.sjb-page input[type="file"]:focus,
-.sjb-page input[type="radio"]:focus,
-.sjb-page input[type="checkbox"]:focus {
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-}
+
+
+
 .sjb-page .form-control {
     display: block;
     width: 100%;
@@ -3260,6 +3257,32 @@ fieldset[disabled] .sjb-page .checkbox label {
     float: left;
     width: 100%;
     position: relative;
+}
+
+
+/* .sjb-page input[type="file"]:focus, */
+/* .sjb-page input[type="radio"]:focus,
+.sjb-page input[type="checkbox"]:focus {
+    outline: 5px auto -webkit-focus-ring-color !important;
+    outline-offset: -2px !important;
+} */
+
+.sjb-page input[type="text"]:focus,
+.sjb-page input[type="email"]:focus,
+.sjb-page input[type="tel"]:focus,
+.sjb-page input[type="date"]:focus,
+.sjb-page input[type="file"]:focus,
+.sjb-page select:focus,
+.sjb-page textarea:focus,
+.sjb-page input[type="radio"]:focus,
+.sjb-page input[type="checkbox"]:focus {
+    outline: 2px auto #1f1d1d !important;
+    outline-offset: 1px !important;
+} 
+
+.file:focus-within {
+    outline: 2px auto #1f1d1d !important;
+    outline-offset: 1px !important;
 }
 .sjb-page .sjb-detail .list-data .v2 .jobpost-form h3 {
     margin: 15px 0;

@@ -39,7 +39,11 @@ class Simple_Job_Board_Settings_Appearance {
 
         // Action -> Save Settings Appearance Section 
         add_action('sjb_save_setting_sections', array($this, 'sjb_save_settings_section'));
+
+        add_action('admin_init', array($this,'register_job_features_string_for_translation'));
     }
+
+    
 
     /**
      * Add Settings Appearance Tab.
@@ -222,11 +226,7 @@ class Simple_Job_Board_Settings_Appearance {
                 }
 
                 // Get Apply For This Job Heading
-                if (FALSE !== get_option('job_board_apply_for_job')) {
-                    $job_apply_heading = get_option('job_board_apply_for_job');
-                } else {
-                    $job_apply_heading = 'Apply For This Job';
-                }
+                $job_apply_heading = get_option('job_board_apply_for_job', __('Apply For This Job', 'simple-job-board'));
 
                 /**
                  * Action -> Add new section before job pages layout.  
@@ -711,6 +711,7 @@ class Simple_Job_Board_Settings_Appearance {
                              */
                             do_action('sjb_job_post_heading_start');
                             ?>
+
                             <div class="sjb-form-group">
                                 <div class="col-md-3">
                                     <label><?php esc_html_e('Job Features Heading:', 'simple-job-board'); ?></label>
@@ -917,6 +918,16 @@ class Simple_Job_Board_Settings_Appearance {
         if (!empty($job_apply_heading)) {
             update_option('job_board_apply_for_job', sanitize_text_field($job_apply_heading));
         }
+    }
+
+    function register_job_features_string_for_translation() {
+        // Get the options for job features and apply heading
+        $job_features_heading = get_option('job_board_job_features', 'Job Features');
+        $job_apply_heading = get_option('job_board_apply_for_job', 'Apply For This Job');
+    
+        // Register the strings for WPML translation
+        do_action('wpml_register_single_string', 'simple-job-board', 'job_features_heading', $job_features_heading);
+        do_action('wpml_register_single_string', 'simple-job-board', 'job_apply_heading', $job_apply_heading);
     }
 
 }

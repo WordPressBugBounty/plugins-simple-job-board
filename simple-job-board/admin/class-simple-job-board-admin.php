@@ -177,7 +177,7 @@ class Simple_Job_Board_Admin {
 
             // Simple Job Board Admin Core JS File
             wp_enqueue_script($this->simple_job_board . '-admin', plugin_dir_url(__FILE__) . 'js/simple-job-board-admin.js', array('jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-ui-datepicker'), '1.3.0', TRUE);           
-
+            wp_enqueue_script('custom-editor', plugin_dir_url(__FILE__) . 'js/custom-editor.js', array('jquery'), null, true);
             // Localize Script for Making jQuery Stings Translation Ready
             wp_localize_script($this->simple_job_board . '-admin', 'application_form', array(
                 'settings_jquery_alerts' => array(

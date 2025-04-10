@@ -1,54 +1,53 @@
-# Translation of Stable (latest release) in Dutch
-# This file is distributed under the same license as the Stable (latest release) package.
+# Translation of Plugins - Simple Job Board - Stable (latest release) in Dutch
+# This file is distributed under the same license as the Plugins - Simple Job Board - Stable (latest release) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Stable (latest release)\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2022-10-10 16:09+0000\n"
+"PO-Revision-Date: 2025-02-06 17:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"Last-Translator: PressTigers <support@presstigers.com>\n"
-"Language-Team: Dutch\n"
-"Language: nl_NL"
+"Language: nl-NL\n"
+"Project-Id-Version: Plugins - Simple Job Board - Stable (latest release)\n"
+"Language-Team: Nederlands"
 
 #: includes/class-simple-job-board-ajax.php:436
-#, fuzzy
-#| msgid "This is not an allowed file type."
 msgid " is not an allowed file type."
-msgstr "Dit is geen toegelaten bestandstype."
+msgstr ""
 
-#: templates/v1/single-jobpost/job-application.php:271
-#: templates/v1/single-jobpost/job-application.php:275
-#: templates/v1/single-jobpost/job-application.php:281
-#: templates/v1/single-jobpost/job-application.php:300
-#: templates/v1/single-jobpost/job-application.php:306
-#: templates/v1/single-jobpost/job-application.php:316
-#: templates/v2/single-jobpost/job-application.php:269
-#: templates/v2/single-jobpost/job-application.php:273
-#: templates/v2/single-jobpost/job-application.php:279
-#: templates/v2/single-jobpost/job-application.php:298
-#: templates/v2/single-jobpost/job-application.php:304
+#: templates/v1/single-jobpost/job-application.php:271 
+#: templates/v1/single-jobpost/job-application.php:275 
+#: templates/v1/single-jobpost/job-application.php:281 
+#: templates/v1/single-jobpost/job-application.php:300 
+#: templates/v1/single-jobpost/job-application.php:306 
+#: templates/v1/single-jobpost/job-application.php:316 
+#: templates/v2/single-jobpost/job-application.php:269 
+#: templates/v2/single-jobpost/job-application.php:273 
+#: templates/v2/single-jobpost/job-application.php:279 
+#: templates/v2/single-jobpost/job-application.php:298 
+#: templates/v2/single-jobpost/job-application.php:304 
 #: templates/v2/single-jobpost/job-application.php:314
 #, php-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: admin/class-simple-job-board-admin-meta-boxes-init.php:92
 msgid "%s Features"
-msgstr "%s Kenmerken"
+msgstr "%s functies"
 
-#: templates/v1/single-jobpost/job-application.php:130
+msgid "%s is required"
+msgstr "%s is vereist"
+
+#: templates/v1/single-jobpost/job-application.php:130 
 #: templates/v2/single-jobpost/job-application.php:129
 msgid "A valid email address is required."
 msgstr "Een geldig e-mailadres is verplicht."
 
-#: templates/v1/single-jobpost/job-application.php:141
+#: templates/v1/single-jobpost/job-application.php:141 
 #: templates/v2/single-jobpost/job-application.php:140
 msgid "A valid phone number is required."
-msgstr "Een geldig telefoonnummer is verplicht."
+msgstr "Een geldig telefoonnummer is vereist."
 
 #: public/partials/simple-job-board-template-functions.php:1430
 msgid "Access Forbidden. Please try again."
@@ -56,7 +55,7 @@ msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:150
 msgid "Actions"
-msgstr ""
+msgstr "Acties"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:226
 msgid "Add %s"
@@ -67,58 +66,58 @@ msgid ""
 "Add classes seprated by space or comma e.g. container sjb-container or "
 "container,sjb-container"
 msgstr ""
-"Voeg klassen toe gescheiden door een spatie of een komma, bijvoorbeeld toe "
-"te voegen container SJB-container of container, SJB-container"
+"Voeg klassen toe gescheiden door spatie of komma, b.v. container sjb-"
+"container of container, sjb-container"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:243
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:194
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:243 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:194 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:209
-#: admin/settings/class-simple-job-board-settings-job-features.php:178
+#:  admin/settings/class-simple-job-board-settings-job-features.php:178 
 #: admin/wizard/wizard-job-application-data.php:155
 msgid "Add Field"
-msgstr "Voeg veld toe"
+msgstr "Veld toevoegen"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:225
 msgid "Add New"
 msgstr "Nieuwe toevoegen"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:284
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:334
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:284 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:334 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:384
 msgid "Add New %s"
-msgstr "Voeg nieuwe %s"
+msgstr "Nieuwe %s toevoegen"
 
 #: admin/settings/class-simple-job-board-settings-job-features.php:156
 msgid "Add New Feature"
-msgstr "Voeg nieuwe kenmerken toe"
+msgstr "Nieuwe eigenschap toevoegen"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:288
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:338
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:288 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:338 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:388
 msgid "Add or remove"
 msgstr "Toevoegen of verwijderen"
 
 #: admin/class-simple-job-board-admin-add-ons.php:49
 msgid "Add-ons"
-msgstr ""
+msgstr "Add-ons"
 
-#: includes/class-simple-job-board-notifications.php:252
-#: includes/class-simple-job-board-notifications.php:338
+#: includes/class-simple-job-board-notifications.php:252 
+#: includes/class-simple-job-board-notifications.php:338 
 #: includes/class-simple-job-board-notifications.php:382
 msgid "Admin"
-msgstr "Management"
+msgstr "Beheerder"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:101
 msgid "Admin Email:"
-msgstr "Admin Email:"
+msgstr "Beheerder e-mail:"
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:72
 msgid "All"
-msgstr ""
+msgstr "Alles"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:224
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:281
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:331
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:224 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:281 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:331 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:381
 msgid "All %s"
 msgstr "Alle %s"
@@ -129,92 +128,95 @@ msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:372
 msgid "All Jobs"
-msgstr ""
+msgstr "Alle vacatures"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:56
+#: admin/settings/class-simple-job-board-settings-appearance.php:56 
 #: admin/wizard/wizard-job-data.php:87
 msgid "Appearance"
-msgstr "Vertoning"
+msgstr "Weergave"
 
-#: includes/class-simple-job-board-notifications.php:318
+#: includes/class-simple-job-board-notifications.php:318 
 #: includes/class-simple-job-board-notifications.php:376
 msgid "Applicant"
 msgstr "Sollicitant"
 
 #: includes/class-simple-job-board-privacy-exporter.php:74
 msgid "Applicant Details"
-msgstr ""
+msgstr "Sollicitant details"
 
-# Update: Email Template
-#: includes/class-simple-job-board-notifications.php:49
+#: includes/class-simple-job-board-notifications.php:49 
 #: includes/class-simple-job-board-notifications.php:84
 msgid "Applicant Resume Received %s "
-msgstr "Sollicitatie ontvangen voor %s "
+msgstr "Sollicitant CV ontvangen voor %s "
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:85
 msgid "Applicants"
-msgstr "Sollicitanten"
+msgstr ""
 
 #: admin/wizard/wizard-tabs.php:28
 msgid "Application Form"
-msgstr ""
+msgstr "Sollicitatie formulier"
 
-#: admin/class-simple-job-board-admin-meta-boxes-init.php:93
+#: admin/class-simple-job-board-admin-meta-boxes-init.php:93 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:46
 msgid "Application Form Fields"
-msgstr "Aanvraagformulier Velden"
+msgstr "Sollicitatieformulier velden"
 
 #: includes/class-simple-job-board-applicants.php:168
 msgid "Application Notes"
-msgstr "Sollicitant notities"
+msgstr "Sollicitatienotities"
 
-#: admin/class-simple-job-board-admin-meta-boxes-init.php:95
+#: admin/class-simple-job-board-admin-meta-boxes-init.php:95 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:148
 msgid "Application Status"
-msgstr ""
+msgstr "Sollicitatie status"
 
 #: admin/class-simple-job-board-widgets-dashboard.php:201
 msgid "Applications"
 msgstr ""
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:105
+#: admin/settings/class-simple-job-board-settings-appearance.php:229
+msgid "Apply For This Job"
+msgstr "Solliciteer op deze baan"
+
+#: admin/settings/class-simple-job-board-settings-appearance.php:105 
 #: public/partials/simple-job-board-template-functions.php:749
 msgid "Apply Now"
-msgstr ""
+msgstr "Solliciteer nu"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:367
 msgid "Apply Now Button Text"
 msgstr ""
 
-#: templates/v1/single-jobpost/job-application.php:30
+#: templates/v1/single-jobpost/job-application.php:30 
 #: templates/v2/single-jobpost/job-application.php:30
 msgid "Apply Online"
-msgstr "Online solliciteren"
+msgstr ""
 
 #: public/class-simple-job-board-public.php:136
 msgid "Are you sure you want to close? All the unsaved data will be lost."
 msgstr ""
 
-#: includes/class-simple-job-board-notifications.php:321
+#: includes/class-simple-job-board-notifications.php:321 
 #: includes/class-simple-job-board-notifications.php:379
 msgid "at"
-msgstr "in"
+msgstr "op"
 
-#: templates/v1/single-jobpost/job-application.php:231
+#: templates/v1/single-jobpost/job-application.php:231 
 #: templates/v2/single-jobpost/job-application.php:230
 msgid "Attach Resume"
-msgstr "Voeg uw C.V. toe"
+msgstr "Voeg CV toe"
 
-#: admin/wizard/wizard-get-ready.php:117
-#: admin/wizard/wizard-job-application-data.php:159
+#: admin/wizard/wizard-get-ready.php:117 
+#: admin/wizard/wizard-job-application-data.php:159 
 #: admin/wizard/wizard-job-data.php:190
 msgid "Back"
-msgstr ""
+msgstr "Terug"
 
-#: templates/v1/listing/content-no-jobs-found.php:33
+#: templates/v1/listing/content-no-jobs-found.php:33 
 #: templates/v2/listing/content-no-jobs-found.php:33
 msgid "Back to Jobs Page"
-msgstr ""
+msgstr "Terug naar de vacature pagina"
 
 #: public/partials/simple-job-board-template-functions.php:1445
 msgid "Bad Gateway. Please try again."
@@ -226,17 +228,16 @@ msgstr ""
 
 #: includes/class-simple-job-board-notifications.php:379
 msgid "based on their evaluation of your CV."
-msgstr ""
-"zal contact opnemen indien u in aanmerking komt op basis van uw evaluatie."
+msgstr "Gebasseerd op hun evaluatie van je CV."
 
-#: includes/class-simple-job-board-notifications.php:337
+#: includes/class-simple-job-board-notifications.php:337 
 #: includes/class-simple-job-board-notifications.php:381
 msgid "Best Regards,"
 msgstr "Met vriendelijke groeten,"
 
 #: public/class-simple-job-board-public.php:139
 msgid "Browse"
-msgstr "Kiezen"
+msgstr "Bladeren"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:361
 msgid "Button text for Classic Layout listing page."
@@ -248,47 +249,47 @@ msgstr ""
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:588
 msgid "Buttons Background Color"
-msgstr ""
+msgstr "Achtergrondkleur knoppen"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:596
 msgid "Buttons Text Color"
-msgstr ""
+msgstr "Tekstkleur knoppen"
 
 #: admin/class-simple-job-board-admin-add-ons.php:98
 msgid "Buy Now"
-msgstr ""
+msgstr "Koop nu"
 
 #: admin/wizard/wizard-tabs.php:15
 msgid "by "
-msgstr ""
+msgstr "door "
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:146
 msgid "Categories"
 msgstr "Categorieën"
 
-#: templates/v1/search/category-filter.php:29
+#: templates/v1/search/category-filter.php:29 
 #: templates/v2/search/category-filter.php:30
 msgid "Category"
 msgstr "Categorie"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:49
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:49 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:68
-#: admin/wizard/wizard-job-application-data.php:23
+#:  admin/wizard/wizard-job-application-data.php:23
 msgid "Check Box"
-msgstr "Check Box"
+msgstr "Selectievak"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:289
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:339
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:289 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:339 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:389
 msgid "Choose from most used"
-msgstr "U kunt kiezen uit de meest gebruikte"
+msgstr "Kies uit de meest gebruikte"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:409
+#: admin/settings/class-simple-job-board-settings-appearance.php:409 
 #: admin/wizard/wizard-job-data.php:133
 msgid "Classic Layout"
-msgstr ""
+msgstr "Klassieke lay-out"
 
-#: templates/v1/listing/job-listings-start.php:33
+#: templates/v1/listing/job-listings-start.php:33 
 #: templates/v2/listing/job-listings-start.php:31
 msgid "Clear Results"
 msgstr ""
@@ -307,15 +308,15 @@ msgstr "Bedrijfsnaam"
 
 #: admin/meta-boxes/class-simple-job-board-meta-box-job-data.php:35
 msgid "Company Tagline"
-msgstr "Bedrijfs Tag"
+msgstr "Bedrijfsslogan"
 
 #: admin/meta-boxes/class-simple-job-board-meta-box-job-data.php:34
 msgid "Company Website"
-msgstr "Bedrijfswebsite"
+msgstr "Bedrijfssite"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:72
 msgid "Configure Privacy Policy Settings"
-msgstr ""
+msgstr "Configureer privacybeleid instellingen"
 
 #: public/partials/simple-job-board-template-functions.php:1436
 msgid "Conflict. Please try again."
@@ -323,15 +324,15 @@ msgstr ""
 
 #: admin/class-simple-job-board-admin-add-ons.php:114
 msgid "Contact Us"
-msgstr ""
+msgstr "Neem contact met ons op"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:265
 msgid "Content Wrapper Styling"
-msgstr "Content Wrapper Styling"
+msgstr "Inhoud wrapper stijling"
 
 #: admin/wizard/wizard-job-data.php:191
 msgid "Continue"
-msgstr ""
+msgstr "Ga verder"
 
 #: public/partials/simple-job-board-template-functions.php:1415
 msgid "Continue."
@@ -341,9 +342,9 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:48
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:48 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:67
-#: admin/wizard/wizard-job-application-data.php:22
+#:  admin/wizard/wizard-job-application-data.php:22 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:147
 msgid "Date"
 msgstr "Datum"
@@ -354,123 +355,115 @@ msgstr ""
 
 #: includes/class-simple-job-board-notifications.php:311
 msgid "Dear %s,"
-msgstr ""
+msgstr "Beste %s,"
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:149
 msgid "Default Applicant Name"
-msgstr ""
+msgstr "Standaard sollicitantnaam"
 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:75
-#: admin/wizard/wizard-job-application-data.php:31
+#:  admin/wizard/wizard-job-application-data.php:31
 msgid "Default Application Form Fields"
-msgstr "Standaard Aanvraagformulier Velden"
+msgstr "Standaardvelden van sollicitatieformulier"
 
 #: admin/settings/class-simple-job-board-settings-job-features.php:77
 msgid "Default Feature List"
-msgstr "Standaard Kenmerken Lijst"
+msgstr "Standaard eigenschappenlijst"
 
-#: admin/class-simple-job-board-admin.php:173
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:123
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:189
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:113
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:156
+#: admin/class-simple-job-board-admin.php:173 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:123 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:189 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:113 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:156 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:153
-#: admin/settings/class-simple-job-board-settings-job-features.php:137
+#:  admin/settings/class-simple-job-board-settings-job-features.php:137 
 #: admin/wizard/wizard-job-application-data.php:98
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:452
+#: admin/settings/class-simple-job-board-settings-appearance.php:452 
 #: admin/wizard/wizard-job-data.php:107
-#, fuzzy
-#| msgid "Display Job Listing with Company Logo and Detail"
 msgid "Display Job Listing with Company Logo and Job Detail"
-msgstr "Vertoning vacatures met logo en detail bedrijf"
+msgstr "Toon vacatures met bedrijfslogo en vacature detail"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:462
+#: admin/settings/class-simple-job-board-settings-appearance.php:462 
 #: admin/wizard/wizard-job-data.php:117
 msgid "Display Job Listing without Company Logo"
-msgstr "Vertoning vacatures zonder logo"
+msgstr "Toon vacature zonder bedrijfslogo"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:457
+#: admin/settings/class-simple-job-board-settings-appearance.php:457 
 #: admin/wizard/wizard-job-data.php:112
-#, fuzzy
-#| msgid "Display Job Listing without Company Logo and Detail"
 msgid "Display Job Listing without Company Logo and Job Detail"
-msgstr "Vertoning vacatures zonder logo en detail bedrijf"
+msgstr "Toon vacature zonder bedrijfslogo en vacature detail"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:467
+#: admin/settings/class-simple-job-board-settings-appearance.php:467 
 #: admin/wizard/wizard-job-data.php:122
 msgid "Display Job Listing without Job Detail"
-msgstr "Vacaturelijst weergeven zonder taakdetail"
+msgstr "Toon vacature overzicht zonder vacature details"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:505
+#: admin/settings/class-simple-job-board-settings-appearance.php:505 
 #: admin/wizard/wizard-job-data.php:150
 msgid "Display Job Post with Company Logo"
-msgstr ""
+msgstr "Toon vacaturebericht met bedrijfslogo"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:510
+#: admin/settings/class-simple-job-board-settings-appearance.php:510 
 #: admin/wizard/wizard-job-data.php:155
 msgid "Display Job Post without Company Logo"
-msgstr ""
+msgstr "Toon vacaturebericht zonder bedrijfslogo"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:168
-#, fuzzy
-#| msgid "doc"
 msgid "Doc"
-msgstr "doc"
+msgstr "Doc"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:193
-#, fuzzy
-#| msgid "docx"
 msgid "Docx"
-msgstr "docx"
+msgstr "Docx"
 
-#: admin/wizard/wizard-get-ready.php:30 admin/wizard/wizard-get-ready.php:37
-#: admin/wizard/wizard-get-ready.php:44 admin/wizard/wizard-get-ready.php:51
+#: admin/wizard/wizard-get-ready.php:30 admin/wizard/wizard-get-ready.php:37 
+#: admin/wizard/wizard-get-ready.php:44 admin/wizard/wizard-get-ready.php:51 
 #: admin/wizard/wizard-get-ready.php:58
 msgid "Download Now"
-msgstr ""
+msgstr "Download nu"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:50
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:50 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:69
-#: admin/wizard/wizard-job-application-data.php:24
+#:  admin/wizard/wizard-job-application-data.php:24
 msgid "Drop Down"
-msgstr "Drop Down"
+msgstr "Dropdown"
 
-#: includes/posttypes/class-simple-job-board-post-type-applicants.php:88
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:227
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:282
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:332
+#: includes/posttypes/class-simple-job-board-post-type-applicants.php:88 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:227 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:282 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:332 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:382
 msgid "Edit %s"
 msgstr "Bewerk %s"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:46
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:46 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:65
-#: admin/wizard/wizard-job-application-data.php:20
+#:  admin/wizard/wizard-job-application-data.php:20
 msgid "Email"
-msgstr "Email adres"
+msgstr "E-mail"
 
 #: admin/wizard/wizard-get-ready.php:82
 msgid "Email Attachment Add-on"
-msgstr ""
+msgstr "E-mail bijlagen add-on"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:50
 msgid "Email Notifications"
-msgstr "E-mail notificaties"
+msgstr "E-mail berichten"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:291
 msgid "Enable all Extensions"
-msgstr "Inschakelen van alle extensies"
+msgstr "Alle extensies inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:77
 msgid "Enable Email Notification"
-msgstr "Inschakelen Email Notificatie"
+msgstr "E-mailberichten inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:281
 msgid "Enable SJB Fonts"
-msgstr ""
+msgstr "SJB lettertypen inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:98
 msgid "Enable Terms & Conditions Field"
@@ -478,31 +471,31 @@ msgstr ""
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:109
 msgid "Enable the Admin Email Notification"
-msgstr "Inschakelen Admin Email Notificatie"
+msgstr "e-mail berichten naar beheerder inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:113
 msgid "Enable the Applicant Email Notification"
-msgstr "Inschakelen Sollicitant e-mailbericht"
+msgstr "e-mail berichten naar sollicitant inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:98
 msgid "Enable the HR Email Notification"
-msgstr "Inschakelen HR Email Notificatie"
+msgstr "HR e-mail bericht inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:84
 msgid "Enable the Job Category Filter"
-msgstr "Inschakelen Vacature Categorie Filter"
+msgstr "Filter op vacaturecategorie inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:94
 msgid "Enable the Job Location Filter"
-msgstr "Inschakelen Vacature Locatie Filter"
+msgstr "Filter op vacaturelocatie inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:89
 msgid "Enable the Job Type Filter"
-msgstr "Inschakelen Vacature Type Filter"
+msgstr "Filter op vacaturetype inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:99
 msgid "Enable the Search Bar"
-msgstr "Inschakelen Zoek balk"
+msgstr "Zoekbalk inschakelen"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:90
 msgid "Enter upload file size..."
@@ -510,42 +503,43 @@ msgstr ""
 
 #: admin/wizard/wizard-get-started.php:14
 msgid "Explore Settings"
-msgstr ""
+msgstr "Instellingen verkennen"
 
-#: admin/class-simple-job-board-admin.php:179
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:134
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:200
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:241
+#: admin/class-simple-job-board-admin.php:179 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:134 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:200 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:241 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:165
+#:  
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:207
-#: admin/wizard/wizard-job-application-data.php:110
+#:  admin/wizard/wizard-job-application-data.php:110 
 #: admin/wizard/wizard-job-application-data.php:150
 msgid "Expose in Applicant Listing"
-msgstr ""
+msgstr "Toon in sollicitanten overzicht"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:168
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:168 
 #: admin/settings/class-simple-job-board-settings-job-features.php:160
 msgid "Feature"
-msgstr "Kenmerk"
+msgstr "Eigenschap"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:216
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:216 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:185
-#: admin/wizard/wizard-job-application-data.php:128
+#:  admin/wizard/wizard-job-application-data.php:128
 msgid "Field"
 msgstr "Veld"
 
-#: admin/class-simple-job-board-admin.php:175
-#: admin/class-simple-job-board-admin.php:183
+#: admin/class-simple-job-board-admin.php:175 
+#: admin/class-simple-job-board-admin.php:183 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:137
-#: admin/settings/class-simple-job-board-settings-job-features.php:118
+#:  admin/settings/class-simple-job-board-settings-job-features.php:118 
 #: admin/wizard/wizard-job-application-data.php:82
 msgid "Field Name"
 msgstr "Veldnaam"
 
-#: includes/class-simple-job-board-resume-download-handler.php:71
+#: includes/class-simple-job-board-resume-download-handler.php:71 
 #: includes/class-simple-job-board-resume-download-handler.php:99
 msgid "File not found"
-msgstr ""
+msgstr "Bestand niet gevonden"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:92
 msgid "File size in Megabytes(MB)"
@@ -553,7 +547,7 @@ msgstr ""
 
 #: admin/wizard/wizard-tabs.php:24
 msgid "Fill Job Data"
-msgstr ""
+msgstr "Vacature gegevens invullen"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:45
 msgid "Filters"
@@ -561,23 +555,23 @@ msgstr "Filters"
 
 #: admin/wizard/wizard-get-ready.php:118
 msgid "Finish"
-msgstr ""
+msgstr "Afronden"
 
 #: admin/wizard/wizard-get-ready.php:29
 msgid "Flexy BreadCrumb"
-msgstr ""
+msgstr "Flexy kruimelpad"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:572
 msgid "Font Awesome Icon Color"
-msgstr "Font Awesome icoon kleur"
+msgstr "Font Awesome pictogramkleur"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:580
 msgid "Font Awesome Text Color"
-msgstr "Font Awesome tekst kleur"
+msgstr "Font Awesome tekstkleur"
 
 #: admin/wizard/wizard-get-ready.php:70
 msgid "Frontend Job Posting Add-on"
-msgstr ""
+msgstr "Front-end vacature plaatsen add-on"
 
 #: public/partials/simple-job-board-template-functions.php:1447
 msgid "Gateway Time-out. Please try again."
@@ -593,24 +587,24 @@ msgstr "Algemene opties"
 
 #: admin/wizard/wizard-get-ready.php:11 admin/wizard/wizard-tabs.php:32
 msgid "Get Ready"
-msgstr ""
+msgstr "Maak je klaar"
 
 #: admin/wizard/wizard-tabs.php:20
 msgid "Get Started"
-msgstr ""
+msgstr "Aan de slag"
 
 #: admin/wizard/wizard-get-ready.php:16
 msgid "Get Support"
-msgstr ""
+msgstr "Krijg ondersteuning"
 
 #: includes/class-simple-job-board-resume-download-handler.php:123
 msgid "Go to Dashboard"
-msgstr ""
+msgstr "Ga naar dashboard"
 
-#: admin/wizard/wizard-get-ready.php:72 admin/wizard/wizard-get-ready.php:84
+#: admin/wizard/wizard-get-ready.php:72 admin/wizard/wizard-get-ready.php:84 
 #: admin/wizard/wizard-get-ready.php:96 admin/wizard/wizard-get-ready.php:108
 msgid "Go to Market Place"
-msgstr ""
+msgstr "Ga naar Marktplaats"
 
 #: public/partials/simple-job-board-template-functions.php:1437
 msgid "Gone"
@@ -618,39 +612,39 @@ msgstr ""
 
 #: includes/class-simple-job-board-notifications.php:380
 msgid "Good Luck!"
-msgstr "Bedankt!"
+msgstr "Veel succes!"
 
 #: includes/class-simple-job-board-notifications.php:321
 msgid "has applied against your job opening"
-msgstr "uw aanvraag voor de vacature van"
+msgstr "heeft gesolliciteerd op je vacature"
 
 #: includes/class-simple-job-board-notifications.php:379
 msgid "has been successfully submitted. You will hear back from"
-msgstr "succesvol is ingediend. Je hoort terug van"
+msgstr "is succesvol verzonden. Je krijgt spoedig een reactie van"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:564
 msgid "Headings Color"
-msgstr "Rubrieken kleur"
+msgstr "Heading kleur"
 
 #: includes/class-simple-job-board-notifications.php:371
 msgid "Hi"
-msgstr "Beste"
+msgstr "Hallo"
 
 #: includes/class-simple-job-board-notifications.php:254
 msgid "Hi %s"
-msgstr ""
+msgstr "Hallo %s,"
 
 #: admin/wizard/wizard-get-ready.php:94
 msgid "How to Apply Add-on"
-msgstr ""
+msgstr "Hoe een add-on toepassen"
 
 #: includes/class-simple-job-board-notifications.php:309
 msgid "HR"
-msgstr ""
+msgstr "HR"
 
 #: admin/settings/class-simple-job-board-settings-email-notifications.php:90
 msgid "HR Email:"
-msgstr "HR Email:"
+msgstr "HR e-mail:"
 
 #: public/partials/simple-job-board-template-functions.php:1448
 msgid "HTTP Version not supported. Please try again."
@@ -658,41 +652,44 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "http://pressTigers.com"
-msgstr "http://pressTigers.com"
+msgstr ""
 
 #. URI of the plugin
 msgid "https://wordpress.org/plugins/simple-job-board/simple-job-board-uri"
-msgstr "https://wordpress.org/plugins/simple-job-board/simple-job-board-uri"
+msgstr ""
 
 #: includes/class-simple-job-board-notifications.php:256
 msgid "I am applying for the job post"
-msgstr "Ik solliciteer voor de positie van"
+msgstr "Ik solliciteer op de vacature"
 
 #: includes/class-simple-job-board-notifications.php:271
 msgid "I look forward to hearing from you."
-msgstr "Ik kijk ernaar uit om iets van u te vernemen."
+msgstr "We horen graag van je."
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:173
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:173 
 #: admin/settings/class-simple-job-board-settings-job-features.php:171
 msgid "Icon"
-msgstr ""
+msgstr "Icoon"
 
 #: admin/class-simple-job-board-widgets-dashboard.php:199
 msgid "ID"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:35
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:35 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:257
 msgid "In Process"
-msgstr ""
+msgstr "In behandeling"
 
 #: public/partials/simple-job-board-template-functions.php:1443
 msgid "Internal Server Error. Please try again."
 msgstr ""
 
+msgid "is required"
+msgstr "is vereist"
+
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:210
 msgid "Job"
-msgstr "Vacature"
+msgstr "Taak"
 
 #: includes/class-simple-job-board-notifications.php:193
 msgid "Job Application"
@@ -700,24 +697,24 @@ msgstr "Sollicitatie"
 
 #: includes/class-simple-job-board-notifications.php:193
 msgid "Job Application Acknowledgement"
-msgstr "Sollicitatie"
+msgstr "Sollicitatie bevestiging"
 
 #: admin/wizard/wizard-job-application-data.php:11
 msgid "Job Application Form"
-msgstr ""
+msgstr "Sollicitatie formulier"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:163
 msgid "Job Applications"
-msgstr ""
+msgstr "Sollicitaties"
 
-#: includes/class-simple-job-board-privacy-exporter.php:101
+#: includes/class-simple-job-board-privacy-exporter.php:101 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:145
 msgid "Job Applied for"
-msgstr "Gereageerd op vacature"
+msgstr "Vacature waarop gesolliciteerd is"
 
 #: templates/archive-jobpost.php:51
 msgid "Job Archives"
-msgstr "Vacature archief"
+msgstr "Vacature archieven"
 
 #: admin/settings/class-simple-job-board-settings-general.php:175
 msgid "Job Archives Page Title:"
@@ -725,73 +722,75 @@ msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:223
 msgid "Job Board"
-msgstr "Vacatures"
+msgstr "Vacaturelijst"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:295
 msgid "Job Board Container Class:"
-msgstr "Job Board Container Class:"
+msgstr "Job Board-containerklasse:"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:286
+#, fuzzy
+#| msgid "Job Board Container ID:"
 msgid "Job Board Container Id:"
-msgstr "Job Board Container Id:"
+msgstr "Job Board container ID:"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:274
 msgid "Job Categories"
-msgstr "Categorieën"
+msgstr "Vacature categorieën"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:273
-#: templates/v1/single-jobpost/job-features.php:56
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:273 
+#: templates/v1/single-jobpost/job-features.php:56 
 #: templates/v2/single-jobpost/job-features.php:62
 msgid "Job Category"
-msgstr "Categorie"
+msgstr "Vacature categorie"
 
 #: admin/settings/class-simple-job-board-settings-general.php:150
 msgid "Job Category Taxonomy Slug:"
-msgstr "Vacature Categorie Taxonomie Slug:"
+msgstr ""
 
 #: admin/class-simple-job-board-admin-meta-boxes-init.php:94
 msgid "Job Data"
-msgstr "Vacature Gegevens"
+msgstr "Vacature gegevens"
 
-#: admin/settings/class-simple-job-board-settings-job-features.php:51
-#: templates/v1/single-jobpost/job-features.php:39
+#: admin/settings/class-simple-job-board-settings-job-features.php:51 
+#: templates/v1/single-jobpost/job-features.php:39 
 #: templates/v2/single-jobpost/job-features.php:40
 msgid "Job Features"
-msgstr "Vacature kenmerken"
+msgstr "Vacature eigenschappen"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:548
 msgid "Job Filters Background Color"
-msgstr "Vacature filters achtergrond kleur"
+msgstr "Achtergrondkleur vacature filters"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:325
 msgid "Job Listing Buttons"
 msgstr ""
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:438
+#: admin/settings/class-simple-job-board-settings-appearance.php:438 
 #: admin/wizard/wizard-job-data.php:102
 msgid "Job Listing Contents"
-msgstr "Vacature Lijst Inhoud"
+msgstr "Inhoud van vacature"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:373
 msgid "Job Location"
-msgstr "Locatie"
+msgstr "Locatie van de vacature"
 
 #: admin/settings/class-simple-job-board-settings-general.php:165
 msgid "Job Location Taxonomy Slug:"
-msgstr "Vacature Locatie Taxonomie Slug:"
+msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:374
 msgid "Job Locations"
-msgstr "Locaties"
+msgstr "Locaties van de vacature"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:213
 msgid "Job Pages Layout"
-msgstr ""
+msgstr "Vacature pagina lay-out"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:491
+#: admin/settings/class-simple-job-board-settings-appearance.php:491 
 #: admin/wizard/wizard-job-data.php:145
 msgid "Job Post Content"
-msgstr ""
+msgstr "Vacaturebericht inhoud"
 
 #: admin/class-simple-job-board-widgets-dashboard.php:200
 msgid "Job Title"
@@ -801,62 +800,64 @@ msgstr ""
 msgid "Job Title Color"
 msgstr "Vacature titelkleur"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:323
-#: templates/v1/search/type-filter.php:29
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:323 
+#: templates/v1/search/type-filter.php:29 
 #: templates/v2/search/type-filter.php:28
 msgid "Job Type"
-msgstr "Vacature Type"
+msgstr "Vacature type"
 
 #: admin/settings/class-simple-job-board-settings-general.php:157
 msgid "Job Type Taxonomy Slug:"
-msgstr "Vacature Type Taxonomie Slug:"
+msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:324
 msgid "Job Types"
-msgstr "Vacature Types"
+msgstr "Vacature types"
 
 #: admin/settings/class-simple-job-board-settings-general.php:141
 msgid "Jobpost Custom Post Type Slug:"
-msgstr "Vacature Custom Bericht Type Slug:"
+msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:211
 msgid "Jobs"
-msgstr "Vacatures"
+msgstr "Taken"
 
 #: admin/class-simple-job-board-widgets-dashboard.php:146
 msgid "Jobs Posted"
 msgstr ""
 
-#: templates/v1/search/keyword-search.php:32
-#: templates/v1/search/keyword-search.php:33
-#: templates/v2/search/keyword-search.php:32
+#: templates/v1/search/keyword-search.php:32 
+#: templates/v1/search/keyword-search.php:33 
+#: templates/v2/search/keyword-search.php:32 
 #: templates/v2/search/keyword-search.php:33
 msgid "Keywords"
-msgstr "Trefwoorden"
+msgstr "Trefwoord"
 
 #: public/partials/simple-job-board-template-functions.php:1438
 msgid "Length Required. Please try again."
 msgstr ""
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:95
+#, php-format
 msgid "List of %s with their resume."
-msgstr "Lijst van% s met hun CV."
+msgstr "Lijst van %s met hun CV."
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:646
+#: admin/settings/class-simple-job-board-settings-appearance.php:646 
 #: admin/wizard/wizard-job-data.php:160
 msgid "Loader Image"
-msgstr ""
+msgstr "Lader afbeelding"
 
-#: templates/v1/search/location-filter.php:29
+#: templates/v1/search/location-filter.php:29 
 #: templates/v2/search/location-filter.php:29
 msgid "Location"
 msgstr "Locatie"
 
 #: includes/class-simple-job-board-resume-download-handler.php:120
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:87
+#:  
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:90
 msgid "Maximum file size"
 msgstr ""
@@ -869,10 +870,10 @@ msgstr ""
 msgid "Method Not Allowed. Please try again."
 msgstr ""
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:414
+#: admin/settings/class-simple-job-board-settings-appearance.php:414 
 #: admin/wizard/wizard-job-data.php:138
 msgid "Modern Layout"
-msgstr ""
+msgstr "Moderne lay-out"
 
 #: admin/class-simple-job-board-widgets-dashboard.php:127
 msgid "Most Applied Job"
@@ -888,23 +889,23 @@ msgstr ""
 
 #: admin/wizard/wizard-get-ready.php:106
 msgid "Multiple Attachment Fields Add-on"
-msgstr ""
+msgstr "Meerdere bijlage velden add-on"
 
 #: public/partials/simple-job-board-template-functions.php:1421
 msgid "Multiple Choices"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:34
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:34 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:256
 msgid "New"
-msgstr ""
+msgstr "Nieuw"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:228
 msgid "New %s"
 msgstr "Nieuw %s"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:285
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:335
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:285 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:335 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:385
 msgid "New %s Name"
 msgstr "Nieuwe %s Naam"
@@ -915,7 +916,7 @@ msgstr ""
 
 #: admin/wizard/wizard-get-started.php:17
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:231
 msgid "No %s found"
@@ -923,17 +924,17 @@ msgstr "Geen %s gevonden"
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:232
 msgid "No %s found in trash"
-msgstr "Geen %s gevonden in prullenbak"
+msgstr "Geen %s gevonden in de prullenbak"
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:89
 #, php-format
 msgid "No %s found."
-msgstr ""
+msgstr "Geen %s gevonden."
 
 #. If no terms were found, output a default message.
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:250
 msgid "No Categories"
-msgstr "Geen Categorieën"
+msgstr "Geen categorieën"
 
 #: public/partials/simple-job-board-template-functions.php:1418
 msgid "No Content"
@@ -941,15 +942,13 @@ msgstr ""
 
 #: public/class-simple-job-board-public.php:140
 msgid "No file chosen"
-msgstr "Kies uw bestand"
+msgstr "Geen bestand gekozen"
 
-#: templates/v1/listing/content-no-jobs-found.php:30
+#: templates/v1/listing/content-no-jobs-found.php:30 
+#: templates/v2/listing/content-no-jobs-found.php:30 
 #: templates/v2/listing/content-no-jobs-found.php:30
-#: templates/v2/listing/content-no-jobs-found.php:30
-#, fuzzy
-#| msgid "No jobs found."
 msgid "No jobs found"
-msgstr "Geen vacatures gevonden."
+msgstr "Geen vacatures gevonden"
 
 #: public/partials/simple-job-board-template-functions.php:1417
 msgid "Non-Authoritative Information"
@@ -959,10 +958,10 @@ msgstr ""
 msgid "Not Acceptable. Please try again."
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:33
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:33 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:261
 msgid "Not Any"
-msgstr ""
+msgstr "Geen enkele"
 
 #: public/partials/simple-job-board-template-functions.php:1431
 msgid "Not Found. Please try again."
@@ -978,36 +977,34 @@ msgstr ""
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:88
 msgid "Number of posts to display:"
-msgstr ""
+msgstr "Aantal te tonen berichten:"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:218
-#, fuzzy
-#| msgid "odt"
 msgid "Odt"
-msgstr "odt"
+msgstr "Odt"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:676
+#: admin/settings/class-simple-job-board-settings-appearance.php:676 
 #: admin/wizard/wizard-job-data.php:181
 msgid "Only supported formate is .gif"
-msgstr ""
+msgstr "Het toegestaande bestandsformaat is .gif"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:604
 msgid "Pagination Background Color"
-msgstr "Paginering achtergrond kleur"
+msgstr "Paginering achtergrondkleur"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:612
 msgid "Pagination Text Color"
-msgstr "Paginering tekst kleur"
+msgstr "Paginering tekstkleur"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:233
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:286
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:336
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:233 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:286 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:336 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:386
 msgid "Parent %s"
 msgstr "Hoofd %s"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:287
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:337
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:287 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:337 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:387
 msgid "Parent %s:"
 msgstr "Hoofd %s:"
@@ -1021,73 +1018,68 @@ msgid "Payment Required"
 msgstr ""
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:143
-#, fuzzy
-#| msgid "pdf"
 msgid "PDF"
-msgstr "pdf"
+msgstr "PDF"
 
 #. %s Application ID.
 #: includes/class-simple-job-board-privacy-eraser.php:81
 #, php-format
 msgid "Personal data within application %s has been retained."
-msgstr ""
+msgstr "Persoonlijke gegevens in je sollicitatie %s blijven bewaard."
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:47
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:47 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:66
-#: admin/wizard/wizard-job-application-data.php:21
+#:  admin/wizard/wizard-job-application-data.php:21
 msgid "Phone"
 msgstr "Telefoonnummer"
 
 #: admin/class-simple-job-board-admin.php:178
 msgid "Please add options for this field."
-msgstr ""
+msgstr "Voeg opties toe voor dit veld."
 
 #: admin/class-simple-job-board-admin.php:177
 msgid "Please fill out application form field name."
-msgstr "Vul aanvraagformulier in met het veld naam."
+msgstr "Vul de veldnaam van het aanvraagformulier in."
 
 #: admin/class-simple-job-board-admin.php:176
 msgid "Please fill out job feature."
-msgstr "Vul vacature functie in."
+msgstr "Vul de vacature functie in."
 
 #: includes/class-simple-job-board-notifications.php:322
 msgid ""
 "Please login to your account to download the CV or check from the "
 "applicant's list from the dashboard."
 msgstr ""
-"Gelieve in te loggen op je account om de CV te downloaden of te bekijken in "
-"het dashboard."
+"Login op je account om het CV te downloaden of bekijk vanuit de lijst van "
+"sollicitanten op het dashboard."
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:290
 msgid "Please use ID name without #"
-msgstr ""
+msgstr "Gebruik ID naam zonder #"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:291
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:341
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:291 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:341 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:391
+#, php-format
 msgid "Popular %s"
 msgstr "Populaire %s"
 
-#: templates/v1/listing/grid-view/posted-date.php:23
-#: templates/v1/listing/list-view/posted-date.php:23
-#: templates/v1/single-jobpost/job-meta/job-posted-date.php:23
-#: templates/v2/listing/grid-view/posted-date.php:23
-#: templates/v2/listing/list-view/posted-date.php:23
+#: templates/v1/listing/grid-view/posted-date.php:23 
+#: templates/v1/listing/list-view/posted-date.php:23 
+#: templates/v1/single-jobpost/job-meta/job-posted-date.php:23 
+#: templates/v2/listing/grid-view/posted-date.php:23 
+#: templates/v2/listing/list-view/posted-date.php:23 
 #: templates/v2/single-jobpost/job-meta/job-posted-date.php:23
 msgid "Posted %s ago"
 msgstr "Geplaatst %s geleden"
 
 #. Description of the plugin
-#, fuzzy
-#| msgid ""
-#| "Powerful & Robust plugin creates a Job Board on your website in simple & "
-#| "elegant way."
 msgid ""
 "Powerful & Robust plugin to create a Job Board on your website in simple & "
 "elegant way."
 msgstr ""
-"Krachtig en robuuste plugin welke zorgt voor een Job Board op uw website in "
-"eenvoudige en elegante manier."
+"Krachtige & robuusteen WordPress plugin om vacatures op je site te plaatsen "
+"op een eenvoudige & elegante wijze."
 
 #: public/partials/simple-job-board-template-functions.php:1439
 msgid "Precondition Failed. Please try again."
@@ -1100,25 +1092,25 @@ msgstr "PressTigers"
 
 #: admin/wizard/wizard-get-ready.php:22
 msgid "PressTigers Plugins"
-msgstr ""
+msgstr "PressTigers plugins"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:48
 msgid "Privacy"
-msgstr ""
+msgstr "Privacy"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:108
 msgid "Privacy Policy Content"
-msgstr ""
+msgstr "Privacybeleid inhoud"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:102
 msgid "Privacy Policy Label (Opt.)"
-msgstr ""
+msgstr "Privacybeleid label (Opt.)"
 
 #: public/partials/simple-job-board-template-functions.php:1434
 msgid "Proxy Authentication Required. Please try again."
 msgstr ""
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:91
+#: admin/settings/class-simple-job-board-settings-appearance.php:91 
 #: public/partials/simple-job-board-template-functions.php:738
 msgid "Quick Apply"
 msgstr ""
@@ -1127,13 +1119,13 @@ msgstr ""
 msgid "Quick Apply Button Text:"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:51
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:51 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:70
-#: admin/wizard/wizard-job-application-data.php:25
+#:  admin/wizard/wizard-job-application-data.php:25
 msgid "Radio"
-msgstr "Radioknop"
+msgstr "Radio"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:98
+#: admin/settings/class-simple-job-board-settings-appearance.php:98 
 #: public/partials/simple-job-board-template-functions.php:743
 msgid "Read More"
 msgstr "Lees meer"
@@ -1146,29 +1138,29 @@ msgstr ""
 msgid "Recent 5 Jobs stats"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:37
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:37 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:259
 msgid "Rejected"
-msgstr ""
+msgstr "Geweigerd"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:672
+#: admin/settings/class-simple-job-board-settings-appearance.php:672 
 #: admin/wizard/wizard-job-data.php:177
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:148
 msgid "Remove personal data from applications including resumes."
-msgstr ""
+msgstr "Verwijder persoonsgegevens van applicaties, inclusief je cv."
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:143
 msgid "Remove Personal Data Settings"
-msgstr ""
+msgstr "Verwijder persoonlijke gegevens instellingen"
 
 #. %s Application ID.
 #: includes/class-simple-job-board-privacy-eraser.php:76
 #, php-format
 msgid "Removed personal data from application  %s."
-msgstr ""
+msgstr "Verwijder persoonlijke gegevens van sollicitatie %s."
 
 #: public/partials/simple-job-board-template-functions.php:1440
 msgid "Request Entity Too Large. Please try again."
@@ -1182,21 +1174,22 @@ msgstr ""
 msgid "Request-URI Too Large. Please try again."
 msgstr ""
 
-#: admin/class-simple-job-board-admin.php:174
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:119
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:186
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:238
+#: admin/class-simple-job-board-admin.php:174 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:119 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:186 
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:238 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:149
+#:  
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:203
-#: admin/wizard/wizard-job-application-data.php:94
+#:  admin/wizard/wizard-job-application-data.php:94 
 #: admin/wizard/wizard-job-application-data.php:146
 msgid "Required"
-msgstr "Verplicht"
+msgstr "Vereist"
 
-#: admin/wizard/wizard-tabs.php:25 admin/wizard/wizard-tabs.php:29
+#: admin/wizard/wizard-tabs.php:25 admin/wizard/wizard-tabs.php:29 
 #: admin/wizard/wizard-tabs.php:33
 msgid "Required Information"
-msgstr ""
+msgstr "Vereiste informatie"
 
 #: public/partials/simple-job-board-template-functions.php:1419
 msgid "Reset Content"
@@ -1204,42 +1197,44 @@ msgstr ""
 
 #: includes/class-simple-job-board-applicants.php:79
 msgid "Resume"
-msgstr "Resumé (C.V.)"
+msgstr "CV"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:243
-#, fuzzy
-#| msgid "rtf"
 msgid "Rtf"
-msgstr "rtf"
+msgstr "Rtf"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:693
+#: admin/settings/class-simple-job-board-settings-appearance.php:693 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:221
-#: admin/settings/class-simple-job-board-settings-email-notifications.php:137
-#: admin/settings/class-simple-job-board-settings-filters.php:113
-#: admin/settings/class-simple-job-board-settings-general.php:255
-#: admin/settings/class-simple-job-board-settings-job-features.php:190
-#: admin/settings/class-simple-job-board-settings-privacy.php:155
+#:  admin/settings/class-simple-job-board-settings-email-notifications.php:137 
+#: admin/settings/class-simple-job-board-settings-filters.php:113 
+#: admin/settings/class-simple-job-board-settings-general.php:255 
+#: admin/settings/class-simple-job-board-settings-job-features.php:190 
+#: admin/settings/class-simple-job-board-settings-privacy.php:155 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:311
-#: admin/wizard/wizard-job-application-data.php:161
+#:  admin/wizard/wizard-job-application-data.php:161
 msgid "Save Changes"
 msgstr "Wijzigingen opslaan"
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:230
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:290
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:340
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:230 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:290 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:340 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:390
 msgid "Search %s"
 msgstr "Zoek %s"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:43
-#: admin/settings/class-simple-job-board-settings-application-form-fields.php:62
-#: admin/wizard/wizard-job-application-data.php:17
-msgid "Section Heading"
+#: admin/class-simple-job-board-widgets-recent-jobs.php:29
+msgid "Search by tag:"
 msgstr ""
+
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:43 
+#: admin/settings/class-simple-job-board-settings-application-form-fields.php:62
+#:  admin/wizard/wizard-job-application-data.php:17
+msgid "Section Heading"
+msgstr "Sectie koptekst"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:296
 msgid "Security rules have been updated since SJB version 2.4.3."
-msgstr ""
+msgstr "Beveiligingsregels zijn geüpdatet sinds SJB versie 2.4.3."
 
 #: public/partials/simple-job-board-template-functions.php:1424
 msgid "See Other"
@@ -1247,30 +1242,30 @@ msgstr ""
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:70
 msgid "Select Category:"
-msgstr ""
+msgstr "Selecteer categorie:"
 
 #: admin/settings/class-simple-job-board-settings-filters.php:69
 msgid "Select filters that display on front-end"
-msgstr "Kies filters die worden weergegeven op de frontend"
+msgstr "Selecteer de filters die getoond worden op de front-end"
 
 #: admin/wizard/wizard-tabs.php:21
 msgid "Select Plugin"
-msgstr ""
+msgstr "Selecteer plugin"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:38
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:38 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:260
 msgid "Selected"
-msgstr ""
+msgstr "Geselecteerd"
 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:149
 msgid "Selected Information"
-msgstr ""
+msgstr "Geselecteerde informatie"
 
 #: public/partials/simple-job-board-template-functions.php:1446
 msgid "Service Unavailable. Please try again."
 msgstr ""
 
-#: admin/class-simple-job-board-admin-settings-init.php:167
+#: admin/class-simple-job-board-admin-settings-init.php:167 
 #: admin/class-simple-job-board-admin-settings-init.php:270
 msgid "Settings"
 msgstr "Instellingen"
@@ -1279,16 +1274,16 @@ msgstr "Instellingen"
 msgid "Settings have been saved."
 msgstr "Instellingen zijn opgeslagen."
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:430
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:464
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:430 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:464 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:496
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:36
+#: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:36 
 #: includes/posttypes/class-simple-job-board-post-type-applicants.php:258
 msgid "Shortlisted"
-msgstr ""
+msgstr "Op de shortlist"
 
 #: admin/settings/class-simple-job-board-settings-appearance.php:342
 msgid "Show Quick Apply Button"
@@ -1296,57 +1291,59 @@ msgstr ""
 
 #: admin/wizard/wizard-get-ready.php:36
 msgid "Simple Event Planner"
-msgstr ""
+msgstr "Eenvoudige evenementenplanner"
 
 #: admin/wizard/wizard-get-ready.php:43
 msgid "Simple Folio"
-msgstr ""
+msgstr "Eenvoudige portfolio"
 
 #. Name of the plugin
 #: admin/wizard/wizard-get-started.php:12 admin/wizard/wizard-tabs.php:14
 msgid "Simple Job Board"
 msgstr "Simple Job Board"
 
-#: admin/class-simple-job-board-admin-add-ons.php:49
+#: admin/class-simple-job-board-admin-add-ons.php:49 
 #: admin/class-simple-job-board-admin-add-ons.php:60
 msgid "Simple Job Board Add-ons"
-msgstr ""
+msgstr "Simple Job Board add-ons"
 
 #: admin/wizard/wizard-get-started.php:13
 msgid ""
 "Simple Job Board by PressTigers is an easy, light weight plugin that adds a "
 "job board to your WordPress website."
 msgstr ""
+"Simple Job Board van PressTigers is een eenvoudige, lichtgewicht plugin die "
+"een jobboard aan je WordPress site toevoegt."
 
 #: admin/wizard/wizard-get-ready.php:50
 msgid "Simple Owl Carousel"
-msgstr ""
+msgstr "Eenvoudige Owl carrousel"
 
 #: admin/wizard/wizard-get-ready.php:57
 msgid "Simple Testimonials Showcase"
-msgstr ""
+msgstr "Eenvoudige getuigenissen showcase"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:227
+#: admin/settings/class-simple-job-board-settings-appearance.php:227 
 #: admin/wizard/wizard-job-data.php:92
 msgid "SJB Layout"
-msgstr ""
+msgstr "SJB lay-out"
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:31
 msgid "SJB Recent Jobs"
-msgstr ""
+msgstr "SJB recente vacatures"
 
 #: admin/meta-boxes/class-simple-job-board-meta-box-application-status.php:43
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
-#: templates/v1/single-jobpost/job-application.php:354
+#: templates/v1/single-jobpost/job-application.php:354 
 #: templates/v2/single-jobpost/job-application.php:353
 msgid "Submit"
-msgstr "Solliciteren"
+msgstr "Versturen"
 
 #: admin/wizard/wizard-get-ready.php:17
 msgid "Submit your ticket and get support on your queries."
-msgstr ""
+msgstr "Dien je ticket in en krijg ondersteuning bij je vragen."
 
 #: public/partials/simple-job-board-template-functions.php:1416
 msgid "Switching Protocols."
@@ -1354,70 +1351,68 @@ msgstr ""
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:120
 msgid "Terms & Conditions Content"
-msgstr ""
+msgstr "Voorwaarden & condities inhoud"
 
 #: admin/settings/class-simple-job-board-settings-privacy.php:114
 msgid "Terms & Conditions Label (Opt.)"
-msgstr ""
+msgstr "Voorwaarden & condities (Opt.)"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:267
-#, fuzzy
-#| msgid "txt"
 msgid "Text"
-msgstr "txt"
+msgstr "Tekst"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:45
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:45 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:64
-#: admin/wizard/wizard-job-application-data.php:19
+#:  admin/wizard/wizard-job-application-data.php:19
 msgid "Text Area"
 msgstr "Tekstgebied"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:44
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:44 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:63
-#: admin/wizard/wizard-job-application-data.php:18
+#:  admin/wizard/wizard-job-application-data.php:18
 msgid "Text Field"
-msgstr "Tekstveld"
+msgstr "Tekst veld"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:234
+#: admin/settings/class-simple-job-board-settings-appearance.php:234 
 #: admin/wizard/wizard-job-data.php:97
 msgid "Theme Layout"
-msgstr ""
+msgstr "Thema lay-out"
 
-#: admin/settings/class-simple-job-board-settings-appearance.php:395
+#: admin/settings/class-simple-job-board-settings-appearance.php:395 
 #: admin/wizard/wizard-job-data.php:128
 msgid "Theme Options"
-msgstr ""
+msgstr "Thema opties"
 
 #: admin/class-simple-job-board-admin.php:181
 msgid "There is no resume available against this job."
 msgstr ""
 
-#: admin/class-simple-job-board-admin.php:180
+#: admin/class-simple-job-board-admin.php:180 
 #: public/class-simple-job-board-public.php:133
 msgid "This is not an allowed file extension."
-msgstr "Dit is niet een toegestane bestandsextensie."
+msgstr "Dit type bestand is niet toegestaan."
 
 #: includes/class-simple-job-board-resume-download-handler.php:123
 msgid "This is not your download link."
-msgstr ""
+msgstr "Dit is niet je downloadlink."
 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:240
 msgid "This is where you can create and manage %s."
-msgstr "Dit is waar je kan creëren en managen %s."
+msgstr "Dit is waar je %s kunt maken en beheren."
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:63
 msgid "Title:"
-msgstr ""
+msgstr "Titel:"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:217
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-application.php:217 
 #: admin/settings/class-simple-job-board-settings-application-form-fields.php:189
-#: admin/wizard/wizard-job-application-data.php:132
+#:  admin/wizard/wizard-job-application-data.php:132
 msgid "Type"
 msgstr "Type"
 
 #: admin/class-simple-job-board-admin-add-ons.php:112
 msgid "Unable to locate required add-on?"
-msgstr ""
+msgstr "Kan je de vereiste add-on niet vinden?"
 
 #: public/partials/simple-job-board-template-functions.php:1428
 msgid "Unauthorized Access. Please try again."
@@ -1427,22 +1422,23 @@ msgstr ""
 msgid "Unsupported Media Type. Please try again."
 msgstr ""
 
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:283
-#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:333
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:283 
+#: includes/posttypes/class-simple-job-board-post-type-jobpost.php:333 
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:383
 msgid "Update %s"
 msgstr "%s bijwerken"
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-data.php:84
-#: admin/settings/class-simple-job-board-settings-appearance.php:671
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-data.php:84 
+#: admin/settings/class-simple-job-board-settings-appearance.php:671 
 #: admin/wizard/wizard-job-data.php:176
 msgid "Upload"
 msgstr "Upload"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:45
+#:  
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:105
 msgid "Upload File Extensions"
-msgstr "Upload bestandsextensies"
+msgstr "Bestandsextensies voor uploads"
 
 #: admin/settings/class-simple-job-board-settings-upload-file-extensions.php:72
 msgid "Upload File Size"
@@ -1452,7 +1448,7 @@ msgstr ""
 msgid "Use Proxy"
 msgstr ""
 
-#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:169
+#: admin/meta-boxes/class-simple-job-board-meta-box-job-features.php:169 
 #: admin/settings/class-simple-job-board-settings-job-features.php:164
 msgid "Value"
 msgstr "Waarde"
@@ -1468,51 +1464,54 @@ msgstr ""
 #: includes/posttypes/class-simple-job-board-post-type-jobpost.php:190
 #, php-format
 msgid "View Applications%s"
-msgstr ""
+msgstr "Bekijk sollicitaties%s"
 
 #: includes/class-simple-job-board-notifications.php:272
 msgid "Warm Regards,"
-msgstr "Met vriendelijke groeten,"
+msgstr "Warme groet,"
 
 #: includes/class-simple-job-board-notifications.php:256
 msgid ""
 "with interest. I have attached my resume with the job application. I have "
 "also filled out the required details."
 msgstr ""
-"ik heb mijn CV toegevoegd bij de aanvraag. Ik heb ook de nodige informatie "
-"ingevuld."
+"met interesse. Ik heb mijn CV en aan de sollicitatie toegevoegd. Ook heb ik "
+"de vereiste gegevens ingevuld."
 
 #: admin/class-simple-job-board-admin-settings-init.php:157
 msgid "Wizard"
-msgstr ""
+msgstr "Wizard"
 
 #: includes/class-simple-job-board-resume-download-handler.php:102
 msgid ""
 "You are not allowed to download this file. (If you believe you are "
 "authorized user then deactivate and reactivate Simple Job Board Plugin.)"
 msgstr ""
+"Je mag dit bestand niet downloaden. (Als je denkt dat je een geautoriseerde "
+"gebruiker bent, deactiveer en activeer dan de Simple Job Board plugin.)"
 
 #: includes/class-simple-job-board-resume-download-handler.php:120
 msgid "You must be logged in to download files."
-msgstr ""
+msgstr "Je moet ingelogd te zijn om bestanden te downloaden."
 
 #: public/class-simple-job-board-public.php:134
 msgid "Your application could not be processed."
-msgstr "Uw aanvraag kan niet worden verwerkt."
+msgstr "Je sollicitatie kon niet verwerkt worden."
 
 #: includes/class-simple-job-board-notifications.php:379
 msgid "Your application for the position of"
-msgstr "Uw aanvraag voor de vacature van"
+msgstr "Je sollicitatie voor de positie van"
 
-#: includes/class-simple-job-board-ajax.php:227
+#: includes/class-simple-job-board-ajax.php:227 
 #: public/class-simple-job-board-public.php:135
 msgid "Your application has been received. We will get back to you soon."
-msgstr "Uw aanvraag is ontvangen. We zullen z.s.m. contact met u opnemen."
+msgstr ""
+"Je sollicitatie is ontvangen. We komen er zo snel mogelijk bij je op terug."
 
 #: includes/class-simple-job-board-notifications.php:119
 msgid "Your Resume Received for Job %s "
-msgstr "Sollicitatie ontvangen voor %s "
+msgstr "Je cv is ontvangen voor vacature %s "
 
 #: admin/class-simple-job-board-widgets-recent-jobs.php:29
 msgid "Your site's most recent Jobs."
-msgstr ""
+msgstr "Je site meest recente vacatures."

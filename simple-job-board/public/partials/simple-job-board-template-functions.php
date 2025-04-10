@@ -1543,3 +1543,98 @@ if (!function_exists('sjb_job_archives_title')) {
 
 /* Hook -> Job Archive page title */
 add_filter('sjb_jobs_archive_title', 'sjb_job_archives_title', 10, 2);
+
+
+if (!function_exists('sjb_generate_csrf_token')) {
+
+    /**
+     * Generate a CSRF token, store it in a transient, and return it.
+     *
+     * @return string The generated CSRF token.
+     */
+    function sjb_generate_csrf_token() {
+        // Generate a secure random token
+        $token = bin2hex(random_bytes(32));
+
+        // Generate a unique guest ID
+        $guest_id = bin2hex(random_bytes(16));
+
+        // Store the token in a transient keyed by the guest ID
+        set_transient('csrf_token_' . $guest_id, $token, HOUR_IN_SECONDS);
+
+        // Return the token and guest ID
+        return [
+            'token' => $token,
+            'guest_id' => $guest_id,
+        ];
+    }
+}
+
+/**
+ * Verify a submitted CSRF token against the stored value and expire it.
+ *
+ * @param string $submitted_token The token to verify.
+ * @param string $guest_id (Optional) The guest ID for non-logged-in users.
+ * @return bool True if the token is valid, false otherwise.
+ */
+if (!function_exists('sjb_verify_csrf_token')) {
+
+    /**
+     * Generate a CSRF token, store it in a transient, and return it along with a guest ID.
+     *
+     * @return array An array containing the token and guest ID.
+     */
+    function sjb_verify_csrf_token($submitted_token, $guest_id) {
+        
+        // Retrieve the stored token from the transient using the guest ID
+        $stored_token = get_transient('csrf_token_' . $guest_id);
+
+        // Verify the token and delete the transient if valid
+        if ($stored_token && hash_equals($stored_token, $submitted_token)) {
+            delete_transient('csrf_token_' . $guest_id);
+            return true;
+        }
+
+        return false;
+    }
+}
+
+if (!function_exists('is_elementor_widget_added_to_jobpost')) {
+
+    /**
+     * Check if a specific Elementor widget is added to the job post detail page.
+     *
+     * @param string $widget_name The name of the Elementor widget to check for.
+     * @return bool True if the widget is found, false otherwise.
+     */
+
+    function is_elementor_widget_added_to_jobpost($widget_name) {
+
+        // Ensure Elementor is active
+        if (!class_exists('Elementor\Plugin')) {
+            return false;
+        }
+
+
+        // Get the current post ID
+        $post_id = get_the_ID();
+
+      
+        // Get the Elementor data for the current post
+        $elementor_data = Elementor\Plugin::instance()->frontend->get_builder_content($post_id);
+
+        // If there's no Elementor data, return false
+        if (empty($elementor_data)) {
+            return false;
+        }
+
+        // Check if the widget exists in the content
+        if (strpos($elementor_data, $widget_name) !== false) {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+

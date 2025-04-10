@@ -1,12 +1,12 @@
 === Simple Job Board ===
 Contributors: PressTigers
 Donate link: https://www.presstigers.com
-Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
+Tags: job board, careers, job listing, job manager, current openings, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.3
+Stable tag: 2.13.4
 License: GPLv3
-Requires PHP: 7.0
+Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Powerful & robust plugin to create a job board on your website in a simple & elegant way.
@@ -16,7 +16,12 @@ Powerful & robust plugin to create a job board on your website in a simple & ele
 = Simple Job Board provides an efficient solution for showcasing job openings on your careers page, and to receive job applications, ready to use with minimal configuration. =
 = Looking for an easy, user-friendly and robust Job board plugin? = 
 Simple Job Board by <a href="https://www.presstigers.com">PressTigers</a> is an easy, light weight plugin that adds a job board to your WordPress website. 
-This plugin is extendible and easy to use. A customized job board is created to manage various job openings via Wordpress with the Simple Job Board. You can add multiple job listings different types of shortcodes. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard. See below for more awesome features of this plugin:
+This plugin is extendible and easy to use. A customized job board is created to manage various job openings via WordPress with the Simple Job Board. You can add multiple job listings different types of shortcodes. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard.
+
+= Why Simple Job Board =
+* [Detailed Documentation](https://market.presstigers.com/simple-job-board-documentation/)
+* [Dedicated Support](https://market.presstigers.com/support/)
+* [Live Demo](https://jobboardextensions.demo.presstigers.com/)
 
 = Features in free version =
 * **Ready to Use:** Pre-configured plugin, just install and start adding jobs.
@@ -52,59 +57,75 @@ Please click here for [Simple Job Board Demo](https://jobboardextensions.demo.pr
 Manage your Job Board from anywhere with the Simple Job Board mobile app on [Android](https://play.google.com/store/apps/details?id=com.nextbridge.simple_job_board) and [iOS](https://apps.apple.com/us/app/simple-job-board/id1671815165).
 
 = Simple Job Board Add-ons =
+Here are some highly useful add-ons for Simple Job Board that can enhance its functionality and capabilities.
 
-* [Mobile App Connector](https://market.presstigers.com/product/mobile-app-connector-add-on/)
-* [Job Seeker Dashboard Add-on](https://market.presstigers.com/product/job-seeker-dashboard-add-on/)
-* [Frontend Job Posting with Paid Job Listing](https://market.presstigers.com/product/frontend-jobposting-add-on/)
-* [Custom Apply Link Add-on](https://market.presstigers.com/product/custom-apply-link-add-on/)
-* [Custom Redirection](https://market.presstigers.com/product/custom-redirection-add-on/)
-* [Job Board Add-on for WPBakery](https://market.presstigers.com/product/job-board-add-on-for-wpbakery/)
-* [Job Posting Management](https://market.presstigers.com/product/job-posting-management-add-on/)
-* [Job Board – Email Notifications Bundle](https://market.presstigers.com/product/job-board-email-notifications-bundle/)
-* [Individual Job Email Notifications](https://market.presstigers.com/product/individual-job-email-notifications-add-on/)
-* [Remove Job Posted Date](https://market.presstigers.com/product/remove-job-posted-date-add-on/)
-* [Geolocation Job Search](https://market.presstigers.com/product/geolocation-job-search-add-on/)
-* [Job Board – Custom Bundle](https://market.presstigers.com/product/job-board-custom-bundle/)
-* [Refer a Friend](https://market.presstigers.com/product/refer-a-friend-add-on/)
-* [Job Board Add-on for Elementor](https://market.presstigers.com/product/job-board-add-on-for-elementor/)
-* [Bulk Resume Download](https://market.presstigers.com/product/bulk-resume-download-add-on/)
-* [Job Board – 4 in 1 Bundle](https://market.presstigers.com/product/job-board-4-in-1-bundle/)
-* [Job Board – 6 in 1 Bundle](https://market.presstigers.com/product/job-board-6-in-1-bundle/)
-* [Job Board – Applications Handling Bundle](https://market.presstigers.com/product/job-board-applications-handling-bundle/)
-* [Job Board – Search and Sort Bundle](https://market.presstigers.com/product/job-board-search-and-sort-bundle/)
-* [Job Applications Counter](https://market.presstigers.com/product/job-applications-counter-add-on/)
-* [Extend Attachment File Types](https://market.presstigers.com/product/extend-attachment-file-types-add-on/)
-* [Job Listings Import/Export](https://market.presstigers.com/product/job-listings-import-export-add-on/)
-* [Job Board – Custom Bundle](https://market.presstigers.com/product/job-board-custom-bundle/)
-* [Cloud Storage Connector](https://market.presstigers.com/product/cloud-storage-connector-add-on/)
-* [Job Search Box](https://market.presstigers.com/product/job-search-box-add-on/)
-* [Custom Job Application Statuses](https://market.presstigers.com/product/custom-job-application-statuses-add-on/)
-* [Email Notification Templates](https://market.presstigers.com/product/email-notification-templates-add-on/)
-* [Resume Preview](https://market.presstigers.com/product/resume-preview-add-on/)
-* [Salary Range Filter](https://market.presstigers.com/product/salary-range-filter-add-on/)
-* [Jobs Sorting](https://market.presstigers.com/product/jobs-sorting-add-on/)
-* [Job Application Deadline](https://market.presstigers.com/product/job-application-deadline-add-on/)
-* [Job Board – 3 in 1 Bundle](https://market.presstigers.com/product/job-board-3-in-1-bundle/)
-* [Job Board – 5 in 1 Bundle](https://market.presstigers.com/product/job-board-5-in-1-bundle/)
-* [Job Board – All Filters Bundle](https://market.presstigers.com/product/job-board-all-filters-bundle/)
-* [AJAX Job Search](https://market.presstigers.com/product/ajax-job-search-add-on/)
-* [Featured Job Listing](https://market.presstigers.com/product/featured-job-listing-add-on/)
-* [Google Job Search and Indexing API](https://market.presstigers.com/product/google-job-search-and-indexing-api/)
-* [Job Applications CSV Exporter](https://market.presstigers.com/product/job-applications-csv-exporter/)
-* [Multiple Attachment Fields](https://market.presstigers.com/product/multiple-attachment-fields-add-on)
-* [Email Attachment](https://market.presstigers.com/product/email-application-add-on)
-* [How to Apply](https://market.presstigers.com/product/how-to-apply-add-on/)
-* [Job Application to PDF](https://market.presstigers.com/product/job-application-to-pdf-add-on/)
-* [Job Board CAPTCHA](https://market.presstigers.com/product/job-board-captcha-add-on)
-* [Company Details & Filter](https://market.presstigers.com/product/company-filter-add-on)
-* [Job Industry Filter](https://market.presstigers.com/product/job-industry-filter-add-on)
-* [Job Level Filter](https://market.presstigers.com/product/job-level-filter-add-on)
-* [Content Replacement](https://market.presstigers.com/product/extended-support)
-* [Job Expirator](https://market.presstigers.com/product/job-expirator-add-on)
-* [Location Base Hiring](https://market.presstigers.com/product/location-base-hiring)
-* [Category Base Hiring](https://market.presstigers.com/product/category-base-hiring)
-* [Job Alerts](https://market.presstigers.com/product/job-alerts-add-on/)
-* Not in the list, for custom add-on please [contact us](https://market.presstigers.com/contact-us)
+= Add-ons for Applications Management: =
+* [Email Attachment](https://market.presstigers.com/product/email-application-add-on/) - $20 : Sends applicant's information and the uploaded resume to Admin, HR & Job Author via email.
+* [How to Apply](https://market.presstigers.com/product/how-to-apply-add-on/) - $15 : Offers detailed instructions to applicants on the application process.
+* [Multiple Attachment Fields](https://market.presstigers.com/product/multiple-attachment-fields-add-on/) - $15 : Enables multiple upload fields in job application form.
+* [Job Board CAPTCHA](https://market.presstigers.com/product/job-board-captcha-add-on/) - $15 : An effective security solution that adds Google reCAPTCHA at the bottom of the job application form.
+* [Job Application to PDF](https://market.presstigers.com/product/job-application-to-pdf-add-on/) - $15 : Adds a “Print Application PDF” link on the applicant listing & detail page.
+* [Job Applications CSV Exporter](https://market.presstigers.com/product/job-applications-csv-exporter/) - $15 : Downloads the details of all applicants against every job in the CSV file.
+* [Resume Preview](https://market.presstigers.com/product/resume-preview-add-on/) - $10 : Enables a resume preview feature for admins on the application page.
+* [Location Base Hiring](https://market.presstigers.com/product/location-base-hiring) - $15 : Sends job notification to an HR added to each job location.
+* [Job Level Filter](https://market.presstigers.com/product/job-level-filter-add-on) - $10 : Adds a job level filter to your job filters.
+* [Category Base Hiring](https://market.presstigers.com/product/category-base-hiring) - $15 : Sends job notifications to an HR added to each job category.
+* [Custom Job Application Statuses](https://market.presstigers.com/product/custom-job-application-statuses-add-on/) - $15 : Gives you the liberty to define custom job application statuses.
+* [Job Application Deadline](https://market.presstigers.com/product/job-application-deadline-add-on/) - $10 : Adds a Job Deadline meta box to one’s job posts at backend.
+* [Bulk Resume Download](https://market.presstigers.com/product/bulk-resume-download-add-on/) - $10 : Enables administrators to download multiple resumes simultaneously for efficient review.
+* [Extend Attachment File Types](https://market.presstigers.com/product/extend-attachment-file-types-add-on/) - $10 : Accept more files with different extensions by allowing you to add custom file types instead of only using predefined ones.
+* [Job Applications Counter](https://market.presstigers.com/product/job-applications-counter-add-on/) - $10 : Displays the number of applications received for each job posting.
+* [Job Seeker Dashboard](https://market.presstigers.com/product/job-seeker-dashboard-add-on/) - $35 : Provides applicants with a personalized dashboard to monitor their job applications and manage resume.
+* [Job Alerts](https://market.presstigers.com/product/job-alerts-add-on/) - $20 : Allows job seekers to create email alerts for new job openings along with frequency i.e. daily, weekly, fortnightly, or monthly.
+
+= Add-ons for Jobs Management: =
+* [Job Expirator](https://market.presstigers.com/product/job-expirator-add-on) - $10 : Adds a Job Expirator meta box to your job posts at the backend.
+* [Frontend Job Posting](https://market.presstigers.com/product/frontend-jobposting-add-on/) - $35 : Frontend users can create their profile by Signup/Login to their dashboard and can Add/Edit their jobs and manage the job applications from the frontend.
+* [Content Replacement](https://market.presstigers.com/product/content-replacement-add-on/) - $10 : Changes the default placement of the Job Features section on the job detail page.
+* [Job Listings Import/Export](https://market.presstigers.com/product/job-listings-import-export-add-on/) - $20 : Facilitates the import and export of job listings for easy data management.
+* [Job Posting Management](https://market.presstigers.com/product/job-posting-management-add-on/) - $15 : Allows users to manage their jobs with auto re-publish and auto-delete features.
+
+= Add-ons for User Experience Enhancements: =
+* [Company Details & Filter](https://market.presstigers.com/product/company-filter-add-on) - $20 : Provides Company listing for Jobs and front end filters.
+* [Google Job Search and Indexing API](https://market.presstigers.com/product/google-job-search-and-indexing-api/) - $20 : Responsible to integrate the Google Structured Data against each job so google can identify your jobs.
+* [Remove Job Posted Date](https://market.presstigers.com/product/remove-job-posted-date-add-on/) - $10 : Remove the job posted date for your job post.
+* [Jobs Sorting](https://market.presstigers.com/product/jobs-sorting-add-on/) - $10 : Adds a sorting filter on the jobs listing page.
+* [Job Industry Filter](https://market.presstigers.com/product/job-industry-filter-add-on) - $10 : Adds a job industry filter to your job filters.
+* [Job Search Box](https://market.presstigers.com/product/job-search-box-add-on/) - $15 : Displays a search box with Keywords, Job Category, Job Type, and Job Location filters.
+* [Salary Range Filter](https://market.presstigers.com/product/salary-range-filter-add-on/) - $10 : Adds a salary range filter for your job filter.
+* [AJAX Job Search](https://market.presstigers.com/product/ajax-job-search-add-on/) - $15 : Adds AJAX based job search on the jobs listing page and job listing shortcode.
+* [Featured Job Listing](https://market.presstigers.com/product/featured-job-listing-add-on/) - $15 : Adds featured jobs at top of listing.
+* [Custom Redirection](https://market.presstigers.com/product/custom-redirection-add-on/) - $10 : Facilitates hassle-free installation and enables convenient redirection of job detail pages to an internal or external destination.
+* [Custom Apply Link](https://market.presstigers.com/product/custom-apply-link-add-on/) - $15 : Allowing site admins/employers to add custom apply links to their job postings.
+* [Refer a Friend](https://market.presstigers.com/product/refer-a-friend-add-on/) - $15 : Enables feature to refer a friend for a job opportunity.
+* [Geolocation Job Search](https://market.presstigers.com/product/geolocation-job-search-add-on/) - $15 : Allows the applicants to search for jobs in areas of a selected location within a specific radius.
+
+= Add-ons for Integration with Other Tools: =
+* [Add-on for Divi Theme](https://market.presstigers.com/product/job-board-add-on-for-divi-builder/) - $35 : Allows you to style the job listing page & job detail page with Divi theme.
+* [Add-on for Elementor](https://market.presstigers.com/product/job-board-add-on-for-elementor/) - $35 :  Allows you to style the job listing page & job detail page with Elementor Free version.
+* [Mobile App Connector](https://market.presstigers.com/product/mobile-app-connector-add-on/) - $49 : Allows the site administrator to create and browse jobs directly from their mobile devices.
+* [Add-on for WPBakery](https://market.presstigers.com/product/job-board-add-on-for-wpbakery/) - $35 : Allows you to style the job listing page & job detail page with WP Bakery plugin.
+* [Cloud Storage Connector](https://market.presstigers.com/product/cloud-storage-connector-add-on/) - $20 : Lets you upload job attachments to Dropbox and Google Drive at the submission of applications.
+
+= Add-ons for Communication Enhancements: =
+* [Email Notification Templates](https://market.presstigers.com/product/email-notification-templates-add-on/) - $15 : Makes the email notifications more personalized by allowing you to write custom email templates instead of the predefined one’s.
+* [Individual Job Email Notifications](https://market.presstigers.com/product/individual-job-email-notifications-add-on/) - $15 : Allows users to enhance email notifications ability against individual jobs.
+
+= Add-ons Bundles with Discounts: =
+* [Email Notifications Bundle](https://market.presstigers.com/product/job-board-email-notifications-bundle/) - $25 : Contains two Add-ons i.e Individual Job Email Notifications and Email Notification Templates add-ons.
+* [3 in 1 Bundle](https://market.presstigers.com/product/job-board-3-in-1-bundle/) - $40 : The bundle with top selling items. Job Board – 3 in 1 solution has the Email Attachment, Multiple Attachment Fields, and Job Expirator add-ons.
+* [4 in 1 Bundle](https://market.presstigers.com/product/job-board-4-in-1-bundle/) - $55 : Contains 4 Add-ons i.e Email Attachment, Multiple Attachment Fields, Extend Attachment File Types, and Email Notification Templates add-ons.
+* [5 in 1 Bundle](https://market.presstigers.com/product/job-board-5-in-1-bundle/) - $60 : Contains 5 Add-ons i.e Job Application to PDF Add-on, Job Application CSV Add-on, Category Based Hiring, Location Base hiring, and the Content Replacement Add-on.
+* [6 in 1 Bundle](https://market.presstigers.com/product/job-board-6-in-1-bundle/) - $75 : Contains 6 Add-ons i.e How to Apply, Featured Job Listing, Job Listings Import/Export, Job Board CAPTCHA, Bulk Resume Download, and Resume Preview add-ons.
+* [Applications Handling Bundle](https://market.presstigers.com/product/job-board-applications-handling-bundle/) - $70 : Contains 6 Add-ons i.e Job Application to PDF, Job Applications CSV Exporter, Job Application Deadline, Custom Job Application Statuses, Job Applications Counter, and Cloud Storage Connector add-ons.
+* [Search and Sort Bundle](https://market.presstigers.com/product/job-board-search-and-sort-bundle/) - $50 : Contains 4 Add-ons i.e AJAX Job Search, Google Job Search and Indexing API, Jobs Sorting, and Job Search Box add-ons.
+* [All Filters Bundle](https://market.presstigers.com/product/job-board-all-filters-bundle/) - $35 : All Filters Add-on Bundle includes Company Details & Filter, Job Level Filter, Job Industry Filter, and Salary Range Filter add-ons.
+* [All Add-ons Bundle](https://market.presstigers.com/product/job-board-all-add-ons/) : Purchase all add-ons bundle in just a simple click! and on 20% flat discount rate. 
+* [Custom Bundle](https://market.presstigers.com/product/job-board-custom-bundle/) : An ultimate must-have add-on set that lets you create your own bundle and get discount as per rules.
+
+
+
+Not in the list, for custom add-on please [contact us](https://market.presstigers.com/contact-us)
 
 = Can you contribute? =
 If you are an awesome contributor for translations or plugin development, please contact us at support@presstigers.com
@@ -209,6 +230,16 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.13.4 =
+
+* Fix - Fixed translation for required message.
+* Fix - Fixed issue with making the resume optional.
+* Tweak - Improved according to EU regulations.
+* Tweak - Enhanced the security.
+* Tweak - Updated the jQuery validation library.
+* Tweak - Made wp editor compatible with gutenberg editor.
+* Tweak - Enhanced the compatibility with Elementor.
 
 = 2.13.3 =
 

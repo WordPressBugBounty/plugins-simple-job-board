@@ -19,9 +19,11 @@
   
     $(document).ready(function () {
       var jobpost_submit_button = $(".app-submit");
-  
+     
       var jobpost_form_status = $("#jobpost_form_status");
+      
       $(document).ready(function () {
+   
         // Add custom validation method for file extensions
         $.validator.addMethod(
           "filetype",
@@ -46,23 +48,24 @@
             submitForm(datastring);
           },
         });
-  
+        
+        
         // Add rules for required fields with class 'sjb-required'
         $(".sjb-required").each(function () {
           let fieldName = $(this).attr("name");
-      
+         
           // Check if fieldName exists and is a string
           if (typeof fieldName === "string") {
               fieldName = fieldName.replace(/^jobapp_/, ""); 
               
               // Replace underscores with spaces and capitalize each word
               const fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-      
+              
               $(this).css("color", "black"); 
               $(this).rules("add", {
                   required: true,
                   messages: {
-                    required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                    required: fieldLabel + ' ' + application_form.is_required,
                   },
               });
           }
@@ -82,7 +85,7 @@
                     required: true,
                     email: true,
                     messages: {
-                        required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                        required: fieldLabel + ' ' + application_form.is_required,
                         email: wp.i18n.sprintf(
                           wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
                           fieldLabel
@@ -101,17 +104,19 @@
           `(\\.${allowed_file_exts.replace(/,/g, "|")})$`,
           "i"
         );
-      
+        
         // File type validation for applicant resume
+        if (!$("#applicant-resume").hasClass("sjb-not-required")) {
         $("#applicant-resume").rules("add", {
           required: true,
           filetype: fileTypePattern,
           messages: {
             required:
-              application_form.jquery_alerts["sjb_application_resume_required"],
+              application_form.jquery_alerts["sjb_application_resume_required"] + application_form.is_required,
             filetype: application_form.jquery_alerts["invalid_extension"],
           },
         });
+      }
       });
 
       
@@ -143,7 +148,7 @@
                   $(this).rules("add", {
                       required: true,
                       messages: {
-                          required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                        required: fieldLabel + ' ' + application_form.is_required,
                       },
                   });
               }
@@ -160,7 +165,7 @@
                       required: true,
                       email: true,
                       messages: {
-                          required: wp.i18n.__(fieldLabel + ' is required', 'simple-job-board'),
+                          required: fieldLabel + ' ' + application_form.is_required,
                           email: wp.i18n.sprintf(
                             wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
                             fieldLabel
@@ -179,14 +184,18 @@
           allowed_file_exts = application_form.allowed_extensions.filter(ext => typeof ext === "string").join(",")
         }
           const fileTypePattern = new RegExp(`(\\.${allowed_file_exts.replace(/,/g, "|")})$`, "i");
-          popupForm.find("#applicant-resume").rules("add", {
-              required: true,
-              filetype: fileTypePattern,
-              messages: {
-                  required: application_form.jquery_alerts["sjb_application_resume_required"],
-                  filetype: application_form.jquery_alerts["invalid_extension"],
-              },
-          });
+          setTimeout(function() {
+            if (!popupForm.find("#applicant-resume").hasClass("sjb-not-required")) {
+              popupForm.find("#applicant-resume").rules("add", {
+                  required: true,
+                  filetype: fileTypePattern,
+                  messages: {
+                      required: application_form.jquery_alerts["sjb_application_resume_required"]+  application_form.is_required,
+                      filetype: application_form.jquery_alerts["invalid_extension"],
+                  },
+              });
+            }
+          }, 500);
       }
     
       function submitForm(datastring) {
@@ -645,5 +654,6 @@
         $(".filters-form").submit(); // Submit the form
       });
     });
+    
   })(jQuery);
   

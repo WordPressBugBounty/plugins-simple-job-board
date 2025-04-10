@@ -190,7 +190,7 @@ class Simple_Job_Board_Settings_Email_Notifications {
 
             // Admin Email
             $admin_email = filter_input(INPUT_POST, 'admin_email');
-
+            
             if (!empty($hr_email)) {
                 ( false !== get_option('settings_hr_email') ) ? update_option('settings_hr_email', sanitize_email($hr_email)) : add_option('settings_hr_email', sanitize_email($hr_email));
             } elseif (isset($hr_email) && '' === $hr_email) {

@@ -300,6 +300,7 @@
 
         });
 
+
         // Settings Field Types on Change
         $('#settings_app_form_fields').on('change', 'li .settings_jobapp_field_type', function () {
             var fieldType = $(this).val();
@@ -890,4 +891,30 @@
             });
         });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(".applicant-columns");
+    
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                const checkedCount = document.querySelectorAll(".applicant-columns:checked").length;
+                if (checkedCount > 3) {
+                    this.checked = false;
+                    alert("You can select a maximum of 3 options.");
+                }
+            });
+        });
+
+        const settings_checkboxes = document.querySelectorAll(".settings-applicant-columns");
+    
+        settings_checkboxes.forEach(function (settings_checkbox) {
+            settings_checkbox.addEventListener("change", function () {
+                const checkedCount = document.querySelectorAll(".settings-applicant-columns:checked").length;
+                if (checkedCount > 3) {
+                    this.checked = false;
+                    alert("You can select a maximum of 3 options.");
+                }
+            });
+        });
+    });
+    
 })(jQuery);

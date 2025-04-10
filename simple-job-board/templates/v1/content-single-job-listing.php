@@ -28,23 +28,31 @@ ob_start();
  * 
  * @since   2.1.0
  */
-do_action('sjb_single_job_listing_start');
+
+if(!is_elementor_widget_added_to_jobpost('job-details')) { 
+    do_action('sjb_single_job_listing_start');
+}
+
 ?>
 
 <div class="job-description">
     
     <?php
+    
     /**
      * Display the post content.
      * 
      * The "the_content" is used to filter the content of the job post. Also make other plugins shortcode compatible with job post editor. 
      */
+    
     the_content();
+
     ?>
 </div>
 <div class="clearfix"></div>
 
 <?php
+
 /**
  * single-job-listing-end hook
  * 
@@ -53,7 +61,11 @@ do_action('sjb_single_job_listing_start');
  * 
  * @since   2.1.0
  */
-do_action('sjb_single_job_listing_end');
+
+if(!is_elementor_widget_added_to_jobpost('job-details')) {
+    do_action('sjb_single_job_listing_end');
+}
+
 ?>
 <!-- ==================================================
 End Job Details -->

@@ -114,9 +114,11 @@ class Simple_Job_Board_Public
     {
         $sjb_date_format = (!empty(apply_filters('sjb_date_format', get_option('sjb_date_format'))))? $this->convert_date(get_option('sjb_date_format')) : 'dd-mm-yy' ;
         // Register Simple Job Board Front-end Core JS
-        wp_enqueue_script('jquery-validation', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js', array('jquery'), '1.19.3', true);
-        wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
+        wp_enqueue_script('jquery-validation', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js', array('jquery'), '1.19.5', true);
         wp_enqueue_script('wp-i18n');
+        wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
+        wp_set_script_translations($this->simple_job_board . '-front-end', 'simple-job-board');
+        
         // Register Input Telephone JS
         wp_register_script($this->simple_job_board . '-validate-telephone-input', plugin_dir_url(__FILE__) . 'js/intlTelInput.min.js', array('jquery'), '17.0.0', true);
         wp_register_script($this->simple_job_board . '-validate-telephone-input-utiliy', plugin_dir_url(__FILE__) . 'js/intlTelInput-utils.js', array('jquery'), '7.7.3', true);
@@ -137,13 +139,14 @@ class Simple_Job_Board_Public
                     'sjb_quick_job_close' => apply_filters( 'sjb_quick_job_close', __('Are you sure you want to close? All the unsaved data will be lost.', 'simple-job-board') ),
                     'sjb_application_input_required' => apply_filters( 'sjb_application_input_required', __('This field is required.', 'simple-job-board') ),
                     'sjb_application_email_invalid' => apply_filters( 'sjb_application_email_invalid', __('Valid email is required.', 'simple-job-board') ),
-                    'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume is required.', 'simple-job-board') ),
+                    'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume ', 'simple-job-board') ),
                 ),
                 'file' => array(
                     'browse' => esc_html__('Browse', 'simple-job-board'),
                     'no_file_chosen' => esc_html__('No file chosen', 'simple-job-board'),
                 ),
                 'sjb_date_format' => $sjb_date_format,
+                'is_required' => __('is required', 'simple-job-board'),
             )
         );
         

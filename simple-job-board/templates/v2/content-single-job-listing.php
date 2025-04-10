@@ -28,7 +28,11 @@ ob_start();
  * 
  * @since   2.1.0
  */
-do_action('sjb_single_job_listing_start');
+
+if(!is_elementor_widget_added_to_jobpost('job-details')){ 
+    do_action('sjb_single_job_listing_start');
+}
+
 ?>
 
 <div class="job-description">
@@ -53,7 +57,11 @@ do_action('sjb_single_job_listing_start');
  * 
  * @since   2.1.0
  */
-do_action('sjb_single_job_listing_end');
+
+if(!is_elementor_widget_added_to_jobpost('job-details')){ 
+    do_action('sjb_single_job_listing_end');
+}
+
 ?>
 <!-- ==================================================
 End Job Details -->

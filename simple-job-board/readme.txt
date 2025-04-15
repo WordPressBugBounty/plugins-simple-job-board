@@ -1,10 +1,10 @@
 === Simple Job Board ===
 Contributors: PressTigers
 Donate link: https://www.presstigers.com
-Tags: job board, careers, job listing, job manager, current openings, job portal, job openings, jobs
+Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.4
+Stable tag: 2.13.5
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@ Powerful & robust plugin to create a job board on your website in a simple & ele
 = Simple Job Board provides an efficient solution for showcasing job openings on your careers page, and to receive job applications, ready to use with minimal configuration. =
 = Looking for an easy, user-friendly and robust Job board plugin? = 
 Simple Job Board by <a href="https://www.presstigers.com">PressTigers</a> is an easy, light weight plugin that adds a job board to your WordPress website. 
-This plugin is extendible and easy to use. A customized job board is created to manage various job openings via WordPress with the Simple Job Board. You can add multiple job listings different types of shortcodes. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard.
+This job board plugin is extendible and easy to use. A customized job board is created to manage various job openings via WordPress with the Simple Job Board. You can add multiple job listings different types of shortcodes. You can add multiple job features and customized application forms for every distinct job post. You can also add notes to an application right from the dashboard.
 
 = Why Simple Job Board =
 * [Detailed Documentation](https://market.presstigers.com/simple-job-board-documentation/)
@@ -231,13 +231,16 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 
 == Changelog ==
 
+= 2.13.5 =
+* Fix - Fixed the application form submission.
+
 = 2.13.4 =
 
-* Fix - Fixed translation for required message.
-* Fix - Fixed issue with making the resume optional.
-* Tweak - Improved according to EU regulations.
-* Tweak - Enhanced the security.
-* Tweak - Updated the jQuery validation library.
+* Fix - Fixed the is required translation issue.
+* Fix - Fixed the resume optional issue.
+* Tweak - Modified according to EU regulations.
+* Tweak - Enhanced the security
+* Tweak - Updated the Jquery validation library.
 * Tweak - Made wp editor compatible with gutenberg editor.
 * Tweak - Enhanced the compatibility with Elementor.
 

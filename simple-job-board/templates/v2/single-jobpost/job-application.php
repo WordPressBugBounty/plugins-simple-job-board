@@ -363,10 +363,15 @@ do_action('sjb_job_application_before');
          * @since   2.2.0                   
          */
         do_action('sjb_job_application_form_fields_end');
+        $token_data = sjb_generate_csrf_token();
+        $sjb_csrf_token = $token_data['token'];
+        $sjb_guest_id = $token_data['guest_id'];
         ?>
         <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
         <input type="hidden" name="action" value="process_applicant_form" >
         <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
+        <input type="hidden" name="sjb_csrf_token" value="<?php echo esc_attr($sjb_csrf_token); ?>">
+        <input type="hidden" name="sjb_guest_id" value="<?php echo esc_attr($sjb_guest_id); ?>">
         <div class="clearfix"></div> 
         <?php if (0 === $total_sections) { ?>
             <div class="col-md-12 col-xs-12">

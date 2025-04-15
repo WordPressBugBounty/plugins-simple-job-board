@@ -375,9 +375,6 @@ do_action('sjb_job_application_before');
         <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
         <input type="hidden" name="action" value="process_applicant_form" >
         <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
-        <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
-        <input type="hidden" name="action" value="process_applicant_form" >
-        <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
         <input type="hidden" name="sjb_csrf_token" value="<?php echo esc_attr($sjb_csrf_token); ?>">
         <input type="hidden" name="sjb_guest_id" value="<?php echo esc_attr($sjb_guest_id); ?>">
         <div class="clearfix"></div> 

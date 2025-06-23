@@ -4081,7 +4081,7 @@ fieldset[disabled] .sjb-page .checkbox label {
 #applicant-resume-error,
 .form-group .file label{
     display: block;
-    margin-top: 12px;
+    margin-top: 18px !important;
     margin-left: -13px;
     margin-bottom: 10px;
 }
@@ -4092,4 +4092,12 @@ fieldset[disabled] .sjb-page .checkbox label {
 }
 .sjb-page .sjb-detail.sjb-v2 .list-data .v2, .sjb-page .sjb-detail.sjb-v1 .list-data .v1 {
     padding: 22px;
+}
+label#jobapp_pp-error, label#jobapp_tc-error {
+    position: absolute;
+    left: 13px;
+    bottom: 5px;
+}
+.sjb-pp {
+    margin-top: 15px;
 }

@@ -55,6 +55,7 @@ $delete_data_option = get_option('delete_data_on_uninstall');
         delete_option('jobapp_settings_options');
         delete_option('jobfeature_settings_options');
         delete_option('default_fields_count');
+        delete_option('sjb_csrf_token_disable');
         
         // Delete Options-> Search Filters
         delete_option('job_board_category_filter');
@@ -77,6 +78,7 @@ $delete_data_option = get_option('delete_data_on_uninstall');
 
         // Delete Options-> Privacy
         delete_option('job_board_privacy_settings');
+        delete_option('job_privacy_checkbox_settings');
         delete_option('job_board_terms_condition_settings');
         delete_option('job_board_privacy_policy_label');
         delete_option('job_board_privacy_policy_content');

@@ -72,6 +72,7 @@ class Simple_Job_Board_Settings_Job_Features {
         }
         $allowed_tags = sjb_get_allowed_html_tags();
         $enable_job_features =  get_option('job_board_features_enable', 'no');
+        $sjb_csrf_token_disable =  get_option('sjb_csrf_token_disable', 'no');
         ?>
         <!-- Job Features -->
         <div data-id="settings-job_features" class="sjb-admin-settings tab">
@@ -87,6 +88,15 @@ class Simple_Job_Board_Settings_Job_Features {
                             <span><?php echo esc_html__('Note: If this checkbox is selected, it will add the features only in the jobs in backend, to display the fields on the job detail page you have to update each job post.', 'simple-job-board'); ?></span>
                         </div>
                 </div>
+                
+                <h4><?php esc_html_e('Disable Additional Secuirty', 'simple-job-board'); ?></h4>
+                <div class="sjb-section settings-fields features-short">
+                    <div class="sjb-form-group">
+                        <input type="checkbox" name="sjb_csrf_token_disable" id="sjb-csrf-token-disable" value="yes"  <?php checked('yes', esc_attr($sjb_csrf_token_disable)); ?> />
+                        <label for="sjb-csrf-token-disable" class="enable-features-label"><?php echo esc_html__('This will disable the additional secuirty check when someone apply on the job', 'simple-job-board'); ?></label>
+                    </div>
+                </div>
+
                 <h4 class="first"><?php esc_html_e('Default Feature List', 'simple-job-board'); ?></h4>
                 <div class="sjb-section settings-fields features-short">
                     <?php
@@ -228,6 +238,7 @@ class Simple_Job_Board_Settings_Job_Features {
         $POST_data = filter_input_array(INPUT_POST);
         $features = filter_input(INPUT_POST, 'job_features');
         $enable_job_features = isset($_POST['job_features_enable']) ? sanitize_text_field($_POST['job_features_enable']) : '';
+        $sjb_csrf_token_disable = isset($_POST['sjb_csrf_token_disable']) ? sanitize_text_field($_POST['sjb_csrf_token_disable']) : '';
         
         // Save Form Data to WP Option
         if (!empty($POST_data) && ( $features )) {
@@ -250,6 +261,8 @@ class Simple_Job_Board_Settings_Job_Features {
         }
 
         update_option('job_board_features_enable', sanitize_text_field( $enable_job_features ) );
+
+        update_option('sjb_csrf_token_disable', sanitize_text_field( $sjb_csrf_token_disable ) );
             
         
     }

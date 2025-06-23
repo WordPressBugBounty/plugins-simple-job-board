@@ -44,8 +44,9 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
         public function simple_job_board_init() {
             
             $count = 0;
+
             if ( !post_type_exists('jobpost') ) {
-                
+
                 // Register the custom post type
                 $this->createPostType();
                 if($count == 0){
@@ -53,14 +54,22 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                     flush_rewrite_rules();
                     $count++;
                 }
-                
+
             }
             // Select job pages layout
             if ($sjb_layout = get_option('job_board_pages_layout')) {
 
                 if ('sjb-layout' === $sjb_layout) {
 
-                    add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
+                    $cpt_support = get_option( 'elementor_cpt_support', true);
+
+                    if (is_plugin_active('sjb-add-on-elementor/sjb-add-on-elementor.php') && in_array('jobpost', $cpt_support)) {
+
+                        add_filter('the_content', array($this, 'job_content'));
+                    } else {
+
+                        add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
+                    }
                 } elseif ('theme-layout' === $sjb_layout) {
 
                     // Add filter to use Theme Default Template
@@ -68,10 +77,11 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                 }
             } else {
 
+
                 // Add Filter to redirect Single Page Template
-                add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);                
+                add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
             }
-        
+
             // Add Filter to redirect Archive Page Template
             add_filter('archive_template', array($this, 'get_simple_job_board_archive_template'), 10, 1);
            

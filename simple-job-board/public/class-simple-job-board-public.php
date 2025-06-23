@@ -140,6 +140,7 @@ class Simple_Job_Board_Public
                     'sjb_application_input_required' => apply_filters( 'sjb_application_input_required', __('This field is required.', 'simple-job-board') ),
                     'sjb_application_email_invalid' => apply_filters( 'sjb_application_email_invalid', __('Valid email is required.', 'simple-job-board') ),
                     'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume ', 'simple-job-board') ),
+                    'sjb_application_enter_valid' => apply_filters( 'sjb_application_enter_valid', __('Please enter a valid ', 'simple-job-board') ),
                 ),
                 'file' => array(
                     'browse' => esc_html__('Browse', 'simple-job-board'),

@@ -39,108 +39,276 @@ class Simple_Job_Board_Admin_Alerts
      */
     public function render_admin_alerts_banner() {
 
-        if (isset($_COOKIE['alertCloseCount'])) {
-            $alert_clicked_count = intval($_COOKIE['alertCloseCount']); // Safely convert to integer
-        } else {
-            $alert_clicked_count = 1; // Default to 0 if cookie is not set
-        }
-            if ($alert_clicked_count < 3 ) {
+        // Base URL for the WooCommerce API
+        $api_url = 'https://market.presstigers.com/wc-api/v3/products';
 
-                $screen = get_current_screen();
+        // Https Authentication args
+        $params = array(
+            'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
+            'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
+            'filter[limit]' => -1,
+            'type' => 'variable',
+            'version' => '2.13'
+        );
 
+        $url = esc_url_raw($api_url) . '?' . http_build_query($params);
+
+        // Make API request
+        $response = wp_remote_get(
+                $url, array(
+            'method' => 'GET',
+            'timeout' => 10,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'blocking' => true,
+            'headers' => array(),
+            'body' => $params,
+            'cookies' => array(),
             
-                // Check if the post_type is 'jobpost'
-                if ( isset($screen->post_type) && $screen->post_type === 'jobpost' || $screen->post_type === 'jobpost_applicants' ) {
-                    ?>
-                        <div class="sjb-alert-banner">
-                            <div class="banner-content">
-                                <div class="banner-col-1">
-                                    <a href="https://market.presstigers.com/">
-                                        <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/simple-job-board-logo.png' ); ?>" alt="<?php esc_attr_e('Job Alerts Icon', 'simple-job-board'); ?>" class="banner-icon sjb-logo">
-                                    </a>
-                                    <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/alert-avatar.png' ); ?>" alt="<?php esc_attr_e('Job Alerts Icon', 'simple-job-board'); ?>" class="banner-icon alertavatar">
-                                    <button class="alert-close-btn">X</button>
-                                </div>
-                                <div class="banner-col-2">
-                                    <h2 class="banner-title"><?php esc_html_e('BOOST YOUR RECRUITMENT WITH JOB ALERTS!', 'simple-job-board'); ?></h2>
-                                    <p class="banner-text">
-                                        <?php
-                                        echo sprintf(
-                                            esc_html__('Simple Job Board has launched a new add-on %s with awesome features to let the job seekers subscribe for your new job openings.', 'simple-job-board'),
-                                            '<strong><a href="https://market.presstigers.com/product/job-alerts-add-on/" target="_blank">' . esc_html__('Job Alerts', 'simple-job-board') . '</a></strong>'
-                                        );
-                                        ?>
-                                    </p>
-                                    <a href="https://market.presstigers.com/product/job-alerts-add-on/" target="_blank" class="banner-link"><?php esc_html_e('Get the Add-on', 'simple-job-board'); ?></a>
-                                </div>
-                                <div class="banner-col-3">
-                                    <ul class="banner-features">
-                                        <li><?php esc_html_e('Job seekers can create and manage job alerts.', 'simple-job-board'); ?></li>
-                                        <li><?php esc_html_e('Set daily, weekly, fortnightly, or monthly alerts.', 'simple-job-board'); ?></li>
-                                        <li><?php esc_html_e('Get job alerts through email, and share with others.', 'simple-job-board'); ?></li>
-                                    </ul>
-                                </div>
-                                <div class="banner-col-4">
-                                    <button class="alert-close-btn">X</button>
-                                    <a href="https://market.presstigers.com/">
-                                        <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/presstigers-logo.png' ); ?>" alt="<?php esc_attr_e('PressTigers Logo', 'simple-job-board'); ?>" class="banner-logo">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                        jQuery(document).ready(function () {
-                            var $closeBtn = jQuery('.alert-close-btn');
-                            var $alertBanner = jQuery('.sjb-alert-banner');
+            ));
+        // Check the response code
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_message = wp_remote_retrieve_response_message($response);
 
-                            // Function to set cookies
-                            function setCookie(name, value, days) {
-                                var expires = "";
-                                if (days) {
-                                    var date = new Date();
-                                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                                    expires = "; expires=" + date.toUTCString();
+        if (200 != $response_code && !empty($response_message)) {
+            return new WP_Error($response_code, $response_message);
+        } elseif (200 != $response_code) {
+            return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
+        } else {
+            // Decode the response body
+            $body = wp_remote_retrieve_body($response);
+            $products = json_decode($body, true); // Decode the JSON response
+        }
+        $products_data = array();
+
+        if (!empty($products['products'])) {
+            // Filter products based on conditions and prepare them for display
+            $filtered_products = [];
+            foreach ($products['products'] as $product) {
+                // Get the necessary fields from the main product
+                $product_title = isset($product['title']) ? $product['title'] : '';
+                $product_id = isset($product['id']) ? $product['id'] : '';
+                $add_on_version = isset($product['add_on_version']) ? $product['add_on_version'] : '';
+                $plugin_main_slug = isset($product['plugin_main_slug']) ? $product['plugin_main_slug'] : '';
+                $permalink = isset($product['permalink']) ? $product['permalink'] : '';
+                $linked_products = isset($product['_linked_products']) ? $product['_linked_products'] : [];
+
+                // **Condition to check if product title contains "Bundle" and linked_products is not empty**
+                if (stripos($product_title, 'Bundle') !== false && !empty($linked_products)) {
+                    // Initialize the regular and sale price variables
+                    $regular_price = '';
+                    $sale_price = '';
+
+                    // Check if variations exist and fetch the prices from them
+                    if (isset($product['variations']) && !empty($product['variations'])) {
+                        // Loop through variations to find the 'Regular' variation
+                        foreach ($product['variations'] as $variation) {
+                            // Check if the variation has the correct option (i.e., Regular)
+                            if (isset($variation['attributes']) && !empty($variation['attributes'])) {
+                                foreach ($variation['attributes'] as $attribute) {
+                                    // If the attribute is 'License' and the option is 'Regular'
+                                    if (isset($attribute['name']) && $attribute['name'] == 'License' && isset($attribute['option']) && $attribute['option'] == 'Regular') {
+                                        // Now we have found the 'Regular' variation, so we can grab the price
+                                        $regular_price = isset($variation['regular_price']) ? $variation['regular_price'] : '';
+                                        $sale_price = isset($variation['sale_price']) ? $variation['sale_price'] : '';
+                                        break 2; // Break out of both loops once we find the 'Regular' variation
+                                    }
                                 }
-                                document.cookie = name + "=" + (value || "") + expires + "; path=/";
                             }
+                        }
+                    }
 
-                            // Function to get cookies
-                            function getCookie(name) {
-                                var nameEQ = name + "=";
-                                var ca = document.cookie.split(';');
-                                for (var i = 0; i < ca.length; i++) {
-                                    var c = ca[i];
-                                    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                                    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-                                }
-                                return null;
-                            }
-
-                            // Initialize click count from cookie or start at 0
-                            var clickCount = parseInt(getCookie('alertCloseCount')) || 0;
-
-                            // Hide the banner if the click count is greater than 4
-                            if (clickCount > 4) {
-                                $alertBanner.hide();
-                            }
-
-                            // Increment click count and update cookie on close button click
-                            $closeBtn.on('click', function () {
-                                clickCount++;
-                                setCookie('alertCloseCount', clickCount, 30); // Cookie lasts 30 days
-
-                                if (clickCount > 4) {
-                                    $alertBanner.hide();
-                                } else {
-                                    $alertBanner.hide(); // Hide the banner on each click
-                                }
-                            });
-                        });
-
-                    </script>
-                    <?php
+                    // Prepare the product data to output
+                    $filtered_products[] = [
+                        'title' => $product_title,
+                        'regular_price' => $regular_price,
+                        'sale_price' => $sale_price,
+                        'add_on_version' => $add_on_version,
+                        'plugin_main_slug' => $plugin_main_slug,
+                        'permalink' => $permalink,
+                        'linked_products' => $linked_products
+                    ];
                 }
             }
+        }
+
+        if (isset($_COOKIE['alertCloseCount'])) {
+            $alert_clicked_count = intval($_COOKIE['alertCloseCount']);
+        } else {
+            $alert_clicked_count = 1;
+        }
+
+        if ($alert_clicked_count < 3 ) {
+            $screen = get_current_screen();
+
+            // Check if the post_type is 'jobpost'
+            if ( isset($screen->post_type) && ($screen->post_type === 'jobpost' || $screen->post_type === 'jobpost_applicants') ) {
+                ?>
+                <div class="sjb-alert-banner">
+                    <div class="sjb-banner-container">
+                        <div class="sjb-banner-text">
+                            <!-- Product Tag Image -->
+                            <img src="<?php echo esc_url(plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb_tag.png'); ?>" class="sjb-banner-name" />
+
+                            <div class="sjb-banner-text_details">
+                                <!-- Product Title and Permalink -->
+                                <h2><a href=""><?php echo esc_html($filtered_products[0]['title']); ?></a></h2>
+                                <p><?php echo esc_html__('This bundle contains the following Add-ons:', 'simple-job-board'); ?></p>
+                                <ul>
+                                    <?php
+                                    if (!empty($filtered_products[0]['linked_products'])) {
+                                        foreach ($filtered_products[0]['linked_products'] as $linked_product) {
+                                            echo '<li>' . esc_html($linked_product) . '</li>';
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+
+                            <div class="sjb_notfiy_banner_pr_btn">
+                                <!-- Buy Now Button and Pricing -->
+                                <a href="<?php echo esc_url($filtered_products[0]['permalink']); ?>" class="sjb-btn"><?php echo esc_html__('Buy Now', 'simple-job-board'); ?></a>
+                                <p class="price-wrap">
+                                    <!-- Display actual price if available -->
+                                    <?php if (!empty($filtered_products[0]['regular_price'])) : ?>
+                                        <del><?php echo "$".esc_html($filtered_products[0]['regular_price']); ?></del>
+                                    <?php endif; ?>
+                                    <span class="price">
+                                        <?php 
+                                        // If sale price is available, display it; otherwise, use regular price
+                                        echo !empty($filtered_products[0]['sale_price']) ? "$".esc_html($filtered_products[0]['sale_price']) : "$".esc_html($filtered_products[0]['regular_price']);
+                                        ?>
+                                        / year
+                                    </span>
+                                </p>
+                            </div>
+
+                            <!-- Dots for navigation -->
+                            <div class="sjb-dots-container">
+                                <?php for ($i = 0; $i < count($filtered_products); $i++) : ?>
+                                    <span class="sjb-dot" data-index="<?php echo $i; ?>"></span>
+                                <?php endfor; ?>
+                            </div>
+
+                        </div>
+                        <div class="sjb-banner-img">
+                            <!-- Banner Image -->
+                            <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb-info-banner.png' ); ?>" />
+                            <button class="alert-close-btn" title="<?php echo esc_html__('Close', 'simple-job-board'); ?>">X</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    jQuery(document).ready(function () {
+                        var productIndex = 0;
+                        var products = <?php echo json_encode($filtered_products); ?>;
+                        var $alertBanner = jQuery('.sjb-alert-banner');
+                        var $closeBtn = jQuery('.alert-close-btn');
+                        var $bannerText = jQuery('.sjb-banner-text_details h2 a');
+                        var $productList = jQuery('.sjb-banner-text_details ul');
+                        var $price = jQuery('.price-wrap .price');
+                        var $regularPrice = jQuery('.price-wrap del');
+                        var $buyNowBtn = jQuery('.sjb-notfiy_banner_pr_btn a');
+                        var $dots = jQuery('.sjb-dot'); // Dots container
+
+                        // Function to update the product data
+                        function updateProductData(index) {
+                            var product = products[index];
+
+                            if (!product) return;  // Safety check in case there is no product at the given index
+
+                            $bannerText.text(product.title);
+                            $bannerText.attr('href', product.permalink);
+                            $productList.empty();
+                            
+                            // Check if linked_products is an array and has elements
+                            if (Array.isArray(product.linked_products) && product.linked_products.length > 0) {
+                                jQuery.each(product.linked_products, function(i, linkedProduct) {
+                                    $productList.append('<li>' + linkedProduct + '</li>');
+                                });
+                            } else {
+                                $productList.append('<li>No linked products available.</li>');
+                            }
+
+                            // Update price info
+                            if (product.regular_price) {
+                                $regularPrice.text('$' + product.regular_price);
+                            }
+                            $price.text(product.sale_price ? '$' + product.sale_price : '$' + product.regular_price);
+                            $buyNowBtn.attr('href', product.permalink);
+
+                            // Update active dot
+                            $dots.removeClass('active');
+                            $dots.eq(index).addClass('active');
+                        }
+
+                        // Initially load the first product
+                        updateProductData(productIndex);
+
+                        // Set interval to change product every 5 seconds
+                        setInterval(function() {
+                            productIndex = (productIndex + 1) % products.length;
+                            updateProductData(productIndex);
+                        }, 3500);
+
+                        // Handle dot click events
+                        $dots.on('click', function() {
+                            productIndex = jQuery(this).data('index');
+                            updateProductData(productIndex);
+                        });
+
+                        var $closeBtn = jQuery('.alert-close-btn');
+                        var $alertBanner = jQuery('.sjb-alert-banner');
+
+                        // Function to set cookies
+                        function setCookie(name, value, days) {
+                            var expires = "";
+                            if (days) {
+                                var date = new Date();
+                                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                                expires = "; expires=" + date.toUTCString();
+                            }
+                            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+                        }
+
+                        // Function to get cookies
+                        function getCookie(name) {
+                            var nameEQ = name + "=";
+                            var ca = document.cookie.split(';');
+                            for (var i = 0; i < ca.length; i++) {
+                                var c = ca[i];
+                                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+                            }
+                            return null;
+                        }
+
+                        // Initialize click count from cookie or start at 0
+                        var clickCount = parseInt(getCookie('alertCloseCount')) || 0;
+
+                        // Hide the banner if the click count is greater than 4
+                        if (clickCount > 4) {
+                            $alertBanner.hide();
+                        }
+
+                        // Increment click count and update cookie on close button click
+                        $closeBtn.on('click', function () {
+                            clickCount++;
+                            setCookie('alertCloseCount', clickCount, 30); // Cookie lasts 30 days
+
+                            if (clickCount > 4) {
+                                $alertBanner.hide();
+                            } else {
+                                $alertBanner.hide(); // Hide the banner on each click
+                            }
+                        });
+                    });
+                </script>
+                <?php
+            }
+        }
+
     }
 
 

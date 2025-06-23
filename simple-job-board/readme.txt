@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.5
+Stable tag: 2.13.6
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,7 @@ The plugin is available in English, French(Français), Arabic (العربية), 
 **[jobpost location="location-slug"]:** To list jobs for a particular location.
 **[jobpost location="location-slug" category="category-slug" type="type-slug"]:** To list jobs with a combinations of taxonomies and terms.
 **[jobpost posts="5"]:** To limit the number of jobs per page with pagination.
+**[job_details job_id="123" show_job_form="yes" show_job_features="no" job_form_description="yes" show_job_meta="no"]:** To show individual job anywhere.
 
 = Live Demo =
 Please click here for [Simple Job Board Demo](https://jobboardextensions.demo.presstigers.com).
@@ -231,6 +232,13 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 
 == Changelog ==
 
+= 2.13.6 =
+* Feature - Added a new shortcode "job_details" to display a single job by ID.
+* Feature - Improved compatibility with page builders (Elementor, Divi, WPBakery).
+* Feature - Introduced an optional checkbox for terms & conditions acceptance.
+* Fix - The form submission issue that was occurring in some cases has been resolved.
+* Fix - Fixed a translation bug in the email validation message.
+
 = 2.13.5 =
 * Fix - Fixed the application form submission.
 
@@ -240,8 +248,8 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 * Fix - Fixed the resume optional issue.
 * Tweak - Modified according to EU regulations.
 * Tweak - Enhanced the security
-* Tweak - Updated the Jquery validation library.
-* Tweak - Made wp editor compatible with gutenberg editor.
+* Tweak - Updated the jQuery validation library.
+* Tweak - Made WP editor compatible with gutenberg editor.
 * Tweak - Enhanced the compatibility with Elementor.
 
 = 2.13.3 =

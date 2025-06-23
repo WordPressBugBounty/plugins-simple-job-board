@@ -70,6 +70,7 @@ class Simple_Job_Board_Privacy {
                 <?php 
                     //Enable GDPR Settings
                     $sjb_privacy_settings = get_option('job_board_privacy_settings', 'no');
+                    $sjb_privacy_checkbox_settings = get_option('job_board_privacy_checkbox_settings', 'no');
                     $sjb_terms_conditions = get_option('job_board_terms_condition_settings', 'no');
                     //Enable Settings to Remove Personal Data from the Applicants
                     $remove_applicant_data = get_option('sjb_erasure_request_removes_applicant_data', 'no');
@@ -106,12 +107,20 @@ class Simple_Job_Board_Privacy {
                                 ?>
                                 
                                 <div class="sjp-form-field-note">
-                                    <span><?php echo esc_html__('Note: The privacy label and content entered here will appear as plain text in the application form on the job detail page.', 'simple-job-board'); ?></span>
+                                    <span><?php echo esc_html__('Note:
+                                    The privacy label and content entered here will appear as plain text in the application form on the job detail page if you did not check the "Enable Privacy Policy Checkbox".
+                                    Please make sure to add content if you check the "Enable Privacy Policy Checkbox"', 'simple-job-board'); ?></span>
+                                    
                                 </div>
                                 <div class="sjb-form-group">
                                     <input type="checkbox" name="job_privacy_settings" id="enable-terms" value="yes"  <?php checked('yes', esc_attr($sjb_privacy_settings)); ?> />
-                                    <label for="enable-terms"><?php echo esc_html__('Enable Privacy Ploicy', 'simple-job-board'); ?></label>
+                                    <label for="enable-terms"><?php echo esc_html__('Enable Privacy Policy', 'simple-job-board'); ?></label>
                                     <input type='hidden' name="empty_privacy_settings" value="empty_privacy_settings" >
+                                </div>
+                                <div class="sjb-form-group">
+                                    <input type="checkbox" name="job_privacy_checkbox_settings" id="enable-privacy-cb" value="yes"  <?php checked('yes', esc_attr($sjb_privacy_checkbox_settings)); ?> />
+                                    <label for="enable-privacy-cb"><?php echo esc_html__('Enable Privacy Policy Checkbox', 'simple-job-board'); ?></label>
+                                    <input type='hidden' name="empty_privacy_checkbox_settings" value="empty_privacy_checkbox_settings" >
                                 </div>
                                 <div class="sjb-form-group">
                                     <label class="font-bold"><?php echo esc_html__('Privacy Policy Label (Opt.)', 'simple-job-board'); ?></label>
@@ -247,6 +256,10 @@ class Simple_Job_Board_Privacy {
         $empty_privacy_settings = isset($_POST['empty_privacy_settings']) ? sanitize_text_field($_POST['empty_privacy_settings']) : '';
         $privacy_settings = 0;
 
+        $sjb_privacy_checkbox_settings = isset($_POST['job_privacy_checkbox_settings']) ? sanitize_text_field($_POST['job_privacy_checkbox_settings']) : '';
+        $empty_privacy_checkbox_settings = isset($_POST['empty_privacy_checkbox_settings']) ? sanitize_text_field($_POST['empty_privacy_checkbox_settings']) : '';
+        $privacy_checkbox_settings = 0;
+
         $sjb_terms_condition_settings = isset($_POST['job_terms_conditions_settings']) ? sanitize_text_field($_POST['job_terms_conditions_settings']) : '';
         $empty_terms_condition_settings = isset($_POST['empty_tems_condition_settings']) ? sanitize_text_field($_POST['empty_tems_condition_settings']) : '';
         $terms_condition_settings = 0;
@@ -257,6 +270,7 @@ class Simple_Job_Board_Privacy {
 
         // Save GDPR Settings
         if (!empty($empty_privacy_settings)) {
+
             if (!empty($sjb_privacy_settings)) {
                 update_option('job_board_privacy_settings', sanitize_text_field( $sjb_privacy_settings ) );
                 $privacy_settings = 1;
@@ -264,6 +278,15 @@ class Simple_Job_Board_Privacy {
 
             if (0 === $privacy_settings) {
                 update_option('job_board_privacy_settings', 'no');
+            }
+
+            if (!empty($sjb_privacy_checkbox_settings)) {
+                update_option('job_board_privacy_checkbox_settings', sanitize_text_field( $sjb_privacy_checkbox_settings ) );
+                $privacy_checkbox_settings = 1;
+            }
+
+            if (0 === $privacy_checkbox_settings) {
+                update_option('job_board_privacy_checkbox_settings', 'no');
             }
 
             //Save Privacy Policy Label Settings

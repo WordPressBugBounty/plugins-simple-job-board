@@ -78,7 +78,9 @@
             
             if (typeof fieldName === "string") {
                 fieldName = fieldName.replace(/^jobapp_/, ""); 
-                const fieldLabel = $(this).data("label") || fieldName.charAt(0).toUpperCase() + fieldName.slice(1); 
+                var fieldLabel = $(this).data("label") || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+                fieldLabel = fieldLabel.replace('_', ' ');
+ 
         
                 $(this).css("color", "black"); // Set text color to black
                 $(this).rules("add", {
@@ -159,7 +161,9 @@
               let fieldName = $(this).attr("name");
               if (typeof fieldName === "string") {
                   fieldName = fieldName.replace(/^jobapp_/, "");
-                  const fieldLabel = $(this).data("label") || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+                  var fieldLabel = $(this).data("label") || fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+                  fieldLabel = fieldLabel.replace('_', ' ');
+ 
                   $(this).css("color", "black");
                   $(this).rules("add", {
                       required: true,

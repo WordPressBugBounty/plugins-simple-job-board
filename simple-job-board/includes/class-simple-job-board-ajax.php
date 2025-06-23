@@ -96,8 +96,12 @@ class Simple_Job_Board_Ajax {
 
         $sjb_csrf_token = sanitize_key($_POST['sjb_csrf_token']);
         $sjb_guest_id = sanitize_key($_POST['sjb_guest_id']);
-        if (!isset($sjb_csrf_token) || !sjb_verify_csrf_token($sjb_csrf_token, $sjb_guest_id)) {
-            wp_die(__('Invalid or expired CSRF token. Please refresh the page and try again.', 'simple-job-board'));
+       
+        $sjb_csrf_token_check =  get_option('sjb_csrf_token_disable');
+        if($sjb_csrf_token_check !='yes'){
+            if (!isset($sjb_csrf_token) || !sjb_verify_csrf_token($sjb_csrf_token, $sjb_guest_id)) {
+                wp_die(__('Invalid or expired CSRF token. Please refresh the page and try again.', 'simple-job-board'));
+            }
         }
          
         check_ajax_referer( 'jobpost_security_nonce', 'wp_nonce' );

@@ -118,8 +118,9 @@ class Simple_Job_Board_Applicants {
                                 $mail = strpos($key, 'mail');
                                 $phone = strpos($key, 'phone');
                                 $tc = strpos($key, 'tc');
+                                $pp = strpos($key, '_pp');
                                 
-                                if (!empty($mail)) {
+                                if ($mail !== false) {
                                     $applicant_email = strip_tags(get_post_meta($post->ID, $key, TRUE));
                                     $applicant_email = '<a href="mailto:'. $applicant_email .'" target="_blank" rel="noopener noreferrer">'. $applicant_email . '</a>' ;
                                     echo '<tr><td>' . esc_attr( $label ) . '</td><td>' . wp_kses_post( $applicant_email ) . '</td></tr>';
@@ -127,13 +128,16 @@ class Simple_Job_Board_Applicants {
                                     if($usergravatar){
                                         echo '<tr><td>' . __('Applicant Picture', 'simple-job-board') . '</td><td>' . '<img src="' . $usergravatar . '" class="pt_gravatar"><br>' . ' <span class"notes">'.__('This image is sourced from Gravatar.', 'simple-job-board').'</span></td></tr>';
                                     }
-                                }else if (!empty($phone)) {
+                                }else if ($phone !== false) {
                                     $applicant_phone = strip_tags(get_post_meta($post->ID, $key, TRUE));
                                     $phone_hyperlink = '<a href="tel:'. $applicant_phone .'" target="_blank" rel="noopener noreferrer">'. $applicant_phone . '</a>' ;
                                     echo '<tr><td>' . esc_attr( $label ) . '</td><td>' . wp_kses_post( $phone_hyperlink ) . '</td></tr>';
-                                }else if (!empty($tc)) {
+                                }else if ($tc !== false) {
                                     $tc_content = strip_tags(get_post_meta($post->ID, $key, TRUE));                                    
                                     echo '<tr><td>' . __('Terms & Conditions', 'simple-job-board') . '</td><td>' . $tc_content . '</td></tr>';
+                                }else if ($pp !== false) {
+                                    $pp_content = strip_tags(get_post_meta($post->ID, $key, TRUE));                                    
+                                    echo '<tr><td>' . __('Privacy Policy', 'simple-job-board') . '</td><td>' . $pp_content . '</td></tr>';
                                 }else{
                                     
                                     echo '<tr><td>' . esc_attr( $label ) . '</td><td>' . wp_kses_post( get_post_meta($post->ID, $key, TRUE) ) . '</td></tr>';

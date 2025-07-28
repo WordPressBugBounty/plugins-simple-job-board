@@ -1546,56 +1546,15 @@ add_filter('sjb_jobs_archive_title', 'sjb_job_archives_title', 10, 2);
 
 
 if (!function_exists('sjb_generate_csrf_token')) {
-
+ 
     /**
-     * Generate a CSRF token, store it in a transient, and return it.
+     * The Anti-CSRF approach has been modified starting from version 2.13.7.
+     * To prevent a fatal error, this function has been temporarily retained with no output.
      *
      * @return string The generated CSRF token.
      */
     function sjb_generate_csrf_token() {
-        // Generate a secure random token
-        $token = bin2hex(random_bytes(32));
-
-        // Generate a unique guest ID
-        $guest_id = bin2hex(random_bytes(16));
-
-        // Store the token in a transient keyed by the guest ID
-        set_transient('csrf_token_' . $guest_id, $token, HOUR_IN_SECONDS);
-
-        // Return the token and guest ID
-        return [
-            'token' => $token,
-            'guest_id' => $guest_id,
-        ];
-    }
-}
-
-/**
- * Verify a submitted CSRF token against the stored value and expire it.
- *
- * @param string $submitted_token The token to verify.
- * @param string $guest_id (Optional) The guest ID for non-logged-in users.
- * @return bool True if the token is valid, false otherwise.
- */
-if (!function_exists('sjb_verify_csrf_token')) {
-
-    /**
-     * Generate a CSRF token, store it in a transient, and return it along with a guest ID.
-     *
-     * @return array An array containing the token and guest ID.
-     */
-    function sjb_verify_csrf_token($submitted_token, $guest_id) {
-        
-        // Retrieve the stored token from the transient using the guest ID
-        $stored_token = get_transient('csrf_token_' . $guest_id);
-
-        // Verify the token and delete the transient if valid
-        if ($stored_token && hash_equals($stored_token, $submitted_token)) {
-            delete_transient('csrf_token_' . $guest_id);
-            return true;
-        }
-
-        return false;
+        return;
     }
 }
 

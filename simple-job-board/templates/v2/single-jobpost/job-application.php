@@ -303,7 +303,7 @@ do_action('sjb_job_application_before');
                                 <div id="jobapp-pp">
                                     <label class="small">
                                         <?php if ($privacy_policy_cb == 'yes') { ?>
-                                        <input type="checkbox"  name="jobapp_pp" id="jobapp-pp" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($privacy_policy_content)))); ?>" required="required">
+                                        <input type="checkbox" class="sjb-required" name="jobapp_pp" id="jobapp-pp" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($privacy_policy_content)))); ?>" required="required">
                                         <?php } ?>
                                         <?php printf( __("%s", 'simple-job-board'), wp_kses_post(stripslashes_deep(trim($privacy_policy_content)))); ?>
                                         <?php if ($privacy_policy_cb == 'yes') { ?>
@@ -317,7 +317,7 @@ do_action('sjb_job_application_before');
                                 <div id="jobapp-pp">
                                     <label class="small">
                                         <?php if ($privacy_policy_cb == 'yes') { ?>
-                                        <input type="checkbox"  name="jobapp_pp" id="jobapp-pp" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($privacy_policy_content)))); ?>" required="required">
+                                        <input type="checkbox" class="sjb-required" name="jobapp_pp" id="jobapp-pp" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($privacy_policy_content)))); ?>" required="required">
                                         <?php } ?>
                                         <?php printf(__("%s", 'simple-job-board'), wp_kses_post(stripslashes_deep(trim($privacy_policy_content)))); ?>
                                         <?php if ($privacy_policy_cb == 'yes') { ?>
@@ -349,7 +349,7 @@ do_action('sjb_job_application_before');
                             <div class="col-md-9 col-xs-12">
                                 <div id="jobapp-tc">
                                     <label class="small">
-                                        <input type="checkbox" name="jobapp_tc" id="jobapp-tc" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($term_conditions_content)))); ?>" required="required">
+                                        <input type="checkbox" class="sjb-required" name="jobapp_tc" id="jobapp-tc" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($term_conditions_content)))); ?>" required="required">
                                         <?php printf(__("%s", 'simple-job-board'), wp_kses_post(stripslashes_deep(trim($term_conditions_content)))); ?>
                                         <span class="required">*</span>
                                     </label>
@@ -359,7 +359,7 @@ do_action('sjb_job_application_before');
                             <div class="col-md-12 col-xs-12">
                                 <div id="jobapp-tc">
                                     <label class="small">
-                                        <input type="checkbox" name="jobapp_tc" id="jobapp-tc" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($term_conditions_content)))); ?>" required="required">
+                                        <input type="checkbox" class="sjb-required" name="jobapp_tc" id="jobapp-tc" value="<?php echo wp_kses_post(stripslashes_deep(trim(htmlspecialchars($term_conditions_content)))); ?>" required="required">
                                         <?php printf(__("%s", 'simple-job-board'), wp_kses_post(stripslashes_deep(trim($term_conditions_content)))); ?>
                                         <span class="required">*</span>
                                     </label>
@@ -380,21 +380,12 @@ do_action('sjb_job_application_before');
          * @since   2.2.0                   
          */
         do_action('sjb_job_application_form_fields_end');
-        $token_data = sjb_generate_csrf_token();
-        $sjb_csrf_token = $token_data['token'];
-        $sjb_guest_id = $token_data['guest_id'];
+        
         ?>
         <input type="hidden" name="job_id" value="<?php the_ID(); ?>" >
         <input type="hidden" name="action" value="process_applicant_form" >
         <input type="hidden" name="wp_nonce" value="<?php echo wp_create_nonce('jobpost_security_nonce') ?>" >
-        <?php
-            $sjb_csrf_token_check =  get_option('sjb_csrf_token_disable');
-            if($sjb_csrf_token_check !='yes'){?>
-        <input type="hidden" name="sjb_csrf_token" value="<?php echo esc_attr($sjb_csrf_token); ?>">
-        <input type="hidden" name="sjb_guest_id" value="<?php echo esc_attr($sjb_guest_id); ?>">
-        <?php
-            }
-        ?>
+        
         <div class="clearfix"></div> 
         <?php if (0 === $total_sections) { ?>
             <div class="col-md-12 col-xs-12">

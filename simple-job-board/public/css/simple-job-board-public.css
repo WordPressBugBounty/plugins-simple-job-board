@@ -4085,7 +4085,12 @@ fieldset[disabled] .sjb-page .checkbox label {
     margin-left: -13px;
     margin-bottom: 10px;
 }
-
+.jobpost-form #applicant-resume {
+    z-index: 1;
+}
+.iti--allow-dropdown .flag-container ul.iti__country-list{
+    z-index: 2;
+}
 .sjb-required input,
 .sjb-email-address {
     color: black !important;
@@ -4096,7 +4101,7 @@ fieldset[disabled] .sjb-page .checkbox label {
 label#jobapp_pp-error, label#jobapp_tc-error {
     position: absolute;
     left: 13px;
-    bottom: 5px;
+    bottom: 2px;
 }
 .sjb-pp {
     margin-top: 15px;

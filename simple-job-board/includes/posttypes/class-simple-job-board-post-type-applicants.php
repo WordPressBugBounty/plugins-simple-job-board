@@ -99,7 +99,7 @@ if (!class_exists('Simple_Job_Board_Post_Type_Applicants')) {
                 'labels' => $labels_applicants,
                 'description' => sprintf(esc_html__('List of %s with their resume.', 'simple-job-board'), $plural),
                 'public' => FALSE,
-                'exclude_from_search' => FALSE,
+                'exclude_from_search' => TRUE,
                 'publicly_queryable' => FALSE,
                 'show_ui' => TRUE,
                 'show_in_menu' => 'edit.php?post_type=jobpost',

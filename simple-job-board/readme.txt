@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
 Tested up to: 6.7
-Stable tag: 2.13.6
+Stable tag: 2.13.7
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -136,7 +136,7 @@ If you are an awesome contributor for translations or plugin development, please
 * Google Fonts(https://fonts.google.com)
 * jQuery UI(https://jqueryui.com)
 * WP Color Picker Alpha(https://github.com/23r9i0/wp-color-picker-alpha)
-* Create Guten Block by Ahmad Awais(https://github.com/ahmadawais/create-guten-block)
+* Created Guten Block by Ahmad Awais(https://github.com/ahmadawais/create-guten-block)
 
 == Configurations & Templating ==
 
@@ -203,8 +203,11 @@ Yes, you can use various combinations of shortcodes with spaces i.e. [jobpost lo
 = How Can I view the Applicant list for a Job Post? = 
 In your WordPress admin panel, go to "Job Board" menu and "Applicants" section
 
-= Where can I find more information about Simple Job Board? =  
-You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <a href="https://www.presstigers.com/category/plugins/simple-job-board/">blog</a> page.
+= How can I configure default fields for the job application form displayed on all jobs? =  
+To set default fields for the job application form shown on every job post, navigate to Settings and click on Application Form Fields. Under the "Default Application Form Fields" section, you can configure the input fields with full flexibility.
+
+= How can I disable formatting or flags in the phone number input field? = 
+To remove formatting and flags from the phone number input, navigate to Settings and select Application Form Fields. In the "Disable formatting for Phone Number" section, check the checkbox and click the Save Settings button at the bottom.
 
 == Screenshots ==
 
@@ -231,25 +234,25 @@ You can visit <a href="https://www.presstigers.com">PressTigers Website</a> or <
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+= 2.13.7 =
+* Feature - Added setting to toggle phone field formatting (with or without country code and formatting).
+* Feature - Introduced helper functions for handling time and timezone based on WordPress settings.
+* Tweak - Refined form submission process to address intermittent submission issues.
+* Tweak - Improved the layout of applicant details in the admin panel’s application view area.
 
 = 2.13.6 =
-* Feature - Added a new shortcode "job_details" to display a single job by ID.
-* Feature - Improved compatibility with page builders (Elementor, Divi, WPBakery).
-* Feature - Introduced an optional checkbox for terms & conditions acceptance.
-* Fix - The form submission issue that was occurring in some cases has been resolved.
-* Fix - Fixed a translation bug in the email validation message.
+* Fix - Add settings to enable or disable additional security check.
 
 = 2.13.5 =
 * Fix - Fixed the application form submission.
 
 = 2.13.4 =
-
 * Fix - Fixed the is required translation issue.
 * Fix - Fixed the resume optional issue.
 * Tweak - Modified according to EU regulations.
 * Tweak - Enhanced the security
-* Tweak - Updated the jQuery validation library.
-* Tweak - Made WP editor compatible with gutenberg editor.
+* Tweak - Updated the Jquery validation library.
+* Tweak - Made wp editor compatible with gutenberg editor.
 * Tweak - Enhanced the compatibility with Elementor.
 
 = 2.13.3 =

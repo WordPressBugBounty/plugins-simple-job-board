@@ -36,10 +36,8 @@ class Simple_Job_Board_Shortcode_job_details
             'job_id'                => 0,
         ], $atts);
 
-        // Start output buffering only if not in Elementor edit/preview mode
-        $should_buffer = !\Elementor\Plugin::$instance->editor->is_edit_mode() && 
-                        !\Elementor\Plugin::$instance->preview->is_preview_mode() && 
-                        get_post_meta($post->ID, '_elementor_edit_mode', true) != 'builder';
+        // Get buffer condition through hook
+        $should_buffer = apply_filters('sjb_should_buffer_output', true, $post);
         
         if ($should_buffer) {
             ob_start();
@@ -47,9 +45,7 @@ class Simple_Job_Board_Shortcode_job_details
 
         do_action('sjb_enqueue_scripts');
         do_action('sjb_single_job_content_start');
-
-        echo $atts['job_form_description'] ? '<div class="sjb-job-description">'.$atts['job_form_description'].'</div>' : '';
-
+        
         $original_post = null;
         if (!empty($atts['job_id'])) {
             $job_post = get_post(intval($atts['job_id']));
@@ -59,6 +55,11 @@ class Simple_Job_Board_Shortcode_job_details
                 $post = $job_post;
                 setup_postdata($post);
             }
+        }
+        
+        if( isset( $atts['job_form_description'] ) && 'yes' === $atts['job_form_description'] ){
+            echo '<div class="sjb-job-description">'.$post->post_content.'</div>';
+            
         }
 
         if (is_singular('jobpost') || (!empty($atts['job_id']) && isset($post))) {
@@ -84,18 +85,13 @@ class Simple_Job_Board_Shortcode_job_details
         }
 
         do_action('sjb_single_job_content_end');
-
+        
         if ($original_post) {
             global $post;
             $post = $original_post;
             wp_reset_postdata();
         }
 
-        // Only return buffered content if we started buffering
-        if ($should_buffer) {
-            return ob_get_clean();
-        }
-        
-        return ''; // Return empty string if not buffering
+        return $should_buffer ? ob_get_clean() : '';
     }
 }

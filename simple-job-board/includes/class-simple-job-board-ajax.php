@@ -93,18 +93,31 @@ class Simple_Job_Board_Ajax {
      * @return void
      */
     public function process_applicant_form() {
-
-        $sjb_csrf_token = sanitize_key($_POST['sjb_csrf_token']);
-        $sjb_guest_id = sanitize_key($_POST['sjb_guest_id']);
-       
-        $sjb_csrf_token_check =  get_option('sjb_csrf_token_disable');
-        if($sjb_csrf_token_check !='yes'){
-            if (!isset($sjb_csrf_token) || !sjb_verify_csrf_token($sjb_csrf_token, $sjb_guest_id)) {
-                wp_die(__('Invalid or expired CSRF token. Please refresh the page and try again.', 'simple-job-board'));
-            }
-        }
-         
+        
         check_ajax_referer( 'jobpost_security_nonce', 'wp_nonce' );
+
+        /**
+         * Additional CSRF protection: Referer check
+         * @since 2.13.7
+         */
+        $referer = wp_get_referer();
+        $referer_error = '';
+        if ( ! empty( $referer ) ) {
+            $referer_host = wp_parse_url( $referer, PHP_URL_HOST );
+            $site_host    = wp_parse_url( get_site_url(), PHP_URL_HOST );
+
+            if ( $referer_host !== $site_host ) {
+                $referer_error = __('Apologies. ', 'simple-job-board');
+            }
+        } else {
+            $referer_error = __('Apologies! ', 'simple-job-board');
+        }
+        if( $referer_error ){
+            $referer_response = json_encode( array( 'success' => FALSE, 'error' => esc_attr( $referer_error ) ));
+            header( "Content-Type: application/json" );
+            echo apply_filters( 'sjb_job_submit_validation_errors', $referer_response );
+            wp_die();
+        }        
         
         /**
          * Fires on job submission 

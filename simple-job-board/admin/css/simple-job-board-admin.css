@@ -354,11 +354,6 @@ body.jobpost_page_sjb-add-ons {
     border: 1px solid #1e8cbe;
 }
 
-/* .sjb-form-group input[type="checkbox"]:checked::before {
-    margin: -4px -6px;
-    height: 23px;
-    width: 25px;
-} */
 .sjb-form-group input[type="radio"]:checked::before {
     width: 10px;
     height: 10px;
@@ -381,13 +376,6 @@ body.jobpost_page_sjb-add-ons {
         width: 18px;
     }
 }
-
-/* .sjb-form-group input[type="checkbox"]:checked::before {
-    margin: 1px;
-    height: 17px;
-    width: 17px;
-} */
-
 .sjb-form-group label {
     padding-top: 2px;
     cursor: pointer;
@@ -507,20 +495,10 @@ body.jobpost_page_sjb-add-ons {
 #job_app_form select {
     display: inline-block;
 }
-/* #job_feature_form li:first-child,
-#job_app_form li:first-child {
-    padding-bottom: 10px;
-    padding-top: 0;
-} */
 #job_feature_form li,
 #job_app_form li {
     padding: 10px 0;
 }
-/* #job_feature_form li:last-child,
-#job_app_form li:last-child {
-    padding-bottom: 0px;
-    padding-top: 10px;
-} */
 #upload-file-select {
     width: 250px;
 }
@@ -1558,6 +1536,20 @@ select#jobapp_field_type {
 .job-application-metabox p {
     margin: 10px 0;
 }
+.sjb-table-application-detail tr td:first-child {
+    font-weight: bold;
+}
+.sjb-table-application-detail tr td{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+}
+.sjb-application-pre-detail a{
+    text-decoration: none;
+}
+.sjb-application-pre-detail a:hover{
+    color: #000;
+}
 .type-jobpost_applicants .label {
     border-radius: 3px;
     font-size: 10px;
@@ -1608,7 +1600,6 @@ select#jobapp_field_type {
     margin-bottom: 7px;
 }
 .sjb-form-group .file_url img {
-    /*border: 1px solid #eee;*/
     display: block;
 }
 
@@ -2490,7 +2481,7 @@ li
     margin-right: auto;
     text-align: center;
     width: 100%;
-    background: #f9f9f9db;
+    background: #f9f9f9;
     height: 100%;
 }
 
@@ -2665,13 +2656,20 @@ i.fas.fa-angle-down {
     display: block;
 }
 
-
+.sjb-section.general .sjb-content.sjb-content-shortcodes .sjb-form-group{
+    float: none;
+}
 .sjb-shortcodes-heading{
     font-size: 14px;
     font-weight: 700;
     margin-left: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 5px;
 }
-
+.sjb-content .sjb-shortcodes-heading:first-of-type {
+    border-top: none;
+}
 .sjb-shortcodes-heading h4{
     padding-top: 0;
     margin:0
@@ -2743,10 +2741,9 @@ i.fas.fa-angle-down {
     display: contents !important;
 }
 .jobpost_fields .fa-bars{
-	font-size: 15px;
+    font-size: 15px;
     margin-right: 4px;
-    color: gray;
-    /* vertical-align: middle; */
+    color: gray;    
     position: relative;
     top: 3px;
 }

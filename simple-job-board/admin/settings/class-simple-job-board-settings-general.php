@@ -274,7 +274,7 @@ class Simple_Job_Board_Settings_General
                 <!-- Shortcode Section -->
                 <div id="shortcode" class="sjb-general-subtab-content">
                     <div class="sjb-section general">
-                        <div class="sjb-content">
+                        <div class="sjb-content sjb-content-shortcodes">
                             <?php
                                 /**
                                  * Action -> Add new fields at start of shortcode section.  
@@ -294,7 +294,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('Use this shortcode to show jobs on a page, along with search form.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost layout="grid"]', 'simple-job-board'); ?></h4>
                                 </div>
@@ -304,7 +304,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list all the jobs as a grid view.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost category="category-slug"]', 'simple-job-board'); ?></h4>
                                 </div>
@@ -314,7 +314,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list jobs for a particular category.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost type="type-slug"]', 'simple-job-board'); ?></h4>
                                 </div>
@@ -324,7 +324,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list jobs for a particular type.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost location="location-slug"]', 'simple-job-board'); ?></h4>
                                 </div>
@@ -334,7 +334,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list jobs for a particular location.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost location="location-slug" category="category-slug" type="type-slug"]', 'simple-job-board'); ?></h4>
                                         
@@ -344,7 +344,7 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list jobs with a combinations of taxonomies and terms.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
-                                <hr style="border: 1px solid #ccc;">
+                                
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost posts="5"]', 'simple-job-board'); ?></h4>
                                         
@@ -352,6 +352,16 @@ class Simple_Job_Board_Settings_General
                                 <div class="sjb-form-group">
                                     <div class="col-md-12 sjb-shortcodes-description">
                                             <label><?php echo esc_html__('To limit the number of jobs per page with pagination.', 'simple-job-board'); ?></label>
+                                    </div>
+                                </div>
+                            
+                                <div class="sjb-shortcodes-heading">
+                                        <h4><?php echo esc_html__('[job_details job_id=”123″ show_job_form=”yes” show_job_features=”no” job_form_description=”yes” show_job_meta=”no”]', 'simple-job-board'); ?></h4>
+                                        
+                                </div>
+                                <div class="sjb-form-group">
+                                    <div class="col-md-12 sjb-shortcodes-description">
+                                            <label><?php echo esc_html__('To show individual job anywhere.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
                                 <?php

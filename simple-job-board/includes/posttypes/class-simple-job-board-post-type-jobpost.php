@@ -88,6 +88,19 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
            
         }
         
+        /**
+         * Add extra content when showing job content
+         *
+         * @since   1.0.0
+         */
+        public function is_wpbakery_used($post_id = null) {
+            $post = get_post($post_id);
+            if (!$post) return false;
+ 
+            $content = $post->post_content;
+ 
+            return has_shortcode($content, 'vc_row') || has_shortcode($content, 'vc_column');
+        }
 
         /**
          * Add extra content when showing job content
@@ -97,7 +110,7 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
         public function job_content( $content ) {
             global $post;
 
-            if (!is_singular('jobpost') || !in_the_loop()) {
+            if (!is_singular('jobpost') || !in_the_loop() || $this->is_wpbakery_used($post->ID) || (defined('WPB_VC_VERSION') && isset($_GET['vc_editable']) && $_GET['vc_editable'] === 'true')) {
                 return $content;
             }
 

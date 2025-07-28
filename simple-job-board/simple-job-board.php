@@ -15,7 +15,7 @@
  * Plugin Name:       Simple Job Board
  * Plugin URI:        https://market.presstigers.com
  * Description:       Powerful & Robust plugin to create a Job Board on your website in simple & elegant way.
- * Version:           2.13.6
+ * Version:           2.13.7
  * Author:            PressTigers
  * Author URI:        https://market.presstigers.com
  * License:           GPL-3.0+
@@ -30,8 +30,49 @@ if (!defined('WPINC')) {
 
 // Define Plugin Contant
 if (!defined('SJB_PLUGIN_VERSION')) {
-    define('SJB_PLUGIN_VERSION', '2.13.6');
+    define('SJB_PLUGIN_VERSION', '2.13.7');
 }
+
+// Place in your main plugin file or admin-functions.php
+add_action('admin_notices', 'show_template_update_notice');
+function show_template_update_notice() {
+    if (!current_user_can('manage_options')) return;
+    
+    $message = sprintf(
+        '<strong>%s</strong> %s',
+        __('Simple Job Board:', 'simple-job-board'),
+        __('we\'ve updated the templates for job application form. If you\'ve overridden templates in your theme, please update your templates to reflect the latest changes.', 'simple-job-board')
+    );
+    
+    echo '<div class="notice notice-warning is-dismissible">';
+    echo '<p>' . wp_kses_post($message) . '</p>';
+    echo '</div>';
+}
+
+add_action('upgrader_process_complete', 'sjb_clean_options_on_update', 10, 2);
+function sjb_clean_options_on_update($upgrader_object, $options) {
+    // Only run on plugin updates
+    if ($options['action'] !== 'update' || $options['type'] !== 'plugin') {
+        return;
+    }
+
+    // Check if Simple Job Board is being updated
+    foreach ($options['plugins'] as $plugin) {
+        if (strpos($plugin, 'simple-job-board') !== false) {
+            // Get current SJB version
+            $sjb_version = defined('SJB_PLUGIN_VERSION') ? SJB_PLUGIN_VERSION : 0;
+            if($sjb_version != 0){
+                // Only proceed if version is 2.13.6 or lower
+                if (version_compare($sjb_version, '2.13.6', '<=')) {
+                    // Delete the specific option
+                    delete_option('sjb_csrf_token_disable');
+                }
+            }
+            break;
+        }
+    }
+}
+
 
 // Define Plugin Upload DIR
 if (!defined('SJB_UPLOAD_DIR')) {
@@ -107,6 +148,11 @@ register_deactivation_hook(__FILE__, 'deactivate_simple_job_board');
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path(__FILE__) . 'includes/class-simple-job-board.php';
+
+/**
+ * Helper functions
+ */
+require plugin_dir_path(__FILE__) . 'includes/helper-functions.php';
 
 /*
  * Initialize Job Board Shortcode Block

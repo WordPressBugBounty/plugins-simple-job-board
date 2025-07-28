@@ -24,7 +24,7 @@
       
       $(document).ready(function () {
    
-        // Add custom validation method for file extensions
+        /* Add custom validation method for file extensions */
         $.validator.addMethod(
           "filetype",
           function (value, element, param) {
@@ -33,16 +33,16 @@
           application_form.jquery_alerts["invalid_extension"]
         );
   
-        // Initialize validation on the form
+        /* Initialize validation on the form */
         $(".jobpost-form").validate({
-          ignore: [], // Ensure hidden fields are also validated
+          ignore: [], /* Ensure hidden fields are also validated */
           errorPlacement: function (error, element) {
-            // Customize error messages
+            /* Customize error messages */
             error.insertAfter(element);
           },
           submitHandler: function (form) {
            
-            // Add your submission function here
+            /* Add your submission function here */
             var formObj = $("#sjb-application-form");
             var datastring = new FormData(formObj[0]);
             submitForm(datastring);
@@ -50,30 +50,37 @@
         });
         
         
-        // Add rules for required fields with class 'sjb-required'
+      /* Add rules for required fields with class 'sjb-required' */
         $(".sjb-required").each(function () {
           let fieldName = $(this).attr("name");
-         
-          // Check if fieldName exists and is a string
+          /* Check if fieldName exists and is a string */
           if (typeof fieldName === "string") {
               fieldName = fieldName.replace(/^jobapp_/, ""); 
               
-              // Replace underscores with spaces and capitalize each word
-              const fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-              
-              $(this).css("color", "black"); 
+            /* Replace underscores with spaces and capitalize each word */
+            var fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+            $(this).css("color", "black");   
+            if(fieldLabel == 'Tc' || fieldLabel == 'Pp'){
+              $(this).rules("add", {
+                  required: true,
+                  messages: {
+                    required: application_form.jquery_alerts["sjb_application_input_required"],
+                  },
+              });
+            }else{
               $(this).rules("add", {
                   required: true,
                   messages: {
                     required: fieldLabel + ' ' + application_form.is_required,
                   },
               });
+            }
           }
-      });
+        });
   
-        // Add email validation for fields with class 'sjb-email-address'
+        /* Add email validation for fields with class 'sjb-email-address' */
         $(".sjb-email-address").each(function () {
-            let fieldName = $(this).attr("name"); // Get the field name
+            let fieldName = $(this).attr("name"); /* Get the field name */
         
             
             if (typeof fieldName === "string") {
@@ -82,16 +89,13 @@
                 fieldLabel = fieldLabel.replace('_', ' ');
  
         
-                $(this).css("color", "black"); // Set text color to black
+                $(this).css("color", "black"); /* Set text color to black */
                 $(this).rules("add", {
                     required: true,
                     email: true,
                     messages: {
                         required: fieldLabel + ' ' + application_form.is_required,
-                        email: wp.i18n.sprintf(
-                          wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
-                          fieldLabel
-                      ),
+                        email: application_form.jquery_alerts["sjb_application_enter_valid"] + fieldLabel,
                     },
                 });
             }
@@ -107,7 +111,7 @@
           "i"
         );
         
-        // File type validation for applicant resume
+        /* File type validation for applicant resume */
         if (!$("#applicant-resume").hasClass("sjb-not-required")) {
         $("#applicant-resume").rules("add", {
           required: true,
@@ -123,40 +127,49 @@
 
       
       function initializePopupValidation() {
-        // Reapply validation to dynamically added popup form
+        /* Reapply validation to dynamically added popup form */
         const popupForm = $(".jobpost-form");
         
         
           popupForm.validate({
-              ignore: [], // Ensure hidden fields are also validated
+              ignore: [], /* Ensure hidden fields are also validated */
               errorPlacement: function (error, element) {
                   error.insertAfter(element);
               },
               submitHandler: function (form) {
-                  // Custom submission logic
+                  /* Custom submission logic */
                   const formObj = $(form);
                   const datastring = new FormData(formObj[0]);
                   submitForm(datastring); 
               },
           });
       
-          // Add rules for required fields with class 'sjb-required'
+          /* Add rules for required fields with class 'sjb-required' */
           popupForm.find(".sjb-required").each(function () {
               let fieldName = $(this).attr("name");
               if (typeof fieldName === "string") {
                   fieldName = fieldName.replace(/^jobapp_/, ""); 
-                  const fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
-                  $(this).css("color", "black");
-                  $(this).rules("add", {
-                      required: true,
-                      messages: {
-                        required: fieldLabel + ' ' + application_form.is_required,
-                      },
-                  });
+                  var fieldLabel = $(this).data("label") || fieldName.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+                   $(this).css("color", "black");
+                  if(fieldLabel == 'Tc' || fieldLabel == 'Pp'){
+                    $(this).rules("add", {
+                        required: true,
+                        messages: {
+                          required: application_form.jquery_alerts["sjb_application_input_required"],
+                        },
+                    });
+                  }else{
+                    $(this).rules("add", {
+                        required: true,
+                        messages: {
+                          required: fieldLabel + ' ' + application_form.is_required,
+                        },
+                    });
+                  }
               }
           });
       
-          // Add email validation for fields with class 'sjb-email-address'
+          /* Add email validation for fields with class 'sjb-email-address' */
           popupForm.find(".sjb-email-address").each(function () {
               let fieldName = $(this).attr("name");
               if (typeof fieldName === "string") {
@@ -170,16 +183,13 @@
                       email: true,
                       messages: {
                           required: fieldLabel + ' ' + application_form.is_required,
-                          email: wp.i18n.sprintf(
-                            wp.i18n.__('Please enter a valid %s', 'simple-job-board'),
-                            fieldLabel
-                        ),
+                          email: application_form.jquery_alerts["sjb_application_enter_valid"] + fieldLabel,
                       },
                   });
               }
           });
           
-          // File type validation for applicant resume
+          /* File type validation for applicant resume */
           var allowed_file_exts = Array.isArray(application_form.setting_extensions)
         ? application_form.setting_extensions.filter(ext => typeof ext === "string").join(",")
         : "";
@@ -339,7 +349,9 @@
           }
         }
       }
-      initialize_tel();
+      if(application_form.isPhoneFormattingdisabled !='yes'){
+        initialize_tel();
+      }
   
       /**
        * Application Form -> Phone Number Validation
@@ -352,62 +364,17 @@
         var error_element = $("#" + telInput_id + "-invalid-phone");
         error_element.hide();
   
-        // Validate Phone Number
+        /* Validate Phone Number */
         if ($.trim(telInput.val())) {
-          if (telInput.intlTelInput("isValidNumber")) {
-            telInput.removeClass("invalid").addClass("valid");
-            error_element.hide();
-          } else {
-            telInput.removeClass("valid").addClass("invalid");
-          }
+            if (typeof telInput.intlTelInput === "function" && telInput.intlTelInput("isValidNumber")) {
+                telInput.removeClass("invalid").addClass("valid");
+                error_element.hide();
+            } else {
+                telInput.removeClass("valid").addClass("invalid");
+            }
         }
       });
-  
-      /**
-       * Check for Allowable Extensions of Uploaded File
-       *
-       * @since   2.3.0
-       */
-      // $(document).on("change", ".sjb-attachment", function () {
-      //   var input = $(this);
-      //   var file = $("#" + $(this).attr("id"));
-      //   var error_element = file.parent().next("span");
-      //   error_element.text("");
-      //   error_element.hide();
-  
-      //   // Validate on File Attachment
-      //   if (0 != file.get(0).files.length) {
-      //     /**
-      //      *  Uploaded File Extensions Checks
-      //      *  Get Uploaded File Ext
-      //      */
-      //     var file_ext = file.val().split(".").pop().toLowerCase();
-  
-      //     // All Allowed File Extensions
-      //     var allowed_file_exts = application_form.allowed_extensions;
-  
-      //     // Settings File Extensions && Getting value From Script Localization
-      //     var settings_file_exts = application_form.setting_extensions;
-      //     var selected_file_exts =
-      //       "yes" === application_form.all_extensions_check ||
-      //       null == settings_file_exts
-      //         ? allowed_file_exts
-      //         : settings_file_exts;
-  
-      //     // File Extension Validation
-      //     if ($.inArray(file_ext, selected_file_exts) > -1) {
-      //       jobpost_submit_button.attr("disabled", false);
-      //       input.removeClass("invalid").addClass("valid");
-      //     } else {
-      //       /* Translation Ready String Through Script Locaization */
-      //       error_element.text(
-      //         application_form.jquery_alerts["invalid_extension"]
-      //       );
-      //       error_element.show();
-      //       input.removeClass("valid").addClass("invalid");
-      //     }
-      //   }
-      // });
+
   
       /**
        * Stop Form Submission -> On Required Attachments
@@ -421,14 +388,14 @@
           var valid = element.hasClass("valid");
           var is_required_class = element.hasClass("sjb-not-required");
   
-          // Set Error Indicator on Invalid Attachment
+          /* Set Error Indicator on Invalid Attachment */
           if (!valid) {
             if (!(is_required_class && 0 === element.get(0).files.length)) {
               error_free = false;
             }
           }
   
-          // Stop Form Submission
+          /* Stop Form Submission */
           if (!error_free) {
             event.preventDefault();
           }
@@ -459,7 +426,7 @@
               );
             }
   
-            // Set Error Indicator on Invalid Input
+            /* Set Error Indicator on Invalid Input */
             if (!valid) {
               error_element.show();
               error_free = false;
@@ -467,7 +434,7 @@
               error_element.hide();
             }
   
-            // Stop Form Submission
+            /* Stop Form Submission */
             if (!error_free) {
               event.preventDefault();
             }
@@ -495,7 +462,7 @@
       }
       initialize_checkbox();
   
-      // Accept Numbers Input Only
+      /* Accept Numbers Input Only */
       function initialize_keypress() {
         $(".sjb-numbers-only").keypress(function (evt) {
           evt = evt ? evt : window.event;
@@ -514,10 +481,10 @@
        * @since   2.4.0
        */
       var file = {
-        maxlength: 20, // maximum length of filename before it's trimmed
+        maxlength: 20, /* maximum length of filename before it's trimmed */
   
         convert: function () {
-          // Convert all file type inputs.
+          /* Convert all file type inputs. */
           $("input[type=file].sjb-attachment").each(function () {
             $(this).wrap('<div class="file" />');
             $(this)
@@ -529,11 +496,11 @@
                 "<span>" + application_form.file["no_file_chosen"] + "</span>"
               );
             $(this).fadeTo(0, 0);
-            $(this).attr("size", "50"); // Use this to adjust width for FireFox.
+            $(this).attr("size", "50"); /* Use this to adjust width for FireFox. */
           });
         },
         update: function (x) {
-          // Update the filename display.
+          /* Update the filename display. */
           var filename = x.val().replace(/^.*\\/g, "");
           if (filename.length > $(this).maxlength) {
             trim_start = $(this).maxlength / 2 - 1;
@@ -614,10 +581,10 @@
         $("#sjb_view_less_btn_" + post_id).css("display", "none");
       });
       var filess = {
-        maxlength: 20, // maximum length of filename before it's trimmed
+        maxlength: 20, /* maximum length of filename before it's trimmed */
   
         update: function (x) {
-          // Update the filename display.
+          /* Update the filename display. */
           var files = x.prop("files");
           var fileList = "";
           var count = 0;
@@ -633,14 +600,14 @@
           }
         },
       };
-      // Update the resume field value
+      /* Update the resume field value */
       $(document).on("change", "input[name='applicant_resume[]']", function () {
         filess.update($(this));
       });
   
-      // Tags in Search filter
+      /* Tags in Search filter */
       $(".sjb-tags-search").on("click", function (event) {
-        event.preventDefault(); // Prevent default link behavior
+        event.preventDefault(); /* Prevent default link behavior */
   
         if ($(this).hasClass("tag-active")) {
           $(this).removeClass("tag-active");
@@ -655,7 +622,7 @@
           .get();
   
         $("#selected_tag").val(linkValue);
-        $(".filters-form").submit(); // Submit the form
+        $(".filters-form").submit(); /* Submit the form */
       });
     });
     

@@ -147,13 +147,13 @@ class Simple_Job_Board_Admin_Alerts
                 <div class="sjb-alert-banner">
                     <div class="sjb-banner-container">
                         <div class="sjb-banner-text">
-                            <!-- Product Tag Image -->
-                            <img src="<?php echo esc_url(plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb_tag.png'); ?>" class="sjb-banner-name" />
+                            <h2 class="sjb-save-bundle"><?php esc_html_e('BUNDLE & SAVE!', 'simple-job-board') ?></h2>
+                            <img src="<?php echo esc_url(plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb_tag.png'); ?>" alt="" class="sjb-banner-name" style="max-width: 279px;" />
 
                             <div class="sjb-banner-text_details">
                                 <!-- Product Title and Permalink -->
-                                <h2><a href=""><?php echo esc_html($filtered_products[0]['title']); ?></a></h2>
-                                <p><?php echo esc_html__('This bundle contains the following Add-ons:', 'simple-job-board'); ?></p>
+                                <h2><a href="" target="_blank"><?php echo esc_html($filtered_products[0]['title']); ?></a></h2>
+                                <p><?php esc_html_e('This bundle contains the following Add-ons', 'simple-job-board') ?>:</p>
                                 <ul>
                                     <?php
                                     if (!empty($filtered_products[0]['linked_products'])) {
@@ -164,22 +164,19 @@ class Simple_Job_Board_Admin_Alerts
                                     ?>
                                 </ul>
                             </div>
-
-                            <div class="sjb_notfiy_banner_pr_btn">
+ 
+                            <div class="sjb_notfiy_banner_pr_btn ">
                                 <!-- Buy Now Button and Pricing -->
-                                <a href="<?php echo esc_url($filtered_products[0]['permalink']); ?>" class="sjb-btn"><?php echo esc_html__('Buy Now', 'simple-job-board'); ?></a>
+                                <a href="<?php echo esc_url($filtered_products[0]['permalink']); ?>" target="_blank" class="sjb-btn"><?php esc_html_e('Buy Now', 'simple-job-board') ?></a>
                                 <p class="price-wrap">
                                     <!-- Display actual price if available -->
                                     <?php if (!empty($filtered_products[0]['regular_price'])) : ?>
-                                        <del><?php echo "$".esc_html($filtered_products[0]['regular_price']); ?></del>
+                                        <del><?php echo "$".esc_html($filtered_products[0]['regular_price']); ?>.00</del>
                                     <?php endif; ?>
                                     <span class="price">
-                                        <?php 
+                                        <?php
                                         // If sale price is available, display it; otherwise, use regular price
-                                        echo !empty($filtered_products[0]['sale_price']) ? "$".esc_html($filtered_products[0]['sale_price']) : "$".esc_html($filtered_products[0]['regular_price']);
-                                        ?>
-                                        / year
-                                    </span>
+                                        echo !empty($filtered_products[0]['sale_price']) ? "$".esc_html($filtered_products[0]['sale_price']) : "$".esc_html($filtered_products[0]['regular_price']);?>.00/year</span>
                                 </p>
                             </div>
 
@@ -193,8 +190,8 @@ class Simple_Job_Board_Admin_Alerts
                         </div>
                         <div class="sjb-banner-img">
                             <!-- Banner Image -->
-                            <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb-info-banner.png' ); ?>" />
-                            <button class="alert-close-btn" title="<?php echo esc_html__('Close', 'simple-job-board'); ?>">X</button>
+                            <img src="<?php echo esc_url( plugin_dir_url(dirname(__FILE__)) . 'admin/images/sjb-info-banner.png' ); ?>" alt="<?php esc_attr__('Email Notifications Bundle', 'simple-job-board'); ?>" />
+                            <button class="alert-close-btn">X</button>
                         </div>
                     </div>
                 </div>
@@ -209,7 +206,7 @@ class Simple_Job_Board_Admin_Alerts
                         var $productList = jQuery('.sjb-banner-text_details ul');
                         var $price = jQuery('.price-wrap .price');
                         var $regularPrice = jQuery('.price-wrap del');
-                        var $buyNowBtn = jQuery('.sjb-notfiy_banner_pr_btn a');
+                        var $buyNowBtn = jQuery('.sjb_notfiy_banner_pr_btn a');
                         var $dots = jQuery('.sjb-dot'); // Dots container
 
                         // Function to update the product data
@@ -233,9 +230,9 @@ class Simple_Job_Board_Admin_Alerts
 
                             // Update price info
                             if (product.regular_price) {
-                                $regularPrice.text('$' + product.regular_price);
+                                $regularPrice.text('$' + product.regular_price+'.00');
                             }
-                            $price.text(product.sale_price ? '$' + product.sale_price : '$' + product.regular_price);
+                            $price.text(product.sale_price ? '$' + product.sale_price+'.00' : '$' + product.regular_price+'.00');
                             $buyNowBtn.attr('href', product.permalink);
 
                             // Update active dot

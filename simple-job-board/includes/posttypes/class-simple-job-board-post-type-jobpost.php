@@ -62,18 +62,22 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                 if ('sjb-layout' === $sjb_layout) {
 
                     $cpt_support = get_option( 'elementor_cpt_support', true);
-
+                    
                     if (is_plugin_active('sjb-add-on-elementor/sjb-add-on-elementor.php') && in_array('jobpost', $cpt_support)) {
 
                         add_filter('the_content', array($this, 'job_content'));
-                    } else {
-
+                    } else if (is_plugin_active('sjb-add-on-wpbakery/sjb-add-on-wpbakery.php')) {
+                        add_filter('the_content', array($this, 'job_content'));
+                    }else{
                         add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
                     }
                 } elseif ('theme-layout' === $sjb_layout) {
-
-                    // Add filter to use Theme Default Template
-                    add_filter('the_content', array($this, 'job_content'));
+                    if (is_plugin_active('sjb-add-on-wpbakery/sjb-add-on-wpbakery.php')) {
+                        add_filter('the_content', array($this, 'job_content'));
+                    }else{
+                        // Add filter to use Theme Default Template
+                        add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
+                    }
                 }
             } else {
 

@@ -3,8 +3,8 @@ Contributors: PressTigers
 Donate link: https://www.presstigers.com
 Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
 Requires at least: 4.4
-Tested up to: 6.7
-Stable tag: 2.13.7
+Tested up to: 6.8
+Stable tag: 2.13.8
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -234,6 +234,10 @@ To remove formatting and flags from the phone number input, navigate to Settings
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+= 2.13.8 =
+* Tweak - Improved support for page builder plugins.
+* Fix - Implemented a security enhancement.
+
 = 2.13.7 =
 * Feature - Added setting to toggle phone field formatting (with or without country code and formatting).
 * Feature - Introduced helper functions for handling time and timezone based on WordPress settings.

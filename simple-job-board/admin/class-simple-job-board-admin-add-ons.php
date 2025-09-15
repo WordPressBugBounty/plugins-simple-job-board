@@ -34,7 +34,7 @@ class Simple_Job_Board_Add_Ons {
      */
     public function __construct() {
         // Initialize Marketplace API URL
-        $this->api_url = 'https://market.presstigers.com/wc-api/v3/products';
+        $this->api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
 
         // Action - Add Settings Menu
         add_action('admin_menu', array($this, 'admin_menu'), 13);
@@ -134,28 +134,16 @@ class Simple_Job_Board_Add_Ons {
      */
     public function sjb_get_items() {
         
-        // Https Authentication args
-        $params = array(
-            'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
-            'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
-            'filter[limit]' => -1,
-            'type' => 'variable',
-            'version' => '2.13'
-        );
-
-        // Generate the URL
-        $url = esc_url_raw($this->api_url) . '?' . http_build_query($params);
 
         // Make API request
         $response = wp_remote_post(
-                $url, array(
+                $this->api_url, array(
             'method' => 'GET',
             'timeout' => 45,
             'redirection' => 5,
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => array(),
-            'body' => $params,
             'cookies' => array(),
             ));
         // Check the response code

@@ -40,31 +40,17 @@ class Simple_Job_Board_Admin_Alerts
     public function render_admin_alerts_banner() {
 
         // Base URL for the WooCommerce API
-        $api_url = 'https://market.presstigers.com/wc-api/v3/products';
-
-        // Https Authentication args
-        $params = array(
-            'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
-            'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
-            'filter[limit]' => -1,
-            'type' => 'variable',
-            'version' => '2.13'
-        );
-
-        $url = esc_url_raw($api_url) . '?' . http_build_query($params);
-
+        $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
         // Make API request
         $response = wp_remote_get(
-                $url, array(
+                $api_url, array(
             'method' => 'GET',
             'timeout' => 10,
             'redirection' => 5,
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => array(),
-            'body' => $params,
             'cookies' => array(),
-            
             ));
         // Check the response code
         $response_code = wp_remote_retrieve_response_code($response);
@@ -334,29 +320,18 @@ class Simple_Job_Board_Admin_Alerts
             $addons = $cached_data;
         } else {
         // Base URL for the WooCommerce API
-        $api_url = 'https://market.presstigers.com/wc-api/v3/products';
+        $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
 
-        // Https Authentication args
-        $params = array(
-            'consumer_key' => 'ck_0fbca498c2fe9491ce5cfcdbc2a03d2b396153c7',
-            'consumer_secret' => 'cs_66dafc2cb72361dd98cf37cb08ec5508eb49cc97',
-            'filter[limit]' => -1,
-            'type' => 'variable',
-            'version' => '2.13'
-        );
-
-        $url = esc_url_raw($api_url) . '?' . http_build_query($params);
 
         // Make API request
         $response = wp_remote_get(
-                $url, array(
+                $api_url, array(
             'method' => 'GET',
             'timeout' => 10,
             'redirection' => 5,
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => array(),
-            'body' => $params,
             'cookies' => array(),
             
             ));

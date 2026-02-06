@@ -625,6 +625,11 @@
         $(".filters-form").submit(); /* Submit the form */
       });
     });
+
+     $(document).on('click', '.btn-app-modal-close', function(e) {
+        e.preventDefault();
+        $('.sjb-quick-apply-modal-close-btn').trigger('click');
+    });
     
   })(jQuery);
   

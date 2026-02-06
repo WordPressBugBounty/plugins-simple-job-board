@@ -137,7 +137,7 @@ class Simple_Job_Board_Add_Ons {
 
         // Make API request
         $response = wp_remote_post(
-                $this->api_url, array(
+            $this->api_url, array(
             'method' => 'GET',
             'timeout' => 45,
             'redirection' => 5,

@@ -69,8 +69,9 @@ class Simple_Job_Board_Settings_Upload_File_Extensions {
             ?>
 
             <form method="post" id="upload-file-form">
-                <h4 class="first"><?php echo esc_html__('Upload File Size', 'simple-job-board'); ?></h4>
+                
                 <div class="sjb-section sjb-file-size-section">
+                    <h4 class="first sjb-settings-section-heading"><?php echo esc_html__('Upload File Size', 'simple-job-board'); ?></h4>
                     <div class="sjb-content sjb-file-size-content">
                         <?php
                         /**
@@ -102,8 +103,9 @@ class Simple_Job_Board_Settings_Upload_File_Extensions {
                         ?>
                     </div>
                 </div>
-                <h4 class="second"><?php echo esc_html__('Upload File Extensions', 'simple-job-board'); ?></h4>
+                
                 <div class="sjb-section sjb-file-extensions">
+                    <h4 class="second sjb-settings-section-heading"><?php echo esc_html__('Upload File Extensions', 'simple-job-board'); ?></h4>
                     <div class="sjb-content sjb-file-extensions">
                         <?php
                         /**

@@ -12,7 +12,7 @@
  */
 ob_start();
 ?>
-<div class="col-md-5">
+<div class="col-md-5 col-sm-12">
     <div class="job-info">
         <h4>
             <a href="<?php echo apply_filters('sjb_list_view_job_title',get_the_permalink()); ?>">

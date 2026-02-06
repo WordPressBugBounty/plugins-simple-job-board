@@ -2818,14 +2818,14 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
     width: 20px;
     height: 15px;
     box-shadow: 0px 0px 1px 0px #888;
-    background-image: url("../images/flags.png");
+    background-image: url("../../images/flags.png");
     background-repeat: no-repeat;
     background-color: #dbdbdb;
     background-position: 20px 0;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .iti-flag {
-        background-image: url("../images/flags@2x.png");
+        background-image: url("../../images/flags@2x.png");
     }
 }
 .iti-flag.np {
@@ -2911,7 +2911,7 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
     -webkit-appearance: inherit;
     -moz-appearance: inherit;
     appearance: inherit;
-    background: #fff url("../images/select-arrow.png") no-repeat center right 10px;
+    background: #fff url("../../images/select-arrow.png") no-repeat center right 10px;
 }
 .sjb-page .sjb-filters select::-ms-expand {
     display: none;
@@ -3448,7 +3448,7 @@ fieldset[disabled] .sjb-page .btn-primary.focus {
     margin-bottom: 15px;
 }
 i.mce-ico.mce-i-icon.sjb-icon {
-    background: url(../images/jobs.png);
+    background: url(../../images/jobs.png);
 }
 .sjb-page .sjb-listing .list-view .grid-item:nth-child(3n+1) {
     clear: both;

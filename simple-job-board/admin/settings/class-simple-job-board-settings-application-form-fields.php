@@ -73,10 +73,13 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
             $field_types = apply_filters( 'sjb_form_field_types', $field_types );
             $enable_job_application_form_fields =  get_option('job_board_application_form_fields_enable', 'no');
             $disable_sjb_ph_no_application_form_fields =  get_option('job_board_application_form_ph_no_fields_format_disable', 'no');
+            $job_application_setting_form_fields_enable =  get_option('job_application_setting_form_fields_enable', 'no');
+
             ?>
             <form method="post" id="job_app_form">
-                <h4 class="first"><?php esc_html_e('Enable Application Form Fields For Existing Jobs', 'simple-job-board'); ?></h4>
+                
                     <div class="sjb-section settings-fields features-short">
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Enable Application Form Fields For Existing Jobs', 'simple-job-board'); ?></h4>
                         <div class="sjb-form-group">
                             <input type="checkbox" name="job_application_fields_enable" id="enable-fields" value="yes"  <?php checked('yes', esc_attr($enable_job_application_form_fields)); ?> />
                             <label for="enable-fields" class="enable-features-label"><?php echo esc_html__('Display these fields in previously added jobs, by default, these will apply to jobs added afterward', 'simple-job-board'); ?></label>
@@ -85,15 +88,28 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                             <span><?php echo esc_html__('Note: If this checkbox is selected, it will add the application fields only in the jobs in backend, to display the fields on the job detail page you have to update each job post.', 'simple-job-board'); ?></span>
                         </div>
                     </div>
-                <h4 class="first"><?php esc_html_e('Disable formatting for Phone Number', 'simple-job-board'); ?></h4>
+                
                     <div class="sjb-section settings-fields features-short">
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Disable Formatting for Phone Number', 'simple-job-board'); ?></h4>
                         <div class="sjb-form-group">
                             <input type="checkbox" name="job_board_application_form_ph_no_fields_format_disable" id="disable-fields" value="yes"  <?php checked('yes', esc_attr($disable_sjb_ph_no_application_form_fields)); ?> />
                             <label for="disable-fields" class="disable-features-label"><?php echo esc_html__('Use a simple phone number field without country flags or automatic formatting', 'simple-job-board'); ?></label>
                         </div>
                     </div>
-                <h4 class="first"><?php esc_html_e('Default Application Form Fields', 'simple-job-board'); ?></h4>
+                
+                <div class="sjb-section settings-fields features-short">
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Enable Job Application Setting Fields for all Jobs', 'simple-job-board'); ?></h4>
+                    <div class="sjb-form-group">
+                        <input type="checkbox" name="job_application_setting_form_fields_enable" id="enable-setting-form-fields" value="yes"  <?php checked('yes', esc_attr($job_application_setting_form_fields_enable)); ?> />
+                        <label for="enable-setting-form-fields" class="setting-form-fields-label"><?php echo esc_html__('Use job application setting fields for all jobs', 'simple-job-board'); ?></label>
+                    </div>
+                    <div class="sjp-form-field-note">
+                        <span><?php echo esc_html__('Note: If this checkbox is selected, it will use the below setting application form fields for all jobs. This means you will not be able to customize application form fields for each job post, since the same form fields will be applied to all jobs.', 'simple-job-board'); ?></span>
+                    </div>
+                </div>
+                
                 <div class="sjb-section settings-fields features-short-form">
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Default Application Form Fields', 'simple-job-board'); ?></h4>
                 <!-- <span class="sjb-form-field-note" >
                     <?php echo esc_html__('Note: The new added field will be shown when you add a new job, it will not be shown in the existing jobs.', 'simple-job-board'); ?>
                 </span> -->
@@ -210,12 +226,18 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                                         // Set Fields as Optional or Required
                                         $val['optional'] = isset($val['optional']) ? $val['optional'] : 'checked';
 
-                                        echo '<div class="col-lg-5 col-md-5"><label>'
+                                        echo '<div class="col-lg-5 col-md-5"><label class="sjb-required-field-wrap">'
                                         . '<span class="sjb-form-group"><input type="checkbox" value="' . esc_attr( $val['optional'] ). '" class="settings-jobapp-required-field"  ' . esc_attr( $val['optional']) . ' />' . esc_html__('Required', 'simple-job-board') . ' &nbsp; '
                                         . '<input type="hidden" name="' . esc_attr($key ). '[optional]" value="' . esc_attr( $val['optional'] ) . '" class="settings-jobapp-optional-field" /></span>'
                                         . '</label>';
-
-                                        echo '&nbsp;&nbsp;<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div>&nbsp;&nbsp;';
+										
+										/**
+                                         * New action hook added after required field
+                                         * 
+                                         * @since   2.13.10
+                                         */
+										
+										do_action('sjb_jobapp_after_required_field',$key,$val);
 
                                         /**
                                          * Set Applicant Name Field
@@ -229,8 +251,9 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
                                         echo '<label class="sjb-expose-listing">'
                                         . '<input type="radio" class="settings-applicant-columns" name="[applicant_column]" ' . esc_attr( $is_applicant_column ) . ' />' . esc_html__('Expose in Applicant Listing', 'simple-job-board') . ' &nbsp; '
                                         . '<input type="hidden" class="settings-jobapp-applicant-column" name="' . esc_attr( $key ) . '[applicant_column]" value="' . esc_attr( $is_applicant_column ) . '" />'
-                                        . '</label>'
-                                        . '<div>'
+                                        . '</label>'.
+                                        '&nbsp;&nbsp;<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div>&nbsp;&nbsp;'        
+                                        . '</div>'
                                         . '</li>';
                                     endif;
                                 endif;
@@ -310,6 +333,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
         $empty_jobapp = filter_input(INPUT_POST, 'empty_jobapp');
         $enable_job_application_form_fields = isset($_POST['job_application_fields_enable']) ? sanitize_text_field($_POST['job_application_fields_enable']) : '';
         $disable_sjb_ph_no_application_form_fields = isset($_POST['job_board_application_form_ph_no_fields_format_disable']) ? sanitize_text_field($_POST['job_board_application_form_ph_no_fields_format_disable']) : '';
+        $job_application_setting_form_fields_enable = isset($_POST['job_application_setting_form_fields_enable']) ? sanitize_text_field($_POST['job_application_setting_form_fields_enable']) : '';
     
         if (!empty($POST_data) && ( NULL != $empty_jobapp )) {
             $job_data = array();
@@ -346,6 +370,7 @@ class Simple_Job_Board_Settings_Application_Form_Fields {
         }
         update_option('job_board_application_form_fields_enable', sanitize_text_field( $enable_job_application_form_fields ) );
         update_option('job_board_application_form_ph_no_fields_format_disable', sanitize_text_field( $disable_sjb_ph_no_application_form_fields ) );
+        update_option('job_application_setting_form_fields_enable', sanitize_text_field( $job_application_setting_form_fields_enable ) );
     }
     
 

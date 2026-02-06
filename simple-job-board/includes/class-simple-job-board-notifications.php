@@ -164,7 +164,10 @@ class Simple_Job_Board_Notifications {
         }
         
         $message .= self::email_end_template( $post_id, $notification_receiver );
-
+        
+        //  apply HTML set up to support 
+        $message = self::htmlize($message, $post_id);
+        
         /**
          * Hook -> Notification Message.
          * 
@@ -176,6 +179,55 @@ class Simple_Job_Board_Notifications {
          * @param  string  $notification_receiver  Notification Receiver 
          */
         return apply_filters( 'sjb_notification_template', $message, $post_id, $notification_receiver );
+    }
+    
+    /**
+     * Wraps the given email body inside a valid HTML document.
+     * 
+     * @param string $body  body/content of email
+     * @param int $post_id  Post ID
+     * @return string
+     */
+    private static function htmlize( $body, $post_id = 0 ) {
+        
+        // Detect locale
+        $locale = get_locale();
+
+        if ( $locale ) {
+            $lang_atts = sprintf(
+                ' lang="%s" dir="%s"',
+                esc_attr( str_replace( '_', '-', $locale ) ),
+                is_rtl() ? 'rtl' : 'ltr'
+            );
+        } else {
+            $lang_atts = '';
+        }
+        
+        // Applied job title
+        $job_title = get_the_title($post_id);
+        $subject = apply_filters('sjb_applicant_notification_sbj', sprintf(esc_html__('Your Resume Received for Job %s ', 'simple-job-board'), html_entity_decode( $job_title )), $job_title, $post_id);
+
+        $header = apply_filters(
+            'sjb_mail_html_header',
+            '<!doctype html>
+            <html xmlns="http://www.w3.org/1999/xhtml"' . $lang_atts . '>
+            <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>' . esc_html( $subject ) . '</title>
+            </head>
+            <body>
+            '
+        );
+
+        $body = apply_filters( 'sjb_mail_html_body', $body );
+
+        $footer = apply_filters(
+            'sjb_mail_html_footer',
+                    '</body>
+            </html>'
+        );
+
+        return $header . $body . $footer;
     }
 
     /**
@@ -383,7 +435,7 @@ class Simple_Job_Board_Notifications {
             $message .= ' ' . esc_html__('Applicant', 'simple-job-board') . ',';
         endif;
 
-        $message .= '<p>' . esc_html__('Your application for the position of', 'simple-job-board') . '<b><a href="' . esc_url($job_url) . '">' . wp_kses_post($job_title) . '</a></b> ' . esc_html__('at', 'simple-job-board') . ' <a href="' . esc_url($site_url) . '">' . get_bloginfo('name') . '</a> ' . esc_html__('has been successfully submitted. You will hear back from', 'simple-job-board') . ' <a href="' . esc_url($site_url) . '">' . get_bloginfo('name') . '</a> ' . esc_html__('based on their evaluation of your CV.', 'simple-job-board') . '</p>'
+        $message .= '<p>' . esc_html__('Your application for the position of', 'simple-job-board') . ' <b><a href="' . esc_url($job_url) . '">' . wp_kses_post($job_title) . '</a></b> ' . esc_html__('at', 'simple-job-board') . ' <a href="' . esc_url($site_url) . '">' . get_bloginfo('name') . '</a> ' . esc_html__('has been successfully submitted. You will hear back from', 'simple-job-board') . ' <a href="' . esc_url($site_url) . '">' . get_bloginfo('name') . '</a> ' . esc_html__('based on their evaluation of your CV.', 'simple-job-board') . '</p>'
                 . '<p>' . esc_html__('Good Luck!', 'simple-job-board') . '</p>'
                 . esc_html__('Best Regards,', 'simple-job-board') . '<br>'
                 . esc_html__('Admin', 'simple-job-board');

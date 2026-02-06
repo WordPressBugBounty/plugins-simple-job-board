@@ -30,12 +30,38 @@ class Simple_Job_Board_Meta_Box_Job_Application {
 
         global $jobfields;
 
+        // Declare variables
+        $sjb_hide_post_fields_class = '';
+
         // Add a nonce field so we can check for it later.
         wp_nonce_field('sjb_jobpost_meta_box', 'jobpost_meta_box_nonce');
         $allowed_tags = sjb_get_allowed_html_tags();
+        
+        // Fetch the setting value of application fields for all jobs
+        $job_application_setting_form_fields_enable =  get_option('job_application_setting_form_fields_enable');
+        if( $job_application_setting_form_fields_enable === 'yes'){ 
+            $sjb_application_settings_url = admin_url('edit.php?post_type=jobpost&page=job-board-settings#settings-application_form_fields');
+            // Fetch meta value to show application fields
+            $sjb_enable_single_page_app_fields = get_post_meta($post->ID,'sjb_enable_single_page_app_fields',true);
+            $sjb_alert_msg = sprintf(
+                __( 'Form fields are managed globally through <a href="%s" target="_blank">Settings</a> To set fields for this job only, enable the following checkbox, update the job post, and reload.', 'simple-job-board' ),
+                esc_url( $sjb_application_settings_url )
+            );
+            echo wp_kses_post( '<p style="margin-top: 0;">' .$sjb_alert_msg. '</p>' );
+            
+            // Function to show metafield to enable application fields for current page
+            self::sjb_single_page_app_fields_meta($post);
+            
+            if(empty($sjb_enable_single_page_app_fields)){
+                $sjb_hide_post_fields_class = "sjb_hide_post_level_app_fields";
+            }else{
+                $sjb_hide_post_fields_class = "";
+            }
+        }
+        
         ?>
 
-        <div class="meta_option_panel jobpost_fields">
+        <div class="meta_option_panel jobpost_fields <?php echo $sjb_hide_post_fields_class; ?>">
             <ul id="app_form_fields" class="job_application_list">
                 <?php
                 // Form Field Types
@@ -118,10 +144,16 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                             $is_required = isset($val['optional']) ? $val['optional'] : 'checked';
                             echo '<input type="checkbox" class="jobapp-required-field" value="' . esc_attr( $is_required ). '" ' . esc_attr( $is_required ) . ' />' . esc_html__('Required', 'simple-job-board') . ' &nbsp; ';
                             echo '<input type="hidden" class="jobapp-optional-field" name="' .  esc_attr( $key ) . '[optional]" value="' . esc_attr($is_required) . '"/>';
+							
+							/**
+							 * New action hook added after required field
+							 * 
+							 * @since   2.13.10
+							 */
+								
+							do_action('sjb_jobapp_after_required_field',$key,$val);
 
-                            // Delete Button
-                            echo '<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div> &nbsp;';
-
+                            
                             /**
                              * Set Applicant Name Field
                              * 
@@ -135,6 +167,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                             <input type="hidden" class="jobapp-applicant-column" name="' .  esc_attr( $key ) . '[applicant_column]" value="' . esc_attr( $is_applicant_column ) . '"/>
                             <span>' . esc_html__('Expose in Applicant Listing', 'simple-job-board') . ' </span>&nbsp; ';
                             echo '</div>';
+                            echo '<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div> &nbsp;';
                             echo '</div></li>';
 
 
@@ -189,6 +222,14 @@ class Simple_Job_Board_Meta_Box_Job_Application {
                                     $is_required =  isset( $val['optional'] ) ? esc_attr( $val['optional'] ): 'checked'; 
                                     echo '<input type="checkbox" class="jobapp-required-field" value="' . esc_attr( $is_required ) . '" ' . esc_attr( $is_required ) . ' />' . esc_html__('Required', 'simple-job-board') . ' &nbsp; ';
                                     echo '<input type="hidden"   class="jobapp-optional-field" name="' .esc_attr(  $jobapp_field_name ) . '[optional]" value="' . esc_attr( $is_required ) . '"/> &nbsp;';
+									
+									/**
+									 * New action hook added after required field
+									 * 
+									 * @since   2.13.10
+									 */
+										
+									do_action('sjb_jobapp_after_required_field',$jobapp_field_name,$val);
                                     
                                     echo '<div class="button removeField">' . esc_html__('Delete', 'simple-job-board') . '</div> &nbsp;';
                                     
@@ -214,7 +255,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
         <div class="clearfix clear"></div>
 
         <!-- Add Job Application Form -->
-        <table id="jobapp_form_fields" class="alignleft">
+        <table id="jobapp_form_fields" class="alignleft <?php echo $sjb_hide_post_fields_class; ?>">
             <thead>
                 <tr>
                     <th><label for="metakeyselect"><?php esc_html_e('Field', 'simple-job-board'); ?></label></th>
@@ -252,6 +293,32 @@ class Simple_Job_Board_Meta_Box_Job_Application {
         <?php
     }
 
+
+    /**
+     * Fetch meta value to show application fields for current page only
+     * 
+     * @since   2.13.10
+     * 
+     * @param   int     $post_id    Post id
+     * @return  void
+     */
+    
+    public static function sjb_single_page_app_fields_meta($post){ 
+        
+        // Fetch meta value to show application fields
+        $sjb_show_single_page_app_fields = get_post_meta($post->ID,'sjb_enable_single_page_app_fields',true);    
+    ?>
+
+        <div class="sjb-app-fields-meta">
+            <label for="sjb_single_page_app_fields">
+                <input type="checkbox" name="sjb_enable_single_page_app_fields" id="sjb_single_page_app_fields" value="yes" <?php checked( $sjb_show_single_page_app_fields, 'yes' ); ?>/>
+                <?php esc_html_e('Enable custom application fields for this job.','simple-job-board'); ?>
+            </label>
+        </div>
+<?php
+    
+    }
+
     /**
      * Save job application meta box.
      * 
@@ -260,6 +327,7 @@ class Simple_Job_Board_Meta_Box_Job_Application {
      * @param   int     $post_id    Post id
      * @return  void
      */
+
     public static function sjb_save_jobpost_meta($post_id) {
 
         // Delete previous stored fields
@@ -276,6 +344,13 @@ class Simple_Job_Board_Meta_Box_Job_Application {
         // Sanitize $_POST Data Array
         $POST_data = filter_input_array(INPUT_POST);
 
+        
+        $job_application_setting_form_fields_enable =  get_option('job_application_setting_form_fields_enable');
+        if( $job_application_setting_form_fields_enable === 'yes'){
+            $sjb_enable_single_page_app_fields = sanitize_text_field($POST_data['sjb_enable_single_page_app_fields']);
+            update_post_meta( $post_id, 'sjb_enable_single_page_app_fields', $sjb_enable_single_page_app_fields);
+        }
+        
         // Add new Value
         foreach ( $POST_data as $key => $val ):
             if (substr($key, 0, 7) == 'jobapp_') {

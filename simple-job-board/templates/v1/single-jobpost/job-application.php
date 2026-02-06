@@ -27,6 +27,7 @@ do_action('sjb_job_application_before');
     $job_apply_heading = get_option('job_board_apply_for_job', 'Apply For This Job');
     // Use WPML or Loco Translate to translate it if the translation exists
     $translated_heading = __( $job_apply_heading, 'simple-job-board' );
+
 ?>
 
 <!-- Start Job Application Form
@@ -43,7 +44,33 @@ do_action('sjb_job_application_before');
         do_action('sjb_job_application_form_fields_start');
         $allowed_tags = sjb_get_allowed_html_tags();
 
-        $keys = get_post_custom_keys(get_the_ID());
+        // Fetch the setting value of application fields for all jobs
+        $job_application_setting_form_fields_enable = get_option('job_application_setting_form_fields_enable');
+        // Fetch meta value to show application fields
+        $sjb_enable_single_page_app_fields = get_post_meta($post->ID,'sjb_enable_single_page_app_fields',true);
+
+        // Step 1: Get field keys based on setting
+        if ($job_application_setting_form_fields_enable === 'yes') {
+            if($sjb_enable_single_page_app_fields === 'yes'){
+                // Post level fields
+                $keys = get_post_custom_keys(get_the_ID());
+                $is_global = false;
+            }else{
+                // Global application level fields
+                $keys = get_option('jobapp_settings_options');
+                $is_global = true;
+            }
+        } else {
+            // Post level fields
+            $keys = get_post_custom_keys(get_the_ID());
+            $is_global = false;
+        }
+
+        // Step 2: Exit if no keys
+        if (empty($keys)) {
+            return;
+        }
+        
         $section_no = 1;
         $total_sections = 0;
         $current_user = wp_get_current_user();
@@ -59,10 +86,12 @@ do_action('sjb_job_application_before');
 
         // Get total sections
         if (NULL != $keys):
-            foreach ($keys as $key):
-                if (substr($key, 0, 7) == 'jobapp_'):
-                    $val = get_post_meta(get_the_ID(), $key, TRUE);
-                    if ('section_heading' == $val['type']) {
+            foreach ($keys as $key => $val):
+                $meta_key = $is_global ? $key : $val;
+                if (substr($meta_key, 0, 7) == 'jobapp_'):
+                    // Get meta value depending on workflow
+                    $field_data = $is_global ? $val : get_post_meta(get_the_ID(), $meta_key, true);
+                    if ('section_heading' == $field_data['type']) {
                         $total_sections++;
                     }
                 endif;
@@ -73,18 +102,19 @@ do_action('sjb_job_application_before');
         }
 
         if (NULL != $keys):
-            foreach ($keys as $key):
-                if (substr($key, 0, 7) == 'jobapp_'):
-                    $val = get_post_meta(get_the_ID(), $key, TRUE);
+            foreach ($keys as $key => $val):
+                $meta_key = $is_global ? $key : $val;
+                if (substr($meta_key, 0, 7) == 'jobapp_'):
+                    // Get meta value depending on workflow
+                    $field_data = $is_global ? $val : get_post_meta(get_the_ID(), $meta_key, true);
+                    $is_required = isset($field_data['optional']) ? "checked" === $field_data['optional'] ? 'required="required"' : "" : 'required="required"';
+                    $required_class = isset($field_data['optional']) ? "checked" === $field_data['optional'] ? "sjb-required" : "sjb-not-required" : "sjb-required";
+                    $required_field_asterisk = isset($field_data['optional']) ? "checked" === $field_data['optional'] ? '<span class="required">*</span>' : "" : '<span id="sjb-required">*</span>';
+                    $id = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $meta_key);
+                    $name = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $meta_key);
+                    $label = isset($field_data['label']) ? $field_data['label'] : ucwords(str_replace('_', ' ', substr($meta_key, 7)));
                     
-                    $is_required = isset($val['optional']) ? "checked" === $val['optional'] ? 'required="required"' : "" : 'required="required"';
-                    $required_class = isset($val['optional']) ? "checked" === $val['optional'] ? "sjb-required" : "sjb-not-required" : "sjb-required";
-                    $required_field_asterisk = isset($val['optional']) ? "checked" === $val['optional'] ? '<span class="required">*</span>' : "" : '<span id="sjb-required">*</span>';
-                    $id = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
-                    $name = preg_replace('/[^\p{L}\p{N}\_]/u', '_', $key);
-                    $label = isset($val['label']) ? $val['label'] : ucwords(str_replace('_', ' ', substr($key, 7)));
-                    
-                    switch ($key) { 
+                    switch ($meta_key) { 
                         case 'jobapp_name': 
                             $user_value = $current_user->display_name;
                             break;
@@ -106,10 +136,10 @@ do_action('sjb_job_application_before');
                         'id' => $id,
                         'name' => $name,
                         'label' => $label,
-                        'type' => $val['type'],
+                        'type' => $field_data['type'],
                         'required_class' => $required_class,
                         'required_field_asterisk' => $required_field_asterisk,
-                        'options' => $val['options'],
+                        'options' => $field_data['options'],
                     );
 
                     /**
@@ -120,7 +150,7 @@ do_action('sjb_job_application_before');
                     do_action('sjb_job_application_form_fields', $field_type_meta);
               
                         
-                        switch ($val['type']) {
+                        switch ($field_data['type']) {
                             case 'section_heading':
                                 if (1 < $section_no) {
                                     echo '</div>';
@@ -131,7 +161,7 @@ do_action('sjb_job_application_before');
                                 break;
                             case 'text':
                                 echo '<div class="col-md-3 col-xs-12">'
-                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
                                 . '<div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
@@ -142,7 +172,7 @@ do_action('sjb_job_application_before');
                                 break;
                             case 'text_area':
                                 echo '<div class="col-md-3 col-xs-12">'
-                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
                                 . '<div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
@@ -153,7 +183,7 @@ do_action('sjb_job_application_before');
                                 break;
                                 case 'email':
                                     echo '<div class="col-md-3 col-xs-12">'
-                                        . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                        . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                         . '</div>'
                                         . '<div class="col-md-9 col-xs-12">'
                                         . '<div class="form-group">'
@@ -164,7 +194,7 @@ do_action('sjb_job_application_before');
                                     break;
                             case 'phone':
                                 echo '<div class="col-md-3 col-xs-12">'
-                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
                                 . '<div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
@@ -175,7 +205,7 @@ do_action('sjb_job_application_before');
                                 break;
                             case 'date':
                                 echo '<div class="col-md-3 col-xs-12">'
-                                . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                 . '</div>'
                                 . '<div class="col-md-9 col-xs-12">'
                                 . '<div class="form-group">'
@@ -185,13 +215,13 @@ do_action('sjb_job_application_before');
                                 . '<div class="clearfix"></div>';
                                 break;
                             case 'radio':
-                                if ($val['options'] != '') {
+                                if ($field_data['options'] != '') {
                                     echo '<div class="col-md-3 col-xs-12">'
-                                    . '<label class="sjb-label-control" for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '<label class="sjb-label-control" for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                     . '</div>'
                                     . '<div class="col-md-9 col-xs-12">'
                                     . '<div class="form-group">';
-                                    $options = explode(',', $val['options']);
+                                    $options = explode(',', $field_data['options']);
                                     $i = 0;
                                     foreach ($options as $option) {
                                         echo '<label class="small"><input type="radio" name="' . esc_attr($name) . '" class=" ' . esc_attr($required_class) . '" id="' . esc_attr($id) . '" value="' . esc_attr($option) . '"  ' . sjb_is_checked($i) . '>' . esc_attr($option) . ' </label> ';
@@ -202,14 +232,14 @@ do_action('sjb_job_application_before');
                                 }
                                 break;
                             case 'dropdown':
-                                if ($val['options'] != '') {
+                                if ($field_data['options'] != '') {
                                     echo '<div class="col-md-3 col-xs-12">'
-                                    . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                     . '</div>'
                                     . ' <div class="col-md-9 col-xs-12">'
                                     . '<div class="form-group">'
                                     . '<select class="form-control" name="' . esc_attr($name) . '" id="' . esc_attr($id) . '">';
-                                    $options = explode(',', $val['options']);
+                                    $options = explode(',', $field_data['options']);
                                     foreach ($options as $option) {
                                         echo '<option class="' . esc_attr($required_class) . '" value="' . esc_attr($option) . '" >' . esc_attr($option) . ' </option>';
                                     }
@@ -220,13 +250,13 @@ do_action('sjb_job_application_before');
                                 }
                                 break;
                             case 'checkbox' :
-                                if ($val['options'] != '') {
+                                if ($field_data['options'] != '') {
                                     echo '<div class="col-md-3 col-xs-12">'
-                                    . '<label for="' . esc_attr($key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
+                                    . '<label for="' . esc_attr($meta_key) . '">' . esc_attr($label) . wp_kses($required_field_asterisk, $allowed_tags) . '</label>'
                                     . '</div>'
                                     . '<div class="col-md-9 col-xs-12">'
                                     . '<div class="form-group">';
-                                    $options = explode(',', $val['options']);
+                                    $options = explode(',', $field_data['options']);
                                     $i = 0;
     
                                     foreach ($options as $option) {
@@ -406,8 +436,10 @@ do_action('sjb_job_application_before');
                  */
                 do_action('sjb_job_application_form_submit_btn_start');
                 ?>
-                <button class="btn btn-primary app-submit"><?php esc_html_e('Submit', 'simple-job-board'); ?></button>
 
+                <button class="btn btn-primary app-submit"><?php esc_html_e('Submit', 'simple-job-board'); ?></button> 
+                <button class="btn btn-app-modal-close"><?php esc_html_e('Close', 'simple-job-board'); ?></button> 
+        
                 <?php
                 /**
                  * Button -> After submit button

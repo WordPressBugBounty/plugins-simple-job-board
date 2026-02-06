@@ -74,8 +74,9 @@ class Simple_Job_Board_Settings_Email_Notifications {
                 $admin_email = ( FALSE !== get_option('settings_admin_email') ) ? get_option('settings_admin_email') : get_option('admin_email');
                 ?>
                 <div id="sjb-email-notification-section" class="sjb-tab-pane fade" role="tabpanel" aria-labelledby="sjb-email-notification-section-tab">
-                    <h4 class="first"><?php _e('Enable Email Notification', 'simple-job-board'); ?></h4>
+                    
                     <div class="sjb-section">
+                        <h4 class="first sjb-settings-section-heading"><?php _e('Enable Email Notification', 'simple-job-board'); ?></h4>
                         <div class="sjb-content-email-notify">
 
                             <?php

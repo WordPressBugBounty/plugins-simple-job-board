@@ -2,12 +2,10 @@
 /**
  * Simple_Job_Board_Admin_Alerts class
  *
- * Add job board shortcode builder to TinyMCE. Define the shortcode button and
- * parameters in TinyMCE. Also creates shortcodes with given parameters.
+ * Add alert for the simple job board
  *
  * @link       https://wordpress.org/plugins/simple-job-board
- * @since      2.2.3
- * @since      2.8.0 - Made TinyMCE compatible with Gutenberg Classic Editor
+ * @since      2.12.7 -  Add alert for the simple job board
  *
  * @package    Simple_Job_Board
  * @subpackage Simple_Job_Board/admin
@@ -29,6 +27,10 @@ class Simple_Job_Board_Admin_Alerts
             add_action( 'all_admin_notices', array( $this, 'render_admin_alerts_banner' ) );
         }
         add_action('admin_init', array( $this, 'check_addon_versions_and_display_notifications' ));
+        // Handle save update template notification dismissal
+        add_action('wp_ajax_dismiss_sjb_template_notice', [$this,'dismiss_sjb_template_notice']);
+        add_action('admin_notices', [$this,'show_template_update_notice']);
+
 
     }
 
@@ -410,9 +412,56 @@ class Simple_Job_Board_Admin_Alerts
                 }
             }
         }
+    }
 
-}
-    
+    /**
+     * Display template update notification.
+     *
+     * @since   2.13.9
+     */
+    public function show_template_update_notice() {
+        if (!current_user_can('manage_options')) return;
+
+        $user_id = get_current_user_id();
+        $dismissed_until = get_user_meta($user_id, '_sjb_template_notice_dismissed_until', true);
+        $current_time = current_time('timestamp');
+
+        // If notice was dismissed and 10 years haven't passed, do not show again
+        if ($dismissed_until && $current_time < $dismissed_until) {
+            return;
+        }
+
+        $message = sprintf(
+            '<strong>%s</strong> %s',
+            __('Simple Job Board:', 'simple-job-board'),
+            __('We\'ve updated the templates for the job application form. If you\'ve overridden templates in your theme, please update them to reflect the latest changes.', 'simple-job-board')
+        );
+
+        echo '<div class="notice notice-warning is-dismissible sjb-template-notice">';
+        echo '<p>' . wp_kses_post($message) . '</p>';
+        echo '</div>';
+
+        // Include script for AJAX dismissal handling
+        ?>
+        <script type="text/javascript">
+        (function($){
+            $(document).on('click', '.sjb-template-notice .notice-dismiss', function(){
+                $.post(ajaxurl, {
+                    action: 'dismiss_sjb_template_notice'
+                });
+            });
+        })(jQuery);
+        </script>
+        <?php
+    }
+
+    public function dismiss_sjb_template_notice() {
+        $user_id = get_current_user_id();
+        $ten_years = YEAR_IN_SECONDS * 10;
+        $dismiss_until = current_time('timestamp') + $ten_years;
+        update_user_meta($user_id, '_sjb_template_notice_dismissed_until', $dismiss_until);
+        wp_die();
+    }
        
 
 }

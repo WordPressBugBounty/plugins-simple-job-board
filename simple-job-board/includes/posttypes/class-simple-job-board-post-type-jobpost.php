@@ -62,8 +62,8 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                 if ('sjb-layout' === $sjb_layout) {
 
                     $cpt_support = get_option( 'elementor_cpt_support', true);
-                    
-                    if (is_plugin_active('sjb-add-on-elementor/sjb-add-on-elementor.php') && in_array('jobpost', $cpt_support)) {
+
+                    if (is_plugin_active('sjb-add-on-elementor/sjb-add-on-elementor.php') && (is_array($cpt_support) ? in_array('jobpost', $cpt_support) : false)) {
 
                         add_filter('the_content', array($this, 'job_content'));
                     } else if (is_plugin_active('sjb-add-on-wpbakery/sjb-add-on-wpbakery.php')) {
@@ -72,16 +72,9 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                         add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
                     }
                 } elseif ('theme-layout' === $sjb_layout) {
-                    if (is_plugin_active('sjb-add-on-wpbakery/sjb-add-on-wpbakery.php')) {
-                        add_filter('the_content', array($this, 'job_content'));
-                    }else{
-                        // Add filter to use Theme Default Template
-                        add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
-                    }
+                    add_filter('the_content', array($this, 'job_content'));
                 }
             } else {
-
-
                 // Add Filter to redirect Single Page Template
                 add_filter('single_template', array($this, 'get_simple_job_board_single_template'), 10, 1);
             }
@@ -169,6 +162,12 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
 
             // Hook - Taxonomy -> Job Category ->  Add Value to New Column
             add_filter('manage_jobpost_category_custom_column', array($this, 'job_board_category_column_value'), 10, 3);
+
+            // Hook - Taxonomy -> Job Tag ->  Add New Column
+            add_filter('manage_edit-jobpost_tag_columns', array($this, 'job_board_tag_column'));
+
+            // Hook - Taxonomy -> Job Tag ->  Add Value to New Column
+            add_filter('manage_jobpost_tag_custom_column', array($this, 'job_board_tag_column_value'), 10, 3);
 
             // Hook - Taxonomy -> Job Type ->  Add New Column
             add_filter('manage_edit-jobpost_job_type_columns', array($this, 'job_board_job_type_column'));
@@ -535,6 +534,41 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
                      "jobpost_tag", apply_filters('register_taxonomy_jobpost_tag_object_type', array('jobpost')), apply_filters('register_taxonomy_jobpost_tag_args', $args_tag)
              );
         } 
+
+        /**
+         * Taxonomy -> Job Tag ->  Add New Column.
+         *
+         * @since   2.13.9
+         * 
+         * @param   Array   $columns    Tag Taxonomy Columns.  
+         * @return  Array   $columns    Shortcode Column.
+         */
+        public function job_board_tag_column($columns) {
+
+            $columns['tag_column'] = esc_html__('Shortcode', 'simple-job-board');
+            return $columns;
+        }
+
+        /**
+         * Taxonomy -> Job Tag ->  Add Value to New Column.
+         *
+         * @since   2.13.9
+         * 
+         * @param   string  $content        Column Value.
+         * @param   string  $column_name    Column Name.
+         * @param   int     $term_id        Taxonomy Id.
+         * @return  string  $content        Tag Shortcode Value.
+         */
+        public function job_board_tag_column_value($content, $column_name, $term_id) {
+
+            $term = get_term_by('id', $term_id, 'jobpost_tag');
+
+            if ($column_name == 'tag_column') {
+                $content = '[jobpost tag="' . $term->slug . '"]';
+            }
+            return $content;
+        }
+        
 
         /**
          * Taxonomy -> Job Category ->  Add New Column.

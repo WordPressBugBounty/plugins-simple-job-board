@@ -13,6 +13,8 @@ if (!defined('ABSPATH')) {
  * @since       2.2.3
  * @since       2.4.0   Revised Inputs & Outputs Sanitization & Escaping
  * @since       2.8.0   Removed 'sjb_job_listing_view' hook to make the global listing view settings independent
+ * @since       2.13.9  Modify shortcode to add functionality to remove pagination and seach form on the job listing 
+ * @since       2.13.9  Modify shortcode to add functionality to display jobs by specific tags 
  *
  * @package     Simple_Job_Board
  * @subpackage  Simple_Job_Board/includes/shortcodes
@@ -51,7 +53,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
 
         global $job_query;
 
-        // Shortcode Default Array
+        // Shortcode Default Array, show_search_form, show_pagination added after version 2.13.8
         $shortcode_args = array(
             'posts' => apply_filters('sjb_posts_per_page', 15),
             'category' => '',
@@ -61,6 +63,9 @@ class Simple_Job_Board_Shortcode_Jobpost {
             'order' => 'DESC',
             'search' => 'true',
             'layout' => '',
+            'show_search_form' => 'yes', 
+            'show_pagination'  => 'yes', 
+            'tag' => '',
         );
 
         $atts = is_array($atts) ? apply_filters('sjb_shortcode_atts', array_map('sanitize_text_field', $atts)) : '';
@@ -81,20 +86,32 @@ class Simple_Job_Board_Shortcode_Jobpost {
 
         // WP Query Default Arguments
         $args = apply_filters(
-                'sjb_output_jobs_args', array(
-            'post_status' => 'publish',
-            'posts_per_page' => sanitize_text_field($shortcode_args['posts']),
-            'post_type' => 'jobpost',
-            'paged' => $paged,
-            'order' => sanitize_text_field($shortcode_args['order']),
-            'jobpost_category' => (!empty($_GET['selected_category']) && -1 != $_GET['selected_category'] ) ? sanitize_text_field($_GET['selected_category']) : sanitize_text_field($shortcode_args['category']),
-            'jobpost_job_type' => (!empty($_GET['selected_jobtype']) && -1 != $_GET['selected_jobtype'] ) ? sanitize_text_field($_GET['selected_jobtype']) : sanitize_text_field($shortcode_args['type']),
-            'jobpost_location' => (!empty($_GET['selected_location']) && -1 != $_GET['selected_location'] ) ? sanitize_text_field($_GET['selected_location']) : sanitize_text_field($shortcode_args['location']),
-            's' => ( NULL != filter_input(INPUT_GET, 'search_keywords') ) ? sanitize_text_field($_GET['search_keywords']) : '',
-            'jobpost_tag' => (!empty($_GET['selected_tag'])) ? sanitize_text_field($_GET['selected_tag']) : '',
-                ), $atts
+            'sjb_output_jobs_args', array(
+                'post_status' => 'publish',
+                'posts_per_page' => sanitize_text_field($shortcode_args['posts']),
+                'post_type' => 'jobpost',
+                'paged' => $paged,
+                'order' => sanitize_text_field($shortcode_args['order']),
+                'jobpost_category' => (!empty($_GET['selected_category']) && -1 != $_GET['selected_category'] ) ? sanitize_text_field($_GET['selected_category']) : sanitize_text_field($shortcode_args['category']),
+                'jobpost_job_type' => (!empty($_GET['selected_jobtype']) && -1 != $_GET['selected_jobtype'] ) ? sanitize_text_field($_GET['selected_jobtype']) : sanitize_text_field($shortcode_args['type']),
+                'jobpost_location' => (!empty($_GET['selected_location']) && -1 != $_GET['selected_location'] ) ? sanitize_text_field($_GET['selected_location']) : sanitize_text_field($shortcode_args['location']),
+                's' => ( NULL != filter_input(INPUT_GET, 'search_keywords') ) ? sanitize_text_field($_GET['search_keywords']) : '',
+                'jobpost_tag' => (!empty($_GET['selected_tag'])) ? sanitize_text_field($_GET['selected_tag']) : '',
+            ), $atts
         );
-      
+
+        /**
+         * Add support for filtering by tags attribute (comma-separated)
+         */
+        if (!empty($shortcode_args['tag'])) {
+            $tags_array = array_map('trim', explode(',', $shortcode_args['tag']));
+            $args['tax_query'][] = array(
+                'taxonomy' => 'jobpost_tag',
+                'field'    => 'slug',
+                'terms'    => $tags_array,
+            );
+        }
+
         // Job Query
         $job_query = new WP_Query($args);
         /**
@@ -111,22 +128,32 @@ class Simple_Job_Board_Shortcode_Jobpost {
          */
         get_simple_job_board_template('listing/listing-wrapper-start.php');
 
-        if ('false' != strtolower($shortcode_args['search']) && !empty($shortcode_args['search'])):
+        if ( isset( $shortcode_args['show_search_form'] ) && strtolower( $shortcode_args['show_search_form'] ) != 'no' ) {
+            if ('false' != strtolower($shortcode_args['search']) && !empty($shortcode_args['search'])):
 
-            /**
-             * Template -> Job Filters:
-             * 
-             * - Keywords Search.
-             * - Job Category Filter.
-             * - Job Type Filter.
-             * - Job Location Filter.
-             * 
-             * Search jobs by keywords, category, location & type.
-             */
-            if (!wp_doing_ajax()) {
-            get_simple_job_board_template('job-filters.php', array('per_page' => $shortcode_args['posts'], 'order' => $shortcode_args['order'], 'categories' => $shortcode_args['category'], 'job_types' => $shortcode_args['type'], 'atts' => $atts, 'location' => $shortcode_args['location'], 'keywords' => $shortcode_args['keywords']));
-            }
-        endif;
+                /**
+                 * Template -> Job Filters:
+                 * 
+                 * - Keywords Search.
+                 * - Job Category Filter.
+                 * - Job Type Filter.
+                 * - Job Location Filter.
+                 * 
+                 * Search jobs by keywords, category, location & type.
+                 */
+                if (!wp_doing_ajax()) {
+                    get_simple_job_board_template('job-filters.php', array(
+                        'per_page' => $shortcode_args['posts'],
+                        'order' => $shortcode_args['order'],
+                        'categories' => $shortcode_args['category'],
+                        'job_types' => $shortcode_args['type'],
+                        'atts' => $atts,
+                        'location' => $shortcode_args['location'],
+                        'keywords' => $shortcode_args['keywords']
+                    ));
+                }
+            endif;
+        }
 
         /**
          * Template -> Job Listing Start:
@@ -142,12 +169,12 @@ class Simple_Job_Board_Shortcode_Jobpost {
          */
         do_action('sjb_job_listing_before');
 
-        if ($job_query->have_posts()):
+        if ($job_query->have_posts()) {
             
             global $counter, $post_count;
             $counter = 1;
             $post_count = $job_query->post_count;
-            do_action("display_job_count_on_shortcode_page",$job_query,$shortcode_args);
+            do_action("display_job_count_on_shortcode_page", $job_query, $shortcode_args);
             
             
             while ($job_query->have_posts()): $job_query->the_post();
@@ -172,26 +199,26 @@ class Simple_Job_Board_Shortcode_Jobpost {
                 }
             endwhile;
 
-            /**
-             * Template -> Pagination:
-             * 
-             * - Add Pagination to Resulted Jobs.
-             */
-            get_simple_job_board_template('listing/job-pagination.php', array('job_query' => $job_query));
-        else:
+            if ( isset( $shortcode_args['show_pagination'] ) && strtolower( $shortcode_args['show_pagination'] ) != 'no'  ) {
+                /**
+                 * Template -> Pagination:
+                 * 
+                 * - Add Pagination to Resulted Jobs.
+                 */
+                get_simple_job_board_template('listing/job-pagination.php', array('job_query' => $job_query));
+            }
+
+        } else {
 
             /**
              * Template -> No Job Found:
              * 
              * - Display Message on No Job Found.
              */
-            
             get_simple_job_board_template_part('listing/content-no-jobs-found');
-        endif;
+        }
 
         wp_reset_postdata();
-
-        
 
         /**
          * Fires after listing jobs on job listing page.
@@ -206,7 +233,9 @@ class Simple_Job_Board_Shortcode_Jobpost {
          * - SJB Ending of Job List.
          */
         get_simple_job_board_template('listing/job-listings-end.php');
-        do_action('add_faq_section_below_job_listing',$job_query,$shortcode_args,$args);
+
+        do_action('add_faq_section_below_job_listing', $job_query, $shortcode_args, $args);
+
         /**
          * Template -> Job Listing Wrapper End:
          * 
@@ -214,8 +243,6 @@ class Simple_Job_Board_Shortcode_Jobpost {
          */
         get_simple_job_board_template('listing/listing-wrapper-end.php');
 
-        
-        
         $html = ob_get_clean();
 
         /**
@@ -227,5 +254,6 @@ class Simple_Job_Board_Shortcode_Jobpost {
          */
         return apply_filters('sjb_job_listing_shortcode', $html . do_shortcode($content), $atts);
     }
+
 
 }

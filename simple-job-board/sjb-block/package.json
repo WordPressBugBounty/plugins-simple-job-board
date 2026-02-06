@@ -1,13 +1,13 @@
 {
-  "name": "sjb-block-cgb-guten-block",
+  "name": "sjb-block",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cgb-scripts start",
-    "build": "cgb-scripts build",
-    "eject": "cgb-scripts eject"
+    "start": "wp-scripts start src/block/block.js",
+    "build": "wp-scripts build src/block/block.js"
   },
-  "dependencies": {
-    "cgb-scripts": "1.23.0"
+  "devDependencies": {
+    "@wordpress/scripts": "^27.1.0",
+    "sass": "^1.80.3"
   }
 }

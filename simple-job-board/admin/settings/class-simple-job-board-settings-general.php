@@ -314,6 +314,16 @@ class Simple_Job_Board_Settings_General
                                             <label><?php echo esc_html__('To list jobs for a particular category.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
+
+                                <div class="sjb-shortcodes-heading">
+                                        <h4><?php echo esc_html__('[jobpost tag="tag-slug"]', 'simple-job-board'); ?></h4>
+                                </div>
+                                
+                                <div class="sjb-form-group">
+                                    <div class="col-md-12 sjb-shortcodes-description">
+                                            <label><?php echo esc_html__('To list jobs for a particular tag.', 'simple-job-board'); ?></label>
+                                    </div>
+                                </div>
                                 
                                 <div class="sjb-shortcodes-heading">
                                         <h4><?php echo esc_html__('[jobpost type="type-slug"]', 'simple-job-board'); ?></h4>
@@ -352,6 +362,26 @@ class Simple_Job_Board_Settings_General
                                 <div class="sjb-form-group">
                                     <div class="col-md-12 sjb-shortcodes-description">
                                             <label><?php echo esc_html__('To limit the number of jobs per page with pagination.', 'simple-job-board'); ?></label>
+                                    </div>
+                                </div>
+
+                                <div class="sjb-shortcodes-heading">
+                                        <h4><?php echo esc_html__('[jobpost show_pagination="No"]', 'simple-job-board'); ?></h4>
+                                </div>
+
+                                <div class="sjb-form-group">
+                                    <div class="col-md-12 sjb-shortcodes-description">
+                                            <label><?php echo esc_html__('Use this shortcode to remove pagination on the job listing page.', 'simple-job-board'); ?></label>
+                                    </div>
+                                </div>
+
+                                <div class="sjb-shortcodes-heading">
+                                        <h4><?php echo esc_html__('[jobpost show_search_form="No"]', 'simple-job-board'); ?></h4>
+                                </div>
+
+                                <div class="sjb-form-group">
+                                    <div class="col-md-12 sjb-shortcodes-description">
+                                            <label><?php echo esc_html__('Use this shortcode to remove jobs search on the job listing page.', 'simple-job-board'); ?></label>
                                     </div>
                                 </div>
                             

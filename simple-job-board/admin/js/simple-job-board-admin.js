@@ -270,15 +270,15 @@
                     ' + application_field_option + ' \n\
                     </div>\n\
                     <div class="col-lg-5 col-md-5">\n\
-                        <label>\n\
+                        <label class="sjb-required-field-wrap">\n\
                             <input type="checkbox" value="'+ isRequired + '" class="settings-jobapp-required-field"  ' + isRequired + '/>\n\
                             <input type="hidden" name="jobapp_' + app_field_name + '[optional]"  value="' + isRequired + '" class="settings-jobapp-optional-field"/>' + application_form.settings_jquery_alerts['required'] + '&nbsp;\n\
                         </label>\n\
-                        &nbsp;<div class="button removeField">' + application_form.settings_jquery_alerts['delete'] + '</div>&nbsp;&nbsp;\n\
+                        &nbsp;\n\
                         <label class="sjb-expose-listing">\n\
                             <input type="radio" class="settings-applicant-columns" name="[applicant_column]" ' + applicantColumns + '/>' + application_form.settings_jquery_alerts['applicant_listing_col'] + ' &nbsp; \n\
                             <input type="hidden" class="settings-jobapp-applicant-column" name="jobapp_' + app_field_name + '[applicant_column]" value="' + applicantColumns + '">\n\
-                        </label>\n\
+                        </label><div class="button removeField">' + application_form.settings_jquery_alerts['delete'] + '</div>&nbsp;&nbsp;\n\
                     </div></li>');
                 $('.jobapp_' + app_field_name + ' .' + app_field_type).attr('selected', 'selected');
                 $('#setting_jobapp_name').val('');
@@ -462,9 +462,9 @@
                     <input type="text" class="' + fieldName + ' jobapp-field-options" name="jobapp_' + fieldName + '[options]" value="' + fieldOptions + '" placeholder="Option1, option2, option3" ' + fieldTypeOptionsStyle + '">\n\
                     <input type="checkbox" class="jobapp-required-field" value="' + fieldRequired + '" ' + fieldRequired + '>'
                     + application_form.settings_jquery_alerts['required'] + ' &nbsp;<input type="hidden" class="jobapp-optional-field" name="jobapp_' + fieldName + '[optional]" value="' + fieldRequired + '">\n\
+                    <div class="applicant-columns-div"><input type="radio" class="applicant-columns" name="[applicant_column]" ' + applicantColumns + '>' + application_form.settings_jquery_alerts['applicant_listing_col'] + '</div>\n\
                     <div class="button removeField">' + application_form.settings_jquery_alerts['delete'] + '</div> &nbsp;\n\
-                    <div class="applicant-columns-div"><input type="radio" class="applicant-columns" name="[applicant_column]" ' + applicantColumns + '>' + application_form.settings_jquery_alerts['applicant_listing_col'] + '\n\
-                    </div><input type="hidden" class="jobapp-applicant-column" name="jobapp_' + fieldName + '[applicant_column]" value="' + applicantColumns + '"></div>\n\
+                    <input type="hidden" class="jobapp-applicant-column" name="jobapp_' + fieldName + '[applicant_column]" value="' + applicantColumns + '"></div>\n\
                     </li>');
                 $('.jobapp_' + fieldName + ' .' + fieldType).attr('selected', 'selected');
                 $('#jobapp_name').val('');

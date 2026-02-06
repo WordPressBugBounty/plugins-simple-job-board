@@ -1,15 +1,15 @@
 === Simple Job Board ===
 Contributors: PressTigers
 Donate link: https://www.presstigers.com
-Tags: job board, careers, job listing, job manager, job portal, job openings, jobs
-Requires at least: 4.4
+Tags: careers, job-board, job listing, job manager, jobs, job portal, current openings
+Requires at least: 5.1
 Tested up to: 6.8
-Stable tag: 2.13.8
+Stable tag: 2.14.1
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Powerful & robust plugin to create a job board on your website in a simple & elegant way.
+job board plugin for job listings, managing applicants, applications, categories, job types, taxonomies, career page, job openings, and recruiters
 
 == Description ==
 
@@ -45,14 +45,14 @@ The plugin is available in English, French(Français), Arabic (العربية), 
 **[jobpost]:** Use this shortcode to show jobs on a page, along with search form.
 **[jobpost layout="grid"]:** To list all the jobs as a grid view.
 **[jobpost category="category-slug"]:** To list jobs for a particular category.
+**[jobpost tag="tag-slug"]:** To list jobs for a particular tag.
 **[jobpost type="type-slug"]:** To list jobs for a particular type.
 **[jobpost location="location-slug"]:** To list jobs for a particular location.
 **[jobpost location="location-slug" category="category-slug" type="type-slug"]:** To list jobs with a combinations of taxonomies and terms.
 **[jobpost posts="5"]:** To limit the number of jobs per page with pagination.
+**[jobpost show_pagination="no"]:** Use this parameter to hide the pagination.
+**[jobpost show_search_form="no"]:** Use this parameter to hide the search form.
 **[job_details job_id="123" show_job_form="yes" show_job_features="no" job_form_description="yes" show_job_meta="no"]:** To show individual job anywhere.
-
-= Live Demo =
-Please click here for [Simple Job Board Demo](https://jobboardextensions.demo.presstigers.com).
 
 = Mobile App =
 Manage your Job Board from anywhere with the Simple Job Board mobile app on [Android](https://play.google.com/store/apps/details?id=com.nextbridge.simple_job_board) and [iOS](https://apps.apple.com/us/app/simple-job-board/id1671815165).
@@ -78,6 +78,8 @@ Here are some highly useful add-ons for Simple Job Board that can enhance its fu
 * [Job Applications Counter](https://market.presstigers.com/product/job-applications-counter-add-on/) - $10 : Displays the number of applications received for each job posting.
 * [Job Seeker Dashboard](https://market.presstigers.com/product/job-seeker-dashboard-add-on/) - $35 : Provides applicants with a personalized dashboard to monitor their job applications and manage resume.
 * [Job Alerts](https://market.presstigers.com/product/job-alerts-add-on/) - $20 : Allows job seekers to create email alerts for new job openings along with frequency i.e. daily, weekly, fortnightly, or monthly.
+* [Unique Applications](https://market.presstigers.com/product/unique-applications-add-on/) - $10 : Prevents duplicate job applications by validating submissions using email, phone number, or both.
+* [Job Applications Import/Export](https://market.presstigers.com/product/unique-applications-add-on/) - $15 : Allows you to safely export and import job applications along with resumes and attachments between WordPress websites.
 
 = Add-ons for Jobs Management: =
 * [Job Expirator](https://market.presstigers.com/product/job-expirator-add-on) - $10 : Adds a Job Expirator meta box to your job posts at the backend.
@@ -198,7 +200,7 @@ Yes, you can use a shortcode on post page i.e. [jobpost type="type-slug"]
 Yes, you can use a shortcode on post page i.e. [jobpost location="location-slug"]
 
 = Can I use combination for various shortcodes to display job listings? = 
-Yes, you can use various combinations of shortcodes with spaces i.e. [jobpost location="location-slug" category="category-slug" type="type-slug"]
+Yes, you can use various combinations of shortcodes with spaces i.e. [jobpost location="location-slug" category="category-slug" type="type-slug" tag="tag-slug"]
 
 = How Can I view the Applicant list for a Job Post? = 
 In your WordPress admin panel, go to "Job Board" menu and "Applicants" section
@@ -234,6 +236,28 @@ To remove formatting and flags from the phone number input, navigate to Settings
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.14.1 =
+* Tweak - Enhanced HTML content handling for email delivery.
+* Fix - Resolved a Spanish translation issue.
+* Fix - Resolved an issue related to the optional file input field.
+
+= 2.14.0 =
+* Feature - Added an option to manage application form fields from Settings, rather than updating each job individually.
+* Tweak - Enhanced the style to align with the existing theme.
+
+= 2.13.9 =
+* Feature - Improved jobpost shortcode for job listings to show jobs from specific tags.
+* Feature - Added two new parameters in jobpost shortcode to hide the search form and pagination.
+* Tweak - If the shortcode displays jobs from specific categories, then the search dropdown will only show those categories instead of all and if only one category's job displayed then categories dropdown will not show into the search form.
+* Tweak - Updated the single job post styling to better match the active theme's style.
+* Tweak - Added a Close button alongside Submit in the Quick Apply popup for better user convenience
+* Fix - Removed extra spaces from the Quick Apply popup content.
+* Fix - Fixed occasional issue with single job title display.
+* Fix - Updated jQuery Validation library to address security vulnerability.
+* Fix - Updated Gutenberg block code to fix a security vulnerability.
+* Fix - Improved layout for tablet and mobile devices.
+
 = 2.13.8 =
 * Tweak - Improved support for page builder plugins.
 * Fix - Implemented a security enhancement.

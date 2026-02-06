@@ -156,6 +156,20 @@ class Simple_Job_Board_Settings_Appearance {
                     $jobpost_logo = 'checked';
                 }
 
+                $jobpost_title ='';
+                $jobpost_without_title ='';
+                // Select job post with witle or without title
+                if (FALSE !== get_option('job_post_title_settings')) {
+                    $jobpost_title_field = get_option('job_post_title_settings');
+                    if ('with-title' === $jobpost_title_field)
+                        $jobpost_title = 'checked';
+
+                    if ('without-title' === $jobpost_title_field)
+                        $jobpost_without_title = 'checked';
+                } else {
+                    $jobpost_without_title = 'checked';
+                }
+
                 // Select job post layout for version one or version two
                 if (FALSE !== get_option('job_post_layout_settings')) {
                     $jobpost_layout_option = get_option('job_post_layout_settings');
@@ -238,9 +252,9 @@ class Simple_Job_Board_Settings_Appearance {
 
                 <!-- Appearance General Options -->
                 <div id="appearance-general-options" class="sjb-appearance-subtab-content active">
-                    <h4 class="first"><?php esc_html_e('Job Pages Layout', 'simple-job-board'); ?></h4>
+                    
                     <div class="sjb-section sjb-appearance">
-                        
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Job Pages Layout', 'simple-job-board'); ?></h4>
                             
                         <div class="sjb-content">
                             <?php
@@ -283,9 +297,9 @@ class Simple_Job_Board_Settings_Appearance {
                         </div>
                     </div>
 
-                    <h4><?php echo apply_filters('sjb_job_color_options_title', esc_html__('Color Options for SJB Layout', 'simple-job-board')); ?></h4>
+                    
                     <div class="sjb-section">
-
+                        <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_job_color_options_title', esc_html__('Color Options for SJB Layout', 'simple-job-board')); ?></h4>
                         <?php
                         /**
                          * Action -> Add new fields at start of job listing typography section.  
@@ -395,8 +409,9 @@ class Simple_Job_Board_Settings_Appearance {
                      */
                     do_action('sjb_content_wrapper_styling_before');
                     ?>
-                    <h4 class="first"><?php esc_html_e('Content Wrapper Styling', 'simple-job-board'); ?></h4>
+                    
                     <div class="sjb-section sjb-content-wrap">
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Content Wrapper Styling', 'simple-job-board'); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -470,8 +485,9 @@ class Simple_Job_Board_Settings_Appearance {
                      */
                     do_action('sjb_theme_layout_after');
                     ?>
-                    <h4><?php echo apply_filters('sjb_loader_image_sec_title', esc_html__('Loader Image', 'simple-job-board')); ?></h4>
+                    
                     <div class="sjb-section sjb-loading-ui">
+                        <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_loader_image_sec_title', esc_html__('Loader Image', 'simple-job-board')); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -521,8 +537,9 @@ class Simple_Job_Board_Settings_Appearance {
                 <div id="job-listing-options" class="sjb-appearance-subtab-content">
                     
                     
-                    <h4 class="first"><?php esc_html_e('Job Listing Buttons', 'simple-job-board'); ?></h4>
+                    
                     <div class="sjb-section sjb-content-wrap">
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Job Listing Buttons', 'simple-job-board'); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -594,8 +611,9 @@ class Simple_Job_Board_Settings_Appearance {
                      */
                     do_action('sjb_appearance_listing_content_after');
                     ?>
-                    <h4><?php echo apply_filters('sjb_job_post_theme_options_title', esc_html__('Theme Options', 'simple-job-board')); ?></h4>
+                    
                     <div class="sjb-section">
+                        <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_job_post_theme_options_title', esc_html__('Theme Options', 'simple-job-board')); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -635,8 +653,9 @@ class Simple_Job_Board_Settings_Appearance {
                      */
                     do_action('sjb_appearance_listing_view_after');
                     ?>
-                    <h4><?php echo apply_filters('sjb_job_listing_content_title', esc_html__('Job Listing Contents', 'simple-job-board')); ?></h4>
+                    
                     <div class="sjb-section ">
+                        <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_job_listing_content_title', esc_html__('Job Listing Contents', 'simple-job-board')); ?></h4>
                         <div class="sjb-content ">
 
                             <?php
@@ -699,8 +718,9 @@ class Simple_Job_Board_Settings_Appearance {
                          */
                         do_action('sjb_appearance_listing_content_after');
                     ?>
-                    <h4 class="first"><?php esc_html_e('Job Post Headings', 'simple-job-board'); ?></h4>
+                    
                     <div class="sjb-section sjb-content-wrap">
+                        <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Job Post Headings', 'simple-job-board'); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -742,9 +762,69 @@ class Simple_Job_Board_Settings_Appearance {
                             ?>
                         </div>
                     </div>
-                    <h4><?php echo apply_filters('sjb_job_post_content_title', esc_html__('Job Post Content', 'simple-job-board')); ?></h4>
-                    
+
+
+                    <?php
+                    if (
+                            ( 
+                                is_plugin_active( 'elementor/elementor.php' ) 
+                                && is_plugin_active( 'sjb-add-on-elementor/sjb-add-on-elementor.php' ) 
+                                && 'sjb-layout' === get_option( 'job_board_pages_layout' )
+                            ) 
+                            ||
+                            ( 
+                                is_plugin_active( 'js_composer/js_composer.php' ) 
+                                && is_plugin_active( 'sjb-add-on-wpbakery/sjb-add-on-wpbakery.php' ) 
+                                && 'sjb-layout' === get_option( 'job_board_pages_layout' )
+                            )
+                        )
+                        {
+                        ?>
+
+                        
+                        <div class="sjb-section">
+                            <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_job_post_title', esc_html__('Job Post Title', 'simple-job-board')); ?></h4>
+                            <div class="sjb-content sjb-single-title-field">
+
+                                <?php
+                                /**
+                                 * Action -> Add title fields at start of job content.  
+                                 * 
+                                 * @since   2.13.9 
+                                 */
+                                do_action('sjb_job_post_title_settings_start');
+                                ?>
+                                        <div class="sjb-form-group">
+                                            <input type="radio" name="job_post_title_settings" value="with-title" id="job-title-detail" <?php echo esc_attr($jobpost_title); ?> />
+                                            <label for="job-title-detail"><?php _e('Display Job Post with title', 'simple-job-board'); ?></label>
+                                        </div>
+                                        <img src="<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__))) . 'admin/images/single-details.png'); ?>" class="sjb-img-responsive">
+                                        <div class="sjb-form-group">
+                                            <input type="radio" name="job_post_title_settings" value="without-title" id="job-without-title-detail" <?php echo esc_attr($jobpost_without_title); ?> />
+                                            <label for="job-without-title-detail"><?php _e('Display Job Post without title', 'simple-job-board'); ?></label>
+                                        </div>
+                                        <img src="<?php echo esc_url(plugin_dir_url(dirname(dirname(__FILE__))) . 'admin/images/single-job-without-title.png'); ?>" class="sjb-img-responsive">
+                                        <span class="sjp-form-single-title-field-note">
+                                            <?php esc_html_e('Note: "Please remove title from theme\'s  post detail page if you want SJB to show title.', 'simple-job-board'); ?>
+                                        </span>
+                                    <?php
+                                    /**
+                                     * Action -> Add new fields at the end of job content.  
+                                     * 
+                                     * @since   2.3.2
+                                     */
+                                    do_action('sjb_job_post_title_settings_end');
+                                    ?>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+
+                                        
                     <div class="sjb-section">
+                        <h4 class="sjb-settings-section-heading"><?php echo apply_filters('sjb_job_post_content_title', esc_html__('Job Post Content', 'simple-job-board')); ?></h4>
                         <div class="sjb-content">
 
                             <?php
@@ -776,6 +856,7 @@ class Simple_Job_Board_Settings_Appearance {
                                 ?>
                         </div>
                     </div>
+
                 </div>
 
                 <input type="hidden" value="1" name="admin_notices" />
@@ -806,6 +887,7 @@ class Simple_Job_Board_Settings_Appearance {
         $job_layout_settings = isset($_POST['job_pages_layout']) ? sanitize_text_field($_POST['job_pages_layout']) : '';
         $job_listing_content_settings = isset($_POST['job_listing_content_settings']) ? sanitize_text_field($_POST['job_listing_content_settings']) : '';
         $job_post_content_settings = isset($_POST['job_post_content_settings']) ? sanitize_text_field($_POST['job_post_content_settings']) : '';
+        $job_post_title_settings = isset($_POST['job_post_title_settings']) ? sanitize_text_field($_POST['job_post_title_settings']) : '';
         $job_post_layout_settings = isset($_POST['job_post_layout_settings']) ? sanitize_text_field($_POST['job_post_layout_settings']) : '';
         $container_class = isset($_POST['container_class']) ? sanitize_text_field($_POST['container_class']) : '';
         $container_width = isset($_POST['container_width']) ? sanitize_text_field($_POST['container_width']) : '';
@@ -845,6 +927,10 @@ class Simple_Job_Board_Settings_Appearance {
         // Save Job Post Content
         if (!empty($job_post_content_settings)) {
             update_option('job_board_jobpost_content', sanitize_text_field($job_post_content_settings));
+        }
+        // Save Job Post Content
+        if (!empty($job_post_title_settings)) {
+            update_option('job_post_title_settings', sanitize_text_field($job_post_title_settings));
         }
 
         // Save Job Post layout

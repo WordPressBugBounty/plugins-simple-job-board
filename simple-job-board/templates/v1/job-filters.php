@@ -145,7 +145,7 @@ $class = ( apply_filters('sjb_is_search_filters', sjb_is_keyword_search() || sjb
              */
             $display_job_tags = get_option('display_job_tags') ? get_option('display_job_tags'):"";
             if(!empty($display_job_tags) && $display_job_tags=='display_job_tags' ){
-                get_simple_job_board_template('search/tags-filter.php');
+                get_simple_job_board_template('search/tag-filter.php', array('atts' => $atts));
             }
             ?>
         </div>

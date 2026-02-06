@@ -41,11 +41,11 @@ do_action('sjb_job_listing_list_view_before');
                 get_simple_job_board_template('listing/list-view/logo.php');
                 
                 $class = ( 'logo-detail' === get_option( 'job_board_listing' ) || 'without-detail' === get_option( 'job_board_listing' ) )?
-                        'col-md-11 col-sm-10':'col-md-12 col-sm-10';
+                        'col-md-11 col-sm-12':'col-md-12 col-sm-12';
 
                 ?>    
                 <div class="<?php echo esc_attr( $class ); ?>">
-                    <div class="row">
+                    <div class="row sjb-list-row">
 
                     <?php 
 

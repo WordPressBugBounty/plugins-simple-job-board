@@ -74,8 +74,10 @@ class Simple_Job_Board_Typography {
                     }
                                                         
                     /* Listing & Detail Page Title Color */
-                    .sjb-page .list-data .v1 .job-info h4 a , 
-                    .sjb-page .list-data .v2 .job-info h4 a              
+                    .sjb-page .list-data .v1 .job-info a .job-title,
+                    .sjb-page .list-data .v2 .job-info a .job-title,
+                    .sjb-page .list-data .v1 .job-info a .company-name,
+                    .sjb-page .list-data .v2 .job-info a .company-name              
                     {
                         color: <?php echo esc_attr( $job_title_color ); ?>;
                     }                

@@ -3450,31 +3450,14 @@ fieldset[disabled] .sjb-page .checkbox label {
     font-weight: bold;
 }
 .sjb-page .sjb-detail .list-data .v1 ul {
-    list-style: none;
     margin: 0 0 12px;
-    padding: 0;
-}
-.sjb-page .sjb-detail .list-data .v1 ul li {
-    font-size: 16px;
-    line-height: 24px;
-    padding-left: 15px;
-    position: relative;
-}
-.sjb-page .sjb-detail  ul li::before {
-    content: "\f101";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 600;
-    font-size: 12px;
-    left: 0;
-    position: absolute;
-    top: 0;
+    padding: 0 0 0 15px;
 }
 .sjb-page .sjb-detail .list-data .v1 .job-features {
     float: left;
     width: 100%;
 }
 .sjb-page .sjb-detail .list-data .v1 .job-features .table {
-    font-size: 16px;
     font-weight: 400;
 }
 .sjb-page .sjb-detail .list-data .v1 .job-features .table td {
@@ -3572,7 +3555,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     border: 1px solid #e1e1e1;
     border-radius: 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    font-size: 16px;
     height: 46px;
     line-height: 1.42857;
     padding: 10px 12px;
@@ -3587,7 +3569,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     background: #e6e6e6;
     border: 1px solid #a2a2a2;
     border-radius: 4px;
-    font-size: 14px;
     height: 32px;
     padding: 6px 12px;
     position: absolute;
@@ -3790,6 +3771,7 @@ fieldset[disabled] .sjb-page .checkbox label {
 .sjb-page .sjb-detail .list-data .v1 .job-detail {
     margin: 0 0 20px;
 }
+
 .sjb-page .sjb-detail .list-data .v1 .job-detail h3 {
     font-weight: 500;
     font-size: 24px;
@@ -3812,25 +3794,8 @@ fieldset[disabled] .sjb-page .checkbox label {
     font-weight: bold;
 }
 .sjb-page .sjb-detail .list-data .v1 ul {
-    list-style: none;
     margin: 0 0 12px;
-    padding: 0;
-}
-.sjb-page .sjb-detail .list-data .v1 ul li {
-    font-size: 16px;
-    line-height: 24px;
-    padding-left: 15px;
-    position: relative;
-}
-.sjb-page .sjb-detail .list-data .v1 ul li::before,
-.sjb-page .sjb-detail .list-data .v2 ul li::before {
-    content: "\f101";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 600;
-    font-size: 12px;
-    left: 0;
-    position: absolute;
-    top: 0;
+    padding: 0 0 0 15px;
 }
 .sjb-page .sjb-detail .list-data .v1 ul.iti__country-list li::before {
     content: none;
@@ -3845,8 +3810,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     padding-left: 10px;
 }
 .sjb-page .job-description-list p{
-    color: #666;
-    font-size: 16px;
     margin: 0 0 10px;
     word-wrap: break-word;
 }
@@ -3855,7 +3818,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     margin-right: 15px;
     margin-bottom: 30px;
     font-weight: bold;
-    font-size: 15px;
 }
 
 .sjb-page .sjb-listing .grid-item .list-data .v2 .job-info h4 a span{
@@ -4075,8 +4037,9 @@ fieldset[disabled] .sjb-page .checkbox label {
    padding: 5px;
    border-radius: 3px;
 }
-.error{
+.sjb-page .error{
     color:red;
+    font-weight: normal;
 }
 #applicant-resume-error,
 .form-group .file label{
@@ -4105,4 +4068,39 @@ label#jobapp_pp-error, label#jobapp_tc-error {
 }
 .sjb-pp {
     margin-top: 15px;
+}
+.sjb-job-tags {
+    margin-top: 10px;
+}
+.sjb-job-tags ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.sjb-job-tags li {
+    display: inline-block;
+    margin-left: 4px;
+}
+.sjb-job-tags li {
+    display: inline-block;
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+button.btn.btn-app-modal-close{
+    margin: 5px 18px 20px 0px;
+    display: block;
+    padding: 7px 30px;
+    float: right;
+    background-color: lightgray;
+}
+.single.single-jobpost button.btn.btn-app-modal-close {
+    display: none;
 }

@@ -76,9 +76,9 @@ class Simple_Job_Board_Settings_Job_Features {
         <!-- Job Features -->
         <div data-id="settings-job_features" class="sjb-admin-settings tab">
             <form method="post" action="" id="job_feature_form">
-                <h4 class="first"><?php esc_html_e('Enable Job Features For Existing Jobs', 'simple-job-board'); ?></h4>
+                
                 <div class="sjb-section settings-fields features-short">
-                    
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Enable Job Features For Existing Jobs', 'simple-job-board'); ?></h4>
                     <div class="sjb-form-group">
                         <input type="checkbox" name="job_features_enable" id="enable-features" value="yes"  <?php checked('yes', esc_attr($enable_job_features)); ?> />
                         <label for="enable-features" class="enable-features-label"><?php echo esc_html__('Display these features in previously added jobs, by default, these will apply to jobs added afterward', 'simple-job-board'); ?></label>
@@ -89,8 +89,9 @@ class Simple_Job_Board_Settings_Job_Features {
                 </div>
             
 
-                <h4 class="first"><?php esc_html_e('Default Feature List', 'simple-job-board'); ?></h4>
+                
                 <div class="sjb-section settings-fields features-short">
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Default Feature List', 'simple-job-board'); ?></h4>
                     <?php
                     /**
                      * Action -> Add new section before job feature section.  
@@ -170,8 +171,9 @@ class Simple_Job_Board_Settings_Job_Features {
                 $addfield_class = 'sjb-classic-addfield';
             }
             ?>
-            <h4><?php _e('Add New Feature', 'simple-job-board'); ?></h4>
+            
             <div class="sjb-section sjb-features-ui sjb_add_icon_fields <?php echo esc_attr($addfield_class); ?>">
+                <h4 class="sjb-settings-section-heading"><?php _e('Add New Feature', 'simple-job-board'); ?></h4>
                 <div class="sjb-content-featured">
                     <div class="sjb-form-group">
                         <label class="sjb-featured-label"><?php esc_html_e('Feature', 'simple-job-board'); ?></label>
@@ -192,7 +194,7 @@ class Simple_Job_Board_Settings_Job_Features {
                         <?php
                     }
                     ?>
-                    <input type="submit" class="button" id="settings_addFeature" value="<?php echo esc_html__('Add Field', 'simple-job-board'); ?>" />
+                    <input type="submit" class="button" id="settings_addFeature" value="<?php echo esc_html__('Add Feature', 'simple-job-board'); ?>" />
                 </div>
             </div>
 

@@ -1346,6 +1346,10 @@ body.jobpost_page_sjb-add-ons {
     color: #000000;
     margin-bottom: 30px;
 }
+h4.sjb-settings-section-heading{
+    margin-top: 0;
+    padding-top: 0;
+}
 /*--------------------------
 # Elements
 ----------------------------*/
@@ -2601,10 +2605,7 @@ li
 }
 
 .sjp-form-field-note{
-    padding-left: 15px;
-    font-weight: bold;
-    color: rgb(16, 84, 173);
-    font-size: 14px;
+    color: #0b51a6;
     display: block;
 }
 
@@ -2746,4 +2747,17 @@ i.fas.fa-angle-down {
     color: gray;    
     position: relative;
     top: 3px;
+}
+.sjp-form-single-title-field-note{
+    font-weight: bold;
+    color: #ff0000;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+.sjb-single-title-field {
+    width: 100%;
+}
+.sjb_hide_post_level_app_fields{
+    display: none;
 }

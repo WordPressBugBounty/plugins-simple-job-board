@@ -178,18 +178,25 @@ class Simple_Job_Board_Ajax {
         if ( !empty( $_FILES ) ) {
             
             $upload_files_name = array();
-            $count = 0;
-            
-            // Rename File
-            foreach ( $_FILES as $key => $val ) {
-                $random_hash = bin2hex(random_bytes(3));
-                // Prepend Applicant Id with File Name
-                $resume_name = $pid . '_' . $random_hash . '-' . sanitize_file_name( $this->upload_file_name[$count] );
-                $resume_path = $this->upload_basedir . '/' . $resume_name;
-                rename($this->upload_basedir. '/' . $this->upload_file_name[$count], $resume_path);
-                $upload_files_name[] = ( '' != $val['name'] ) ?  $resume_name : '';                     
-                $count++;
-            } 
+ 
+            foreach ( $this->upload_file_name as $index => $original_name ) {
+ 
+                if ( empty( $original_name ) ) {
+                    continue;
+                }
+ 
+                $random_hash = bin2hex( random_bytes(3) );
+ 
+                $resume_name = $pid . '_' . $random_hash . '-' . sanitize_file_name( $original_name );
+ 
+                $old_path = $this->upload_basedir . '/' . $original_name;
+                $new_path = $this->upload_basedir . '/' . $resume_name;
+ 
+                if ( file_exists( $old_path ) ) {
+                    rename( $old_path, $new_path );
+                    $upload_files_name[ $index ] = $resume_name; // preserve position
+                }
+            }
             
             // Keep Resume Meta for Backward Compatibility
             if( !empty( $_FILES['applicant_resume'] ) ) {                
@@ -340,13 +347,13 @@ class Simple_Job_Board_Ajax {
                     <?php
                     do_action('sjb_enqueue_scripts');
                     do_action('sjb_single_job_content_start');
-                    get_option('job_board_pages_layout') == 'theme-layout' ? the_title('<h3><span class="job-title">', '</span></h3>') : null;
+                    get_option('job_board_pages_layout') == 'theme-layout' ? the_title('<h2><span class="job-title">', '</span></h2>') : null;
                     do_action('sjb_single_job_listing_start');
                     ?>
                     <div class="job-description" id="job-desc">
                         <?php
                         if(!is_elementor_widget_added_to_jobpost('job-details')) { 
-                            echo apply_filters('popup_post_content', wp_kses_post(nl2br(get_the_content())));
+                            echo apply_filters('popup_post_content', wp_kses_post(get_the_content()));
                         }
                         ?>
                     </div>

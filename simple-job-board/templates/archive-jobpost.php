@@ -53,7 +53,7 @@ $container_width = get_option('job_board_container_width');
 
         <!-- Start Job Title
         ================================================== -->    
-        <h3><span class="job-title"><?php echo apply_filters('sjb_jobs_archive_title', esc_html__('Job Archives', 'simple-job-board')); ?></span></h3>
+        <h2><span class="job-title"><?php echo apply_filters('sjb_jobs_archive_title', esc_html__('Job Archives', 'simple-job-board')); ?></span></h2>
         <!-- ==================================================
         End Job Title -->
 

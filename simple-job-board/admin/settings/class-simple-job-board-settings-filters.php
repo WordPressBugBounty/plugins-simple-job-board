@@ -66,9 +66,10 @@ class Simple_Job_Board_Settings_Filters {
              */
             do_action('sjb_job_filters_settings_before');
             ?>
-            <h4 class="first"><?php esc_html_e('Select filters that display on front-end', 'simple-job-board'); ?></h4>
+            
             <form method="post" id="job_filters_form">
                 <div class="sjb-section">
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Select filters that display on front-end', 'simple-job-board'); ?></h4>
                     <div class="sjb-content">
                         
                         <?php

@@ -909,6 +909,7 @@ if (!function_exists('sjb_job_listing_features')) {
 
 add_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
 
+
 if (!function_exists('sjb_job_listing_application_form')) {
 
     /**

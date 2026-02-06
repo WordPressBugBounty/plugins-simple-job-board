@@ -192,7 +192,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
                         <?php
                     }
                     ?>
-                    <td><div class="button" id="addFeature"><?php echo esc_html__('Add Field', 'simple-job-board'); ?></div></td>
+                    <td><div class="button" id="addFeature"><?php echo esc_html__('Add Feature', 'simple-job-board'); ?></div></td>
                 </tr>
             </tbody>
         </table>

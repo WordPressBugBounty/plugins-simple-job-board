@@ -48,9 +48,14 @@ do_action('sjb_job_application_before');
         $job_application_setting_form_fields_enable = get_option('job_application_setting_form_fields_enable');
         // Fetch meta value to show application fields
         $sjb_enable_single_page_app_fields = get_post_meta($post->ID,'sjb_enable_single_page_app_fields',true);
+        // Get the author of the current post
+        $post_author_id = $post->post_author;
+
+        // Get the roles of the post author
+        $post_author_roles = get_userdata($post_author_id)->roles;
 
         // Step 1: Get field keys based on setting
-        if ($job_application_setting_form_fields_enable === 'yes') {
+        if ($job_application_setting_form_fields_enable === 'yes' && !in_array('employer', $post_author_roles)) {
             if($sjb_enable_single_page_app_fields === 'yes'){
                 // Post level fields
                 $keys = get_post_custom_keys(get_the_ID());

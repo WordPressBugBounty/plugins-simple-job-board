@@ -46,7 +46,6 @@
     font-weight: bold;
 }
 .sjb-page h1 {
-    font-size: 2em;
     margin: 0.67em 0;
 }
 .sjb-page small {
@@ -1063,7 +1062,6 @@
     width: 100%;
     height: 34px;
     padding: 6px 12px;
-    font-size: 14px;
     line-height: 1.42857143;
     background-image: none;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -2766,7 +2764,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     -moz-border-radius: 0;
     border-radius: 0;
     color: #666;
-    font-size: 16px;
     height: 40px;
 }
 .sjb-page .sjb-filters.sjb-filters-v1 .form-control::-moz-placeholder {
@@ -2821,7 +2818,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     -moz-border-radius: 0;
     border-radius: 0;
     color: #777777;
-    font-size: 16px;
     height: 40px;
 }
 .sjb-page .sjb-filters.sjb-filters-v2 .form-control::-moz-placeholder {
@@ -2990,8 +2986,6 @@ fieldset[disabled] .sjb-page .checkbox label {
 .ui-datepicker .ui-datepicker-title select {
     border: 1px solid #e1e1e1;
     color: #666;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
 }
 .ui-datepicker .ui-state-default {
     background: #f2f2f2;
@@ -3007,9 +3001,7 @@ fieldset[disabled] .sjb-page .checkbox label {
     border: 1px solid #067ef3;
     color: #fff;
 }
-.ui-datepicker table {
-    font-size: 14px;
-}
+
 .ui-datepicker table td a,
 .ui-datepicker table td span {
     text-align: center;
@@ -3019,8 +3011,7 @@ fieldset[disabled] .sjb-page .checkbox label {
     width: 100% !important;
 }
 /* SJB Pages */
-.sjb-page .no-job-listing {
-    font-size: 16px;
+.sjb-page .no-job-listing {    
     text-align: center;
     margin-bottom: 10px;
 }
@@ -3073,14 +3064,12 @@ fieldset[disabled] .sjb-page .checkbox label {
 }
 .sjb-page .list-data .v2 .job-info h4 {
     color: #3b3a3c;
-    font-size: 16px;
     margin: 0;
     padding: 0;
     word-wrap: break-word;
 }
 .sjb-page .list-data .v2 .job-info h4 a {
     color: #3b3a3c;
-    font-size: 16px;
     word-wrap: break-word;
 }
 .sjb-page .list-data .v2 .job-info h4 a:hover {
@@ -3099,14 +3088,12 @@ fieldset[disabled] .sjb-page .checkbox label {
     padding: 0 20px;
 }
 .sjb-page .list-data .v2 .job-description p {
-    font-size: 16px;
     margin: 0 0 15px;
     word-wrap: break-word;
 }
 .sjb-page .list-data .v2 .job-type,
 .sjb-page .list-data .v2 .job-location,
 .sjb-page .list-data .v2 .job-date {
-    font-size: 14px;
     word-wrap: break-word;
 }
 .sjb-page .list-data .v2 .job-type i,
@@ -3115,12 +3102,7 @@ fieldset[disabled] .sjb-page .checkbox label {
     color: #3b3a3c;
     margin-right: 5px;
 }
-.sjb-page .sjb-listing .list-view .no-job-listing p {
-    font-size: 16px;
-}
-.sjb-page .sjb-listing .grid-view .no-job-listing p {
-    font-size: 16px;
-}
+
 .sjb-page .sjb-listing .grid-item .list-data .v2 {
     padding: 20px;
 }
@@ -3179,13 +3161,7 @@ fieldset[disabled] .sjb-page .checkbox label {
     margin: 0;
     padding: 0;
 }
-.sjb-page .sjb-detail .list-data .v2 .job-detail {
-}
-.sjb-page .sjb-detail .list-data .v2 .job-detail h3 {
-    color: #3297fa;
-    font-weight: 500;
-    font-size: 24px;
-}
+
 @media (min-width: 1200px) {
     .sjb-page .sjb-detail .list-data .v2 .job-info-margin {
         margin: 0 0 10px 27px;
@@ -3197,18 +3173,13 @@ fieldset[disabled] .sjb-page .checkbox label {
     }
 }
 .sjb-page .sjb-detail .list-data .v2 h3 {
-    font-size: 17px;
     margin: 15px 0;
-    font-weight: bold;
 }
 .sjb-page .sjb-detail .list-data .v2 ul {
-    list-style: none;
-    margin: 10px 0;
+    margin: 10px 0 10px 15px;
     padding: 0;
 }
 .sjb-page .sjb-detail .list-data .v2 ul li {
-    font-size: 16px;
-    line-height: 24px;
     padding-left: 15px;
     position: relative;
 }
@@ -3217,8 +3188,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     width: 100%;
 }
 .sjb-page .sjb-detail .list-data .v2 .job-features .table {
-    font-size: 16px;
-    font-weight: 400;
     border-top: 1px solid #c1c1c1;
     margin-top: 15px;
 }
@@ -3314,10 +3283,7 @@ fieldset[disabled] .sjb-page .checkbox label {
 .sjb-page .sjb-detail .list-data .v2 .jobpost-form textarea.form-control {
     min-height: 100px;
 }
-.sjb-page .sjb-detail .list-data .v2 .jobpost-form label {
-    font-size: 16px;
-    font-weight: 400;
-}
+
 .sjb-page .sjb-detail .list-data .v2 .jobpost-form label.small {
     margin-right: 15px;
 }
@@ -3344,7 +3310,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     height: auto;
 }
 .sjb-page .sjb-detail .list-data .v2 .jobpost-form .form-control {
-    font-size: 16px;
     height: 40px;
     border-radius: 0;
     border: 1px solid #c1c1c1;
@@ -3429,8 +3394,6 @@ fieldset[disabled] .sjb-page .checkbox label {
 }
 .sjb-page .sjb-detail .list-data .v1 .job-detail h3 {
     color: #6e6e6e;
-    font-weight: 500;
-    font-size: 24px;
 }
 @media (min-width: 1200px) {
     .sjb-page .sjb-detail .list-data .v1 .job-info-margin {
@@ -3615,9 +3578,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     margin-right: 0;
     padding-right: 0;
 }
-.sjb-page .sjb-privacy-policy {
-    font-size: 16px;
-}
 .sjb-page #jobapp-tc,
 .sjb-page #jobapp-pp {
     margin-bottom: 15px;
@@ -3625,7 +3585,6 @@ fieldset[disabled] .sjb-page .checkbox label {
 
 .sjb-page .list-data .v2 .sjb-apply-now-btn a {
     border-radius: 0;
-    font-size: 14px;
     padding: 10px 20px;
     margin-top: 10px;
     margin-left: 5px;
@@ -3772,10 +3731,6 @@ fieldset[disabled] .sjb-page .checkbox label {
     margin: 0 0 20px;
 }
 
-.sjb-page .sjb-detail .list-data .v1 .job-detail h3 {
-    font-weight: 500;
-    font-size: 24px;
-}
 @media (min-width: 1200px) {
     .sjb-page .sjb-detail .list-data .v1 .job-info-margin {
         margin: 0 0 10px 27px;
@@ -3952,12 +3907,9 @@ fieldset[disabled] .sjb-page .checkbox label {
 .sjb-page .sjb_more_content{
     display: none;
 }
-.sjb-page .sjb-listing .list-data .v1 .sjb_more_content{
-    font-size: 16px;
-}
+
 .sjb-page .sjb-listing .list-data .v2 .sjb_more_content{
     padding: 0 20px;
-    font-size: 16px;
 }
 .sjb-page .sjb-listing .grid-item .list-data .v2 .sjb_more_content{
     padding: 0;
@@ -3967,14 +3919,12 @@ fieldset[disabled] .sjb-page .checkbox label {
 }
 .sjb-page .sjb-listing a.sjb_view_more_btn,
 .sjb-page .sjb-listing a.sjb_view_less_btn{
-    font-size: 14px;
     cursor: pointer;
 }
 .sjb-page .job-features{
     margin-bottom: 20px;
 }
 .sjb-page .job-features h3 {
-    font-weight: bold;
     margin: 15px;
 }
 .sjb-page .job-features{

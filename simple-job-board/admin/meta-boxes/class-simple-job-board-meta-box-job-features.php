@@ -49,8 +49,38 @@ class Simple_Job_Board_Meta_Box_Job_Features {
          * Use get_post_meta() to retrieve an existing value
          * from the database and use the value for the form.
          */
+
+        // Fetch the setting value of application features for all jobs
+        $enable_admin_job_features =  get_option('admin_job_features_enable_for_all');
+        // Get the author of the current post
+        $post_author_id = $post->post_author;
+
+        // Get the roles of the post author
+        $post_author_roles = get_userdata($post_author_id)->roles;
+        if( $enable_admin_job_features === 'yes' && !in_array('employer', $post_author_roles)){ 
+            $sjb_application_settings_url = admin_url('edit.php?post_type=jobpost&page=job-board-settings#settings-job_features');
+            // Fetch meta value to show application fields
+            $sjb_enable_single_page_app_features = get_post_meta($post->ID,'sjb_enable_single_page_app_features',true);
+            $sjb_alert_msg = sprintf(
+                __( 'Job features are managed globally through <a href="%s" target="_blank">Settings</a> To set features for this job only, enable the following checkbox, update the job post, and reload.', 'simple-job-board' ),
+                esc_url( $sjb_application_settings_url )
+            );
+            echo wp_kses_post( '<p style="margin-top: 0;">' .$sjb_alert_msg. '</p>' );
+            
+            // Function to show metafield to enable application fields for current page
+            self::sjb_single_page_features_meta($post);
+            
+            if(empty($sjb_enable_single_page_app_features)){
+                $sjb_hide_post_features_class = "sjb_hide_post_level_app_features";
+            }else{
+                $sjb_hide_post_features_class = "";
+            }
+        }
+
+
+
         ?>
-        <div class="job_features meta_option_panel jobpost_fields">
+        <div class="job_features meta_option_panel jobpost_fields <?php echo $sjb_hide_post_features_class; ?>">
             <ul id="job_features" class="job_features_list">
                 <?php
                 $keys = get_post_custom_keys($post->ID);
@@ -163,7 +193,7 @@ class Simple_Job_Board_Meta_Box_Job_Features {
         </div>
         <div class="clearfix clear"></div>
 
-        <table id="jobfeatures_form" class="alignleft">
+        <table id="jobfeatures_form" class="alignleft <?php echo $sjb_hide_post_features_class; ?>">
             <thead>
                 <tr>
                     <th><label for="jobFeature"><?php echo esc_html__('Feature', 'simple-job-board'); ?></label></th>
@@ -202,6 +232,35 @@ class Simple_Job_Board_Meta_Box_Job_Features {
         <?php
     }
 
+
+    /**
+     * Fetch meta value to show application features for current job only
+     * 
+     * @since   2.13.10
+     * 
+     * @param   int     $post_id    Post id
+     * @return  void
+     */
+    
+    public static function sjb_single_page_features_meta($post){ 
+        
+        // Fetch meta value to show application fields
+        $sjb_show_single_page_app_features = get_post_meta($post->ID,'sjb_enable_single_page_app_features',true);    
+    ?>
+
+        <div class="sjb-app-fields-meta">
+            <label for="sjb_single_page_app_features">
+                <input type="checkbox" name="sjb_enable_single_page_app_features" id="sjb_single_page_app_features" value="yes" <?php checked( $sjb_show_single_page_app_features, 'yes' ); ?>/>
+                <?php esc_html_e('Enable custom application features for this job.','simple-job-board'); ?>
+            </label>
+        </div>
+<?php
+    
+    }
+
+
+
+
     /**
      * Save job features meta box.
      * 
@@ -214,19 +273,46 @@ class Simple_Job_Board_Meta_Box_Job_Features {
 
         // Delete previous stored fields.
         $old_keys = get_post_custom_keys($post_id);
-        foreach ($old_keys as $key => $val):
-            if (substr($val, 0, 11) == 'jobfeature_') {
-                delete_post_meta($post_id, $val); //Remove meta from the db.
-            }
-        endforeach;
-        $POST_data = filter_input_array(INPUT_POST);
+        if (is_array($old_keys)) :
+            foreach ($old_keys as $key => $val):
+                if (substr($val, 0, 11) == 'jobfeature_') {
+                    delete_post_meta($post_id, $val); //Remove meta from the db.
+                }
+            endforeach;
+        endif;
+
+        $POST_data = isset($_POST) && is_array($_POST) ? filter_input_array(INPUT_POST) : array();
+
+        $admin_job_features_enable_for_all =  get_option('admin_job_features_enable_for_all');
+
+        // Get the post object safely (PHP 8 fix)
+        $post = get_post($post_id);
+        if (!$post) {
+            return;
+        }
+
+        // Get the author of the current post
+        $post_author_id = $post->post_author;
+
+        // Get the roles of the post author
+        $user_data = get_userdata($post_author_id);
+        $post_author_roles = $user_data ? $user_data->roles : array();
+        
+        if ($admin_job_features_enable_for_all === 'yes' && !in_array('employer', $post_author_roles)) {
+
+            $sjb_enable_single_page_app_features = isset($POST_data['sjb_enable_single_page_app_features'])
+                ? sanitize_text_field($POST_data['sjb_enable_single_page_app_features'])
+                : '';
+
+            update_post_meta( $post_id, 'sjb_enable_single_page_app_features', $sjb_enable_single_page_app_features);
+        }
 
         // Add new value.
         foreach ( $POST_data as $key => $val ):
 
-            if (substr($key, 0, 11) == 'jobfeature_') { // Make sure that it is set.
+            if (substr($key, 0, 11) == 'jobfeature_' && is_array($val)) { // Make sure that it is set.
                 $key = preg_replace('/[^\p{L} 0-9]/u', '_', $key);
-                $data = array_map( 'sanitize_text_field', filter_input(INPUT_POST, $key, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY));
+                $data = array_map( 'sanitize_text_field', $val );
                 update_post_meta($post_id, $key, $data); // Add new value.
             }
         endforeach;

@@ -33,6 +33,10 @@ do_action("sjb_job_features_before");
     $job_category = wp_get_post_terms($post->ID, 'jobpost_category');
     $metas = '';
     $job_features_heading = get_option('job_board_job_features', 'Job Features');
+    // Fetch the setting value of features for all jobs
+    $admin_job_features_enable_for_all = get_option('admin_job_features_enable_for_all');
+    // Fetch meta value to show features
+    $sjb_enable_single_page_app_features = get_post_meta($post->ID,'sjb_enable_single_page_app_features',true);
     // Use WPML or Loco Translate to translate it if the translation exists
     $translated_heading = __( $job_features_heading, 'simple-job-board' );
 
@@ -69,79 +73,163 @@ do_action("sjb_job_features_before");
                  * @since   2.2.3
                  */
                 do_action("sjb_job_features_category_after");
+                // Get the author of the current post
+                $post_author_id = $post->post_author;
 
+                // Get the roles of the post author
+                $post_author_roles = get_userdata($post_author_id)->roles;
                 // Display Job Features
-                $enable_feature = get_post_meta(get_the_ID(), 'enable_job_feature', TRUE);
-                if($enable_feature == 'jobfeatures' || $enable_feature == ''){
-                    $keys = get_post_custom_keys(get_the_ID());
-                    if ( $keys != NULL ):
-                        foreach ($keys as $key):
-                            if (substr($key, 0, 11) == 'jobfeature_') {
-                                $val = get_post_meta($post->ID, $key, TRUE);
+                if ($admin_job_features_enable_for_all === 'yes' && !in_array('employer', $post_author_roles)) {
 
-                                /**
-                                 * New Label Index Insertion:
-                                 * 
-                                 * - Addition of new index "label"
-                                 * - Data Legacy Checking  
-                                 */
-                                $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
-                                $value = isset($val['value']) ? $val['value'] : $val;
-                                
-                                if ($value != NULL) {
-                                    $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                    if($sjb_enable_single_page_app_features === 'yes'){
+
+                        $enable_feature = get_post_meta(get_the_ID(), 'enable_job_feature', TRUE);
+                        if($enable_feature == 'jobfeatures' || $enable_feature == ''){
+                            $keys = get_post_custom_keys(get_the_ID());
+                            if ( $keys != NULL ):
+                                foreach ($keys as $key):
+                                    if (substr($key, 0, 11) == 'jobfeature_') {
+                                        $val = get_post_meta($post->ID, $key, TRUE);
+
+                                        /**
+                                         * New Label Index Insertion:
+                                         * 
+                                         * - Addition of new index "label"
+                                         * - Data Legacy Checking  
+                                         */
+                                        $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
+                                        $value = isset($val['value']) ? $val['value'] : $val;
+                                        
+                                        if ($value != NULL) {
+                                            $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                                        }
+                                    }
+                                endforeach;
+                            endif;
+
+                            /**
+                             * Modify the output of job feature section. 
+                             *                                       
+                             * @since   2.2.0
+                             * 
+                             * @param string  $metas job features                   
+                             */
+                            echo apply_filters('sjb_job_features', $metas);
+                        }
+                   
+                    }else{
+                        
+                        $settings_options = get_option('jobfeature_settings_options');
+
+                        if (NULL == $settings_options) {
+                            $settings_options = '';
+                        }
+
+                        if ($settings_options != NULL) :
+                            foreach ($settings_options as $key => $val):
+
+                                if (substr($key, 0, 11) == 'jobfeature_') {
+                                    
+                                    /**
+                                     * New Label Index Insertion:
+                                     * 
+                                     * - Addition of new index "label"
+                                     * - Data Legacy Checking  
+                                     */
+                                    
+                                    $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
+                                    $value = isset($val['value']) ? $val['value'] : $val;
+                                    
+                                    if ($value != NULL) {
+                                        $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                                    }
                                 }
-                            }
-                        endforeach;
-                    endif;
+                            endforeach;
+                        endif;
 
-                    /**
-                     * Modify the output of job feature section. 
-                     *                                       
-                     * @since   2.2.0
-                     * 
-                     * @param string  $metas job features                   
-                     */
-                    echo apply_filters('sjb_job_features', $metas);
-                }
-                else{
-                    $settings_options = get_option('jobfeature_settings_options');
-
-                    if (NULL == $settings_options) {
-                        $settings_options = '';
+                        /**
+                         * Modify the output of job feature section. 
+                         *                                       
+                         * @since   2.2.0
+                         * 
+                         * @param string  $metas job features                   
+                         */
+                        echo apply_filters('sjb_job_features', $metas);
                     }
+         
+                }else{
+                    $enable_feature = get_post_meta(get_the_ID(), 'enable_job_feature', TRUE);
+                    if($enable_feature == 'jobfeatures' || $enable_feature == ''){
+                        $keys = get_post_custom_keys(get_the_ID());
+                        if ( $keys != NULL ):
+                            foreach ($keys as $key):
+                                if (substr($key, 0, 11) == 'jobfeature_') {
+                                    $val = get_post_meta($post->ID, $key, TRUE);
 
-                    if ($settings_options != NULL) :
-                         foreach ($settings_options as $key => $val):
-
-                            if (substr($key, 0, 11) == 'jobfeature_') {
-                                
-                                /**
-                                 * New Label Index Insertion:
-                                 * 
-                                 * - Addition of new index "label"
-                                 * - Data Legacy Checking  
-                                 */
-                                
-                                $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
-                                $value = isset($val['value']) ? $val['value'] : $val;
-                                
-                                if ($value != NULL) {
-                                    $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                                    /**
+                                     * New Label Index Insertion:
+                                     * 
+                                     * - Addition of new index "label"
+                                     * - Data Legacy Checking  
+                                     */
+                                    $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
+                                    $value = isset($val['value']) ? $val['value'] : $val;
+                                    
+                                    if ($value != NULL) {
+                                        $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                                    }
                                 }
-                            }
-                        endforeach;
-                    endif;
+                            endforeach;
+                        endif;
 
-                    /**
-                     * Modify the output of job feature section. 
-                     *                                       
-                     * @since   2.2.0
-                     * 
-                     * @param string  $metas job features                   
-                     */
-                    echo apply_filters('sjb_job_features', $metas);
-                }
+                        /**
+                         * Modify the output of job feature section. 
+                         *                                       
+                         * @since   2.2.0
+                         * 
+                         * @param string  $metas job features                   
+                         */
+                        echo apply_filters('sjb_job_features', $metas);
+                    }else{
+                        $settings_options = get_option('jobfeature_settings_options');
+
+                        if (NULL == $settings_options) {
+                            $settings_options = '';
+                        }
+
+                        if ($settings_options != NULL) :
+                            foreach ($settings_options as $key => $val):
+
+                                if (substr($key, 0, 11) == 'jobfeature_') {
+                                    
+                                    /**
+                                     * New Label Index Insertion:
+                                     * 
+                                     * - Addition of new index "label"
+                                     * - Data Legacy Checking  
+                                     */
+                                    
+                                    $label = isset($val['label']) ? $val['label'] : __(ucwords(str_replace('_', ' ', substr($key, 11))), 'simple-job-board');
+                                    $value = isset($val['value']) ? $val['value'] : $val;
+                                    
+                                    if ($value != NULL) {
+                                        $metas .= '<tr><td style="padding: 8px;">' . esc_attr($label) . '</td><td style="padding: 8px;">' . esc_attr($value) . ' </td></tr>';
+                                    }
+                                }
+                            endforeach;
+                        endif;
+
+                        /**
+                         * Modify the output of job feature section. 
+                         *                                       
+                         * @since   2.2.0
+                         * 
+                         * @param string  $metas job features                   
+                         */
+                        echo apply_filters('sjb_job_features', $metas);
+                    }
+                } 
+
                 ?>
         </tbody>
     </table>

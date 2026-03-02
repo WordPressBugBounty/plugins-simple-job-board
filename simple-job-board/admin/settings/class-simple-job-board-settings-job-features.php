@@ -72,6 +72,8 @@ class Simple_Job_Board_Settings_Job_Features {
         }
         $allowed_tags = sjb_get_allowed_html_tags();
         $enable_job_features =  get_option('job_board_features_enable', 'no');
+        $enable_admin_job_features =  get_option('admin_job_features_enable_for_all', 'no');
+
         ?>
         <!-- Job Features -->
         <div data-id="settings-job_features" class="sjb-admin-settings tab">
@@ -85,6 +87,17 @@ class Simple_Job_Board_Settings_Job_Features {
                     </div>
                     <div class="sjp-form-field-note">
                             <span><?php echo esc_html__('Note: If this checkbox is selected, it will add the features only in the jobs in backend, to display the fields on the job detail page you have to update each job post.', 'simple-job-board'); ?></span>
+                        </div>
+                </div>
+
+                <div class="sjb-section settings-fields features-short">
+                    <h4 class="first sjb-settings-section-heading"><?php esc_html_e('Enable Admin Job Features For All the Jobs', 'simple-job-board'); ?></h4>
+                    <div class="sjb-form-group">
+                        <input type="checkbox" name="admin_job_features_enable_for_all" id="enable-admin-job-features" value="yes"  <?php checked('yes', esc_attr($enable_admin_job_features)); ?> />
+                        <label for="enable-admin-job-features" class="enable-features-label"><?php echo esc_html__('Use admin job features for all the jobs', 'simple-job-board'); ?></label>
+                    </div>
+                    <div class="sjp-form-field-note">
+                            <span><?php echo esc_html__('Note: If this checkbox is selected, it will use the admin features for all jobs. This means you will not be able to customize features for each job post, since the same features will be applied to all jobs.', 'simple-job-board'); ?></span>
                         </div>
                 </div>
             
@@ -232,7 +245,9 @@ class Simple_Job_Board_Settings_Job_Features {
         $POST_data = filter_input_array(INPUT_POST);
         $features = filter_input(INPUT_POST, 'job_features');
         $enable_job_features = isset($_POST['job_features_enable']) ? sanitize_text_field($_POST['job_features_enable']) : '';
+        $enable_admin_job_features = isset($_POST['admin_job_features_enable_for_all']) ? sanitize_text_field($_POST['admin_job_features_enable_for_all']) : '';
 
+        
         
         // Save Form Data to WP Option
         if (!empty($POST_data) && ( $features )) {
@@ -255,6 +270,7 @@ class Simple_Job_Board_Settings_Job_Features {
         }
 
         update_option('job_board_features_enable', sanitize_text_field( $enable_job_features ) );
+        update_option('admin_job_features_enable_for_all', sanitize_text_field( $enable_admin_job_features ) );
 
             
         

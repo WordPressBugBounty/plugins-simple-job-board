@@ -36,10 +36,15 @@ class Simple_Job_Board_Meta_Box_Job_Application {
         // Add a nonce field so we can check for it later.
         wp_nonce_field('sjb_jobpost_meta_box', 'jobpost_meta_box_nonce');
         $allowed_tags = sjb_get_allowed_html_tags();
+        // Get the author of the current post
+        $post_author_id = $post->post_author;
+
+        // Get the roles of the post author
+        $post_author_roles = get_userdata($post_author_id)->roles;
         
         // Fetch the setting value of application fields for all jobs
         $job_application_setting_form_fields_enable =  get_option('job_application_setting_form_fields_enable');
-        if( $job_application_setting_form_fields_enable === 'yes'){ 
+        if( $job_application_setting_form_fields_enable === 'yes' && !in_array('employer', $post_author_roles)){ 
             $sjb_application_settings_url = admin_url('edit.php?post_type=jobpost&page=job-board-settings#settings-application_form_fields');
             // Fetch meta value to show application fields
             $sjb_enable_single_page_app_fields = get_post_meta($post->ID,'sjb_enable_single_page_app_fields',true);
@@ -328,12 +333,21 @@ class Simple_Job_Board_Meta_Box_Job_Application {
      * @return  void
      */
 
+    /**
+     * Save job application meta box.
+     * 
+     * @since   2.2.3
+     * 
+     * @param   int     $post_id    Post id
+     * @return  void
+     */
+
     public static function sjb_save_jobpost_meta($post_id) {
 
         // Delete previous stored fields
         $old_keys = get_post_custom_keys($post_id);
 
-        if ($old_keys) {
+        if (is_array($old_keys)) {
             foreach ($old_keys as $key => $val):
                 if (substr($val, 0, 7) == 'jobapp_') {
                     delete_post_meta($post_id, $val); //Remove meta from the db.
@@ -341,19 +355,35 @@ class Simple_Job_Board_Meta_Box_Job_Application {
             endforeach;
         }
 
-        // Sanitize $_POST Data Array
-        $POST_data = filter_input_array(INPUT_POST);
+        $POST_data = (isset($_POST) && is_array($_POST)) ? filter_input_array(INPUT_POST) : array();
 
-        
+        // Get the post object safely (PHP 8 fix)
+        $post = get_post($post_id);
+        if (!$post) {
+            return;
+        }
+
+        // Get the author of the current post
+        $post_author_id = $post->post_author;
+
+        // Get the roles of the post author
+        $user_data = get_userdata($post_author_id);
+        $post_author_roles = $user_data ? $user_data->roles : array();
+
         $job_application_setting_form_fields_enable =  get_option('job_application_setting_form_fields_enable');
-        if( $job_application_setting_form_fields_enable === 'yes'){
-            $sjb_enable_single_page_app_fields = sanitize_text_field($POST_data['sjb_enable_single_page_app_fields']);
+
+        if( $job_application_setting_form_fields_enable === 'yes' && !in_array('employer', $post_author_roles)){
+
+            $sjb_enable_single_page_app_fields = isset($POST_data['sjb_enable_single_page_app_fields'])
+                ? sanitize_text_field($POST_data['sjb_enable_single_page_app_fields'])
+                : '';
+
             update_post_meta( $post_id, 'sjb_enable_single_page_app_fields', $sjb_enable_single_page_app_fields);
         }
         
         // Add new Value
         foreach ( $POST_data as $key => $val ):
-            if (substr($key, 0, 7) == 'jobapp_') {
+            if (substr($key, 0, 7) == 'jobapp_' && is_array($val)) {
 
                 $key = preg_replace('/[^\p{L} 0-9]/u', '_', $key);
                 update_post_meta( $post_id, $key, array_map('sanitize_text_field', $val) ); // Add new value.

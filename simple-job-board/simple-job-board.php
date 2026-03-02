@@ -15,7 +15,7 @@
  * Plugin Name:       Simple Job Board
  * Plugin URI:        https://market.presstigers.com
  * Description:       A lightweight WordPress job portal plugin to display job listings, manage applications, and create a professional career page using various taxonomies and company details — ideal for recruitment, hiring, and career management.
- * Version:           2.14.1
+ * Version:           2.14.2
  * Author:            PressTigers
  * Author URI:        https://market.presstigers.com
  * License:           GPL-3.0+
@@ -30,7 +30,7 @@ if (!defined('WPINC')) {
 
 // Define Plugin Contant
 if (!defined('SJB_PLUGIN_VERSION')) {
-    define('SJB_PLUGIN_VERSION', '2.14.1');
+    define('SJB_PLUGIN_VERSION', '2.14.2');
 }
 
 add_action('upgrader_process_complete', 'sjb_clean_options_on_update', 10, 2);
@@ -112,6 +112,41 @@ function sjb_wp_upe_upgrade_completed( $upgrader_object, $options ) {
  }
 }
 add_action( 'upgrader_process_complete', 'sjb_wp_upe_upgrade_completed', 10, 2 );
+
+function block_employer_from_admin() {
+    if ( ! is_user_logged_in() ) {
+        return;
+    }
+
+    $user = wp_get_current_user();
+
+    // Check if user has employer role
+    if ( in_array('employer', (array) $user->roles, true ) ) {
+
+        // Allow AJAX requests
+        if ( defined('DOING_AJAX') && DOING_AJAX ) {
+            return;
+        }
+
+        // Redirect employer users away from admin
+        wp_redirect( home_url() );
+        exit;
+    }
+}
+add_action('admin_init', 'block_employer_from_admin');
+
+function hide_admin_bar_for_employer() {
+    if ( ! is_user_logged_in() ) {
+        return;
+    }
+
+    $user = wp_get_current_user();
+
+    if ( in_array('employer', (array) $user->roles, true ) ) {
+        show_admin_bar(false);
+    }
+}
+add_action('after_setup_theme', 'hide_admin_bar_for_employer');
 
 
 /**

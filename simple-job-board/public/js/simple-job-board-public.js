@@ -335,6 +335,11 @@
   
           for (var input_ID in telInput_id) {
             var telInput = $("#" + telInput_id[input_ID]);
+            // Check if the intlTelInput function exists (i.e., the library is loaded)
+            if (typeof $.fn.intlTelInput === 'undefined') {
+              // If the intlTelInput library is not loaded or missing, exit the function
+              return;
+            }
             telInput.intlTelInput({
               initialCountry: "auto",
               geoIpLookup: function (callback) {

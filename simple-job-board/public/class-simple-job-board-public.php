@@ -72,6 +72,29 @@ class Simple_Job_Board_Public
 
         // Action -> Load Template Functions.
         add_action('after_setup_theme', array($this, 'sjb_template_functions'), 11);
+        add_action('init', array($this, 'has_plugin_shortcode'),1);
+    }
+
+    /**
+     * Check if current post/page contains any of the plugin shortcodes.
+     *
+     * @param array $shortcodes List of shortcode tags to check for.
+     * @return bool True if any shortcode is found in the current post content.
+     */
+    public function has_plugin_shortcode( $shortcodes ) {
+        global $post;
+
+        if ( ! is_a( $post, 'WP_Post' ) ) {
+            return false;
+        }
+
+        foreach ( $shortcodes as $shortcode ) {
+            if ( has_shortcode( $post->post_content, $shortcode ) ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -84,22 +107,31 @@ class Simple_Job_Board_Public
     {
 
         $sjb_fonts = get_option('sjb_fonts') ;
+        $shortcodes = array(
+            'jobpost',
+            'job_details',
+            'frontend_signup',
+            'frontend_login',
+            'frontend_dashboard',
+            'frontend_jobpost',
+        );
 
         if($sjb_fonts == 'enable-fonts'){
 
             // Enqueue Google Fonts
             wp_enqueue_style($this->simple_job_board . '-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i', array(), $this->version, 'all');
         }
+        if ( is_singular('jobpost') || $this->has_plugin_shortcode( $shortcodes ) ) {
+            // Enqueue Font Awesome Styles
+            wp_enqueue_style("sjb-fontawesome", plugin_dir_url(dirname(__FILE__)) . 'includes/css/font-awesome.min.css', array(), '5.15.4', 'all');
+            wp_enqueue_style($this->simple_job_board . '-jquery-ui', plugin_dir_url(__FILE__) . 'css/jquery-ui.css', array(), '1.12.1', 'all');
 
-        // Enqueue Font Awesome Styles
-        wp_enqueue_style("sjb-fontawesome", plugin_dir_url(dirname(__FILE__)) . 'includes/css/font-awesome.min.css', array(), '5.15.4', 'all');
-        wp_enqueue_style($this->simple_job_board . '-jquery-ui', plugin_dir_url(__FILE__) . 'css/jquery-ui.css', array(), '1.12.1', 'all');
-
-        // Enqueue Front-end RTL Styles
-        if (is_rtl()) {
-            wp_enqueue_style($this->simple_job_board . '-frontend-rtl', plugin_dir_url(__FILE__) . 'css/rtl/simple-job-board-public-rtl.css', array(), '2.0.0', 'all');
-        } else {
-            wp_enqueue_style($this->simple_job_board . '-frontend', plugin_dir_url(__FILE__) . 'css/simple-job-board-public.css', array(), '3.0.0', 'all');
+            // Enqueue Front-end RTL Styles
+            if (is_rtl()) {
+                wp_enqueue_style($this->simple_job_board . '-frontend-rtl', plugin_dir_url(__FILE__) . 'css/rtl/simple-job-board-public-rtl.css', array(), '2.0.0', 'all');
+            } else {
+                wp_enqueue_style($this->simple_job_board . '-frontend', plugin_dir_url(__FILE__) . 'css/simple-job-board-public.css', array(), '3.0.0', 'all');
+            }
         }
     }
 
@@ -114,7 +146,17 @@ class Simple_Job_Board_Public
     {
         $sjb_date_format = (!empty(apply_filters('sjb_date_format', get_option('sjb_date_format'))))? $this->convert_date(get_option('sjb_date_format')) : 'mm-dd-yy' ;
         // Register Simple Job Board Front-end Core JS
-        wp_enqueue_script('jquery-validation', plugin_dir_url(__FILE__).'js/jquery.validate.min.js', array('jquery'), '1.19.5', true);
+        $shortcodes = array(
+            'jobpost',
+            'job_details',
+            'frontend_signup',
+            'frontend_login',
+            'frontend_dashboard',
+            'frontend_jobpost',
+        );
+        if ( is_singular('jobpost') || $this->has_plugin_shortcode( $shortcodes ) ) {
+            wp_enqueue_script('jquery-validation', plugin_dir_url(__FILE__).'js/jquery.validate.min.js', array('jquery'), '1.19.5', true);
+        }
         wp_enqueue_script('wp-i18n');
         wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
         wp_set_script_translations($this->simple_job_board . '-front-end', 'simple-job-board');

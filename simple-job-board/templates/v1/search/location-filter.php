@@ -29,7 +29,7 @@ if ( sjb_is_location_filter() ) {
         'show_option_none' => apply_filters( 'sjb_location_filter_title', esc_html__('Location', 'simple-job-board') ),
         'orderby' => 'NAME',
         'order' => 'ASC',
-        'hide_empty' => 0,
+        'hide_empty' => 1,
         'echo' => FALSE,
         'name' => 'selected_location',
         'id' => 'location',

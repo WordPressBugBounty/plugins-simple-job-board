@@ -41,31 +41,46 @@ class Simple_Job_Board_Admin_Alerts
      */
     public function render_admin_alerts_banner() {
 
-        // Base URL for the WooCommerce API
-        $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
-        // Make API request
-        $response = wp_remote_get(
-                $api_url, array(
-            'method' => 'GET',
-            'timeout' => 10,
-            'redirection' => 5,
-            'httpversion' => '1.0',
-            'blocking' => true,
-            'headers' => array(),
-            'cookies' => array(),
-            ));
-        // Check the response code
-        $response_code = wp_remote_retrieve_response_code($response);
-        $response_message = wp_remote_retrieve_response_message($response);
+        // Define a unique transient key
+        $transient_key = 'mp_pt_api_products';
 
-        if (200 != $response_code && !empty($response_message)) {
-            return new WP_Error($response_code, $response_message);
-        } elseif (200 != $response_code) {
-            return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
+        // Check if transient exists
+        $cached_data = get_transient($transient_key);
+
+        if ($cached_data !== false) {
+            // Use cached data 
+            $products = $cached_data;
         } else {
-            // Decode the response body
-            $body = wp_remote_retrieve_body($response);
-            $products = json_decode($body, true); // Decode the JSON response
+
+            // Base URL for the WooCommerce API
+            $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
+            // Make API request
+            $response = wp_remote_get(
+                    $api_url, array(
+                'method' => 'GET',
+                'timeout' => 10,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking' => true,
+                'headers' => array(),
+                'cookies' => array(),
+                ));
+            // Check the response code
+            $response_code = wp_remote_retrieve_response_code($response);
+            $response_message = wp_remote_retrieve_response_message($response);
+
+            if (200 != $response_code && !empty($response_message)) {
+                return new WP_Error($response_code, $response_message);
+            } elseif (200 != $response_code) {
+                return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
+            } else {
+                // Decode the response body
+                $body = wp_remote_retrieve_body($response);
+                $products = json_decode($body, true); // Decode the JSON response
+
+                // Cache the data in a transient for 24 hours
+                set_transient($transient_key, $products, DAY_IN_SECONDS);
+            }
         }
         $products_data = array();
 
@@ -319,36 +334,40 @@ class Simple_Job_Board_Admin_Alerts
 
         if ($cached_data !== false) {
             // Use cached data 
-            $addons = $cached_data;
+            $products = $cached_data;
         } else {
-        // Base URL for the WooCommerce API
-        $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
+            // Base URL for the WooCommerce API
+            $api_url = 'https://market.presstigers.com/wp-json/mp/v1/products';
 
 
-        // Make API request
-        $response = wp_remote_get(
-                $api_url, array(
-            'method' => 'GET',
-            'timeout' => 10,
-            'redirection' => 5,
-            'httpversion' => '1.0',
-            'blocking' => true,
-            'headers' => array(),
-            'cookies' => array(),
-            
-            ));
-        // Check the response code
-        $response_code = wp_remote_retrieve_response_code($response);
-        $response_message = wp_remote_retrieve_response_message($response);
+            // Make API request
+            $response = wp_remote_get(
+                    $api_url, array(
+                'method' => 'GET',
+                'timeout' => 10,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking' => true,
+                'headers' => array(),
+                'cookies' => array(),
+                
+                ));
+            // Check the response code
+            $response_code = wp_remote_retrieve_response_code($response);
+            $response_message = wp_remote_retrieve_response_message($response);
 
-        if (200 != $response_code && !empty($response_message)) {
-            return new WP_Error($response_code, $response_message);
-        } elseif (200 != $response_code) {
-            return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
-        } else {
-            // Decode the response body
-            $body = wp_remote_retrieve_body($response);
-            $products = json_decode($body, true); // Decode the JSON response
+            if (200 != $response_code && !empty($response_message)) {
+                return new WP_Error($response_code, $response_message);
+            } elseif (200 != $response_code) {
+                return new WP_Error($response_code, esc_html__('Unknown error occurred', 'simple-job-board'));
+            } else {
+                // Decode the response body
+                $body = wp_remote_retrieve_body($response);
+                $products = json_decode($body, true); // Decode the JSON response
+
+                // Cache the data in a transient for 24 hours
+                set_transient($transient_key, $products, DAY_IN_SECONDS);
+            }
         }
 
         // Prepare the $addons array from the API response
@@ -368,10 +387,6 @@ class Simple_Job_Board_Admin_Alerts
                     );
                 }
             }
-        }
-               
-            // Cache the data in a transient for 24 hours
-            set_transient($transient_key, $addons, DAY_IN_SECONDS);
         }
          // Check if the base (free) plugin is installed (instead of active)
         if (file_exists(WP_PLUGIN_DIR . '/simple-job-board/simple-job-board.php')) {

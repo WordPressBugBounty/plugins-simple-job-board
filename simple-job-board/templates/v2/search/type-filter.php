@@ -28,7 +28,7 @@ if (sjb_is_type_filter()) {
         'show_option_none'  => apply_filters( 'sjb_type_filter_title', esc_html__('Job Type', 'simple-job-board') ),
         'orderby'           => 'NAME',
         'order'             => 'ASC',
-        'hide_empty'        => 0,
+        'hide_empty'        => 1,
         'echo'              => FALSE,
         'name'              => 'selected_jobtype',
         'id'                => 'jobtype',

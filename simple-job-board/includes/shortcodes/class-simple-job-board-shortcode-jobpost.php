@@ -96,7 +96,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
                 'jobpost_job_type' => (!empty($_GET['selected_jobtype']) && -1 != $_GET['selected_jobtype'] ) ? sanitize_text_field($_GET['selected_jobtype']) : sanitize_text_field($shortcode_args['type']),
                 'jobpost_location' => (!empty($_GET['selected_location']) && -1 != $_GET['selected_location'] ) ? sanitize_text_field($_GET['selected_location']) : sanitize_text_field($shortcode_args['location']),
                 's' => ( NULL != filter_input(INPUT_GET, 'search_keywords') ) ? sanitize_text_field($_GET['search_keywords']) : '',
-                'jobpost_tag' => (!empty($_GET['selected_tag'])) ? sanitize_text_field($_GET['selected_tag']) : '',
+                'jobpost_tag' => (!empty($_GET['selected_tag'])) ? str_replace(',', '+', sanitize_text_field($_GET['selected_tag'])) : '',
             ), $atts
         );
 
@@ -109,6 +109,7 @@ class Simple_Job_Board_Shortcode_Jobpost {
                 'taxonomy' => 'jobpost_tag',
                 'field'    => 'slug',
                 'terms'    => $tags_array,
+                'operator' => 'AND',
             );
         }
 

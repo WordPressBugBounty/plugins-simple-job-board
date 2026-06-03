@@ -133,18 +133,27 @@ class Simple_Job_Board_Add_Ons {
      * @return  string|WP_Error Returns the contents of the response on success|WP_Error on failure
      */
     public function sjb_get_items() {
-        
+        // Define a unique transient key
+        $transient_key = "mp_pt_api_products";
+
+        // Check if transient exists
+        $cached_data = get_transient($transient_key);
+
+        if ($cached_data !== false) {
+            // Use cached data and return as JSON string for compatibility
+            return json_encode($cached_data);
+        }
 
         // Make API request
         $response = wp_remote_post(
             $this->api_url, array(
-            'method' => 'GET',
-            'timeout' => 45,
-            'redirection' => 5,
-            'httpversion' => '1.0',
-            'blocking' => true,
-            'headers' => array(),
-            'cookies' => array(),
+            "method" => "GET",
+            "timeout" => 45,
+            "redirection" => 5,
+            "httpversion" => "1.0",
+            "blocking" => true,
+            "headers" => array(),
+            "cookies" => array(),
             ));
         // Check the response code
         $response_code = wp_remote_retrieve_response_code($response);
@@ -154,9 +163,15 @@ class Simple_Job_Board_Add_Ons {
         if (200 != $response_code && !empty($response_message)) {
             return new WP_Error($response_code, $response_message);
         } elseif (200 != $response_code) {
-            return new WP_Error($response_code, esc_html__('Unknown error occurred'));
+            return new WP_Error($response_code, esc_html__("Unknown error occurred"));
         } else {
-            return wp_remote_retrieve_body($response);
+            $body = wp_remote_retrieve_body($response);
+            $products = json_decode($body, true);
+
+            // Cache the data in a transient for 24 hours
+            set_transient($transient_key, $products, DAY_IN_SECONDS);
+
+            return $body;
         }
     }
 

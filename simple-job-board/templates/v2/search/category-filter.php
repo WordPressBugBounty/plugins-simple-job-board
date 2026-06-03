@@ -29,7 +29,7 @@ if (sjb_is_category_filter()) {
         'show_option_none' => apply_filters('sjb_category_filter_title', esc_html__('Category', 'simple-job-board')),
         'orderby'          => 'NAME',
         'order'            => 'ASC',
-        'hide_empty'       => 0,
+        'hide_empty'       => 1,
         'echo'             => FALSE,
         'hierarchical'     => TRUE,
         'name'             => 'selected_category',

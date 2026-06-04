@@ -83,10 +83,10 @@ class Simple_Job_Board_Admin_Alerts
             }
         }
         $products_data = array();
+        $filtered_products = [];
 
         if (!empty($products['products'])) {
             // Filter products based on conditions and prepare them for display
-            $filtered_products = [];
             foreach ($products['products'] as $product) {
                 // Get the necessary fields from the main product
                 $product_title = isset($product['title']) ? $product['title'] : '';
@@ -146,6 +146,7 @@ class Simple_Job_Board_Admin_Alerts
 
             // Check if the post_type is 'jobpost'
             if ( isset($screen->post_type) && ($screen->post_type === 'jobpost' || $screen->post_type === 'jobpost_applicants') ) {
+                if (!empty($filtered_products)) { 
                 ?>
                 <div class="sjb-alert-banner">
                     <div class="sjb-banner-container">
@@ -306,6 +307,7 @@ class Simple_Job_Board_Admin_Alerts
                     });
                 </script>
                 <?php
+                }
             }
         }
 

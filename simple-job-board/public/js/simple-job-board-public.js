@@ -629,6 +629,154 @@
         $("#selected_tag").val(linkValue);
         $(".filters-form").submit(); /* Submit the form */
       });
+
+      /**
+       * Initialize Select2 for Multi-Select Filters with Checkboxes
+       *
+       * @since 2.14.5
+       */
+      function initialize_multiselect_filters() {
+        if ($.fn.select2 && $(".sjb-multiselect-filter").length) {
+
+          $(".sjb-multiselect-filter").each(function () {
+            var $select = $(this);
+            var placeholderText = $select.find("option[value='-1'], option[value='']").first().text() || "";
+
+            // Clean any placeholder -1 or "" from current initial value
+            var currentVal = $select.val();
+            if (Array.isArray(currentVal)) {
+              var cleanedVal = currentVal.filter(function(v) { return String(v) !== "-1" && String(v) !== ""; });
+              if (cleanedVal.length !== currentVal.length) {
+                $select.val(cleanedVal.length ? cleanedVal : null);
+              }
+            } else if (currentVal === "-1" || currentVal === "") {
+              $select.val(null);
+            }
+
+            function syncCheckboxes() {
+              var rawVal = $select.val();
+              var selectedValues = [];
+              if (Array.isArray(rawVal)) {
+                selectedValues = rawVal.map(function(v) { return String(v); }).filter(function(v) { return v !== "-1" && v !== ""; });
+              } else if (rawVal !== null && rawVal !== undefined && rawVal !== "" && String(rawVal) !== "-1") {
+                selectedValues = [String(rawVal)];
+              }
+
+              var $container = $select.data("select2") && $select.data("select2").$dropdown 
+                ? $select.data("select2").$dropdown 
+                : $(".select2-dropdown");
+
+              $container.find(".sjb-select2-checkbox").each(function () {
+                var val = String($(this).attr("data-val"));
+                var isChecked = selectedValues.indexOf(val) !== -1;
+                $(this).prop("checked", isChecked);
+              });
+            }
+
+            $select.select2({
+              placeholder: placeholderText,
+              allowClear: true,
+              closeOnSelect: false,
+              width: "100%",
+              templateResult: function (state) {
+                if (!state.id || state.id === "-1" || state.id === "") {
+                  return null;
+                }
+                var isSelected = $(state.element).is(":selected");
+                var $elem = $(
+                  '<span class="sjb-select2-item">' +
+                    '<input type="checkbox" class="sjb-select2-checkbox" data-val="' + state.id + '" ' +
+                    (isSelected ? 'checked="checked"' : '') +
+                    ' style="margin-right:8px; pointer-events:none;" /> ' +
+                    '<span class="sjb-select2-text">' +
+                    state.text +
+                    "</span>" +
+                    "</span>"
+                );
+                return $elem;
+              },
+              templateSelection: function (state) {
+                if (!state.id || state.id === "-1" || state.id === "") {
+                  return state.text;
+                }
+                return state.text;
+              }
+            });
+
+            /* Prevent selecting placeholder if somehow triggered */
+            $select.on("select2:selecting", function (e) {
+              var id = e.params.args && e.params.args.data ? String(e.params.args.data.id) : "";
+              if (!id || id === "-1" || id === "") {
+                e.preventDefault();
+              }
+            });
+
+            /* Prevent dropdown from opening when removing an item or clearing all */
+            $select.on("select2:opening", function (e) {
+              if ($select.data("prevent-open")) {
+                e.preventDefault();
+                $select.data("prevent-open", false);
+              }
+            });
+
+            /* Ensure clearing selection resets completely to null without auto-selecting first option */
+            $select.on("select2:clearing", function () {
+              setTimeout(function () {
+                $select.val(null);
+                syncCheckboxes();
+              }, 0);
+            });
+
+            /* Synchronize checkbox states when options are opened, toggled, or cleared */
+            $select.on("change select2:select select2:unselect select2:open select2:clear", function () {
+              setTimeout(syncCheckboxes, 0);
+            });
+          });
+
+          /* Set prevent-open flag and stop propagation when clicking remove all or individual choice remove icons */
+          $(document).on("mousedown touchstart pointerdown click", ".select2-selection__clear, .select2-selection__choice__remove", function (e) {
+            e.stopPropagation();
+            var $container = $(this).closest(".select2-container");
+            var $select = $container.prev(".sjb-multiselect-filter");
+            if (!$select.length) {
+              $select = $container.parent().find(".sjb-multiselect-filter");
+            }
+            if ($select.length) {
+              $select.data("prevent-open", true);
+              setTimeout(function () {
+                $select.data("prevent-open", false);
+              }, 200);
+            }
+          });
+
+          /* Global fallback when clicking anywhere in dropdown results */
+          $(document).on("click", ".select2-results__option", function () {
+            setTimeout(function () {
+              $(".sjb-multiselect-filter").each(function () {
+                var $select = $(this);
+                var rawVal = $select.val();
+                var selectedValues = [];
+                if (Array.isArray(rawVal)) {
+                  selectedValues = rawVal.map(function(v) { return String(v); }).filter(function(v) { return v !== "-1" && v !== ""; });
+                } else if (rawVal !== null && rawVal !== undefined && rawVal !== "" && String(rawVal) !== "-1") {
+                  selectedValues = [String(rawVal)];
+                }
+
+                var $container = $select.data("select2") && $select.data("select2").$dropdown 
+                  ? $select.data("select2").$dropdown 
+                  : $(".select2-dropdown");
+
+                $container.find(".sjb-select2-checkbox").each(function () {
+                  var val = String($(this).attr("data-val"));
+                  var isChecked = selectedValues.indexOf(val) !== -1;
+                  $(this).prop("checked", isChecked);
+                });
+              });
+            }, 0);
+          });
+        }
+      }
+      initialize_multiselect_filters();
     });
 
      $(document).on('click', '.btn-app-modal-close', function(e) {

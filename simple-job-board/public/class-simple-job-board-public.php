@@ -72,7 +72,6 @@ class Simple_Job_Board_Public
 
         // Action -> Load Template Functions.
         add_action('after_setup_theme', array($this, 'sjb_template_functions'), 11);
-        add_action('init', array($this, 'has_plugin_shortcode'),1);
     }
 
     /**
@@ -81,17 +80,32 @@ class Simple_Job_Board_Public
      * @param array $shortcodes List of shortcode tags to check for.
      * @return bool True if any shortcode is found in the current post content.
      */
-    public function has_plugin_shortcode( $shortcodes ) {
+    public function has_plugin_shortcode( $shortcodes = array() ) {
         global $post;
 
         if ( ! is_a( $post, 'WP_Post' ) ) {
             return false;
         }
 
+        if ( empty( $shortcodes ) ) {
+            $shortcodes = array(
+                'jobpost',
+                'job_details',
+                'frontend_signup',
+                'frontend_login',
+                'frontend_dashboard',
+                'frontend_jobpost',
+            );
+        }
+
         foreach ( $shortcodes as $shortcode ) {
-            if ( has_shortcode( $post->post_content, $shortcode ) ) {
+            if ( has_shortcode( $post->post_content, $shortcode ) || strpos( $post->post_content, '[' . $shortcode ) !== false ) {
                 return true;
             }
+        }
+
+        if ( strpos( $post->post_content, 'sjb-block' ) !== false || strpos( $post->post_content, 'simple-job-board' ) !== false ) {
+            return true;
         }
 
         return false;
@@ -102,26 +116,23 @@ class Simple_Job_Board_Public
      *
      * @since    1.0.0
      * @since    2.4.0  Updated Outdated Styles
+     * @since    2.14.5 Enqueue styles on all SJB frontend contexts
      */
     public function enqueue_styles()
     {
 
         $sjb_fonts = get_option('sjb_fonts') ;
-        $shortcodes = array(
-            'jobpost',
-            'job_details',
-            'frontend_signup',
-            'frontend_login',
-            'frontend_dashboard',
-            'frontend_jobpost',
-        );
 
         if($sjb_fonts == 'enable-fonts'){
 
             // Enqueue Google Fonts
             wp_enqueue_style($this->simple_job_board . '-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i', array(), $this->version, 'all');
         }
-        if ( is_singular('jobpost') || $this->has_plugin_shortcode( $shortcodes ) ) {
+        if ( is_sjb() ) {
+            if ( function_exists('sjb_is_multiselect_filter') && sjb_is_multiselect_filter() ) {
+                wp_enqueue_style($this->simple_job_board . '-select2', plugin_dir_url(__FILE__) . 'css/select2.min.css', array(), '4.0.13', 'all');
+            }
+
             // Enqueue Font Awesome Styles
             wp_enqueue_style("sjb-fontawesome", plugin_dir_url(dirname(__FILE__)) . 'includes/css/font-awesome.min.css', array(), '5.15.4', 'all');
             wp_enqueue_style($this->simple_job_board . '-jquery-ui', plugin_dir_url(__FILE__) . 'css/jquery-ui.css', array(), '1.12.1', 'all');
@@ -141,62 +152,66 @@ class Simple_Job_Board_Public
      * @since    1.0.0
      * @since    2.4.0  Updated InputTel Scripts
      * @since    2.9.5  Updated jQuery_alerts strings
+     * @since    2.14.5 Enqueue scripts on all SJB frontend contexts
      */
     public function enqueue_scripts()
     {
         $sjb_date_format = (!empty(apply_filters('sjb_date_format', get_option('sjb_date_format'))))? $this->convert_date(get_option('sjb_date_format')) : 'mm-dd-yy' ;
-        // Register Simple Job Board Front-end Core JS
-        $shortcodes = array(
-            'jobpost',
-            'job_details',
-            'frontend_signup',
-            'frontend_login',
-            'frontend_dashboard',
-            'frontend_jobpost',
-        );
-        if ( is_singular('jobpost') || $this->has_plugin_shortcode( $shortcodes ) ) {
-            wp_enqueue_script('jquery-validation', plugin_dir_url(__FILE__).'js/jquery.validate.min.js', array('jquery'), '1.19.5', true);
-        }
-        wp_enqueue_script('wp-i18n');
-        wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', array('jquery', 'jquery-ui-datepicker'), '1.4.0', true);
-        wp_set_script_translations($this->simple_job_board . '-front-end', 'simple-job-board');
-        $disable_sjb_ph_no_application_form_fields =  get_option('job_board_application_form_ph_no_fields_format_disable', 'no');
-        if($disable_sjb_ph_no_application_form_fields != 'yes'){
-            // Register Input Telephone JS
-            wp_register_script($this->simple_job_board . '-validate-telephone-input', plugin_dir_url(__FILE__) . 'js/intlTelInput.min.js', array('jquery'), '17.0.0', true);
-            wp_register_script($this->simple_job_board . '-validate-telephone-input-utiliy', plugin_dir_url(__FILE__) . 'js/intlTelInput-utils.js', array('jquery'), '7.7.3', true);
-        }
-        wp_localize_script(
-            $this->simple_job_board . '-front-end',
-            'application_form',
-            array(
-                'ajaxurl' => esc_js(admin_url('admin-ajax.php')),
-                'setting_extensions' => is_array(get_option('job_board_upload_file_ext')) ? array_map('esc_js', get_option('job_board_upload_file_ext')) : esc_js(get_option('job_board_upload_file_ext')),
-                'all_extensions_check' => esc_js(get_option('job_board_all_extensions_check')),
-                'allowed_extensions' => is_array(get_option('job_board_allowed_extensions')) ? array_map('esc_js', get_option('job_board_allowed_extensions')) : esc_js(get_option('job_board_allowed_extensions')),
-                'job_listing_content' => esc_js(get_option('job_board_listing')),
-                'jobpost_content' => esc_js(get_option('job_board_jobpost_content')),
-                'jquery_alerts' => array(
-                    'invalid_extension' => apply_filters('sjb_invalid_file_ext_alert', esc_html__('This is not an allowed file extension.', 'simple-job-board')),
-                    'application_not_submitted' => apply_filters('sjb_job_not_submitted_alert', esc_html__('Your application could not be processed.', 'simple-job-board')),
-                    'successful_job_submission' => apply_filters( 'sjb_job_submission_alert', __('Your application has been received. We will get back to you soon.', 'simple-job-board') ),
-                    'sjb_quick_job_close' => apply_filters( 'sjb_quick_job_close', __('Are you sure you want to close? All the unsaved data will be lost.', 'simple-job-board') ),
-                    'sjb_application_input_required' => apply_filters( 'sjb_application_input_required', __('This field is required.', 'simple-job-board') ),
-                    'sjb_application_email_invalid' => apply_filters( 'sjb_application_email_invalid', __('Valid email is required.', 'simple-job-board') ),
-                    'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume ', 'simple-job-board') ),
-                    'sjb_application_enter_valid' => apply_filters( 'sjb_application_enter_valid', __('Please enter a valid ', 'simple-job-board') ),
-                ),
-                'file' => array(
-                    'browse' => esc_html__('Browse', 'simple-job-board'),
-                    'no_file_chosen' => esc_html__('No file chosen', 'simple-job-board'),
-                ),
-                'sjb_date_format' => $sjb_date_format,
-                'is_required' => __('is required', 'simple-job-board'),
-                 'isPhoneFormattingdisabled' => $disable_sjb_ph_no_application_form_fields,
-            )
-        );
-        
 
+        if ( is_sjb() ) {
+            $public_js_deps = array('jquery', 'jquery-ui-datepicker');
+
+            if ( function_exists('sjb_is_multiselect_filter') && sjb_is_multiselect_filter() ) {
+                wp_enqueue_script($this->simple_job_board . '-select2', plugin_dir_url(__FILE__) . 'js/select2.min.js', array('jquery'), '4.0.13', true);
+                $public_js_deps[] = $this->simple_job_board . '-select2';
+            }
+
+            wp_enqueue_script('jquery-validation', plugin_dir_url(__FILE__).'js/jquery.validate.min.js', array('jquery'), '1.19.5', true);
+            wp_enqueue_script('wp-i18n');
+
+            $disable_sjb_ph_no_application_form_fields = get_option('job_board_application_form_ph_no_fields_format_disable', 'no');
+            if($disable_sjb_ph_no_application_form_fields != 'yes'){
+                // Register Input Telephone JS
+                wp_register_script($this->simple_job_board . '-validate-telephone-input', plugin_dir_url(__FILE__) . 'js/intlTelInput.min.js', array('jquery'), '17.0.0', true);
+                wp_register_script($this->simple_job_board . '-validate-telephone-input-utiliy', plugin_dir_url(__FILE__) . 'js/intlTelInput-utils.js', array('jquery'), '7.7.3', true);
+                wp_enqueue_script($this->simple_job_board . '-validate-telephone-input');
+                wp_enqueue_script($this->simple_job_board . '-validate-telephone-input-utiliy');
+            }
+
+            wp_register_script($this->simple_job_board . '-front-end', plugin_dir_url(__FILE__) . 'js/simple-job-board-public.js', $public_js_deps, '1.4.0', true);
+            wp_set_script_translations($this->simple_job_board . '-front-end', 'simple-job-board');
+            wp_enqueue_script($this->simple_job_board . '-front-end');
+
+            wp_localize_script(
+                $this->simple_job_board . '-front-end',
+                'application_form',
+                array(
+                    'ajaxurl' => esc_js(admin_url('admin-ajax.php')),
+                    'setting_extensions' => is_array(get_option('job_board_upload_file_ext')) ? array_map('esc_js', get_option('job_board_upload_file_ext')) : esc_js(get_option('job_board_upload_file_ext')),
+                    'all_extensions_check' => esc_js(get_option('job_board_all_extensions_check')),
+                    'allowed_extensions' => is_array(get_option('job_board_allowed_extensions')) ? array_map('esc_js', get_option('job_board_allowed_extensions')) : esc_js(get_option('job_board_allowed_extensions')),
+                    'job_listing_content' => esc_js(get_option('job_board_listing')),
+                    'jobpost_content' => esc_js(get_option('job_board_jobpost_content')),
+                    'jquery_alerts' => array(
+                        'invalid_extension' => apply_filters('sjb_invalid_file_ext_alert', esc_html__('This is not an allowed file extension.', 'simple-job-board')),
+                        'application_not_submitted' => apply_filters('sjb_job_not_submitted_alert', esc_html__('Your application could not be processed.', 'simple-job-board')),
+                        'successful_job_submission' => apply_filters( 'sjb_job_submission_alert', __('Your application has been received. We will get back to you soon.', 'simple-job-board') ),
+                        'sjb_quick_job_close' => apply_filters( 'sjb_quick_job_close', __('Are you sure you want to close? All the unsaved data will be lost.', 'simple-job-board') ),
+                        'sjb_application_input_required' => apply_filters( 'sjb_application_input_required', __('This field is required.', 'simple-job-board') ),
+                        'sjb_application_email_invalid' => apply_filters( 'sjb_application_email_invalid', __('Valid email is required.', 'simple-job-board') ),
+                        'sjb_application_resume_required' => apply_filters( 'sjb_application_resume_required', __('Application resume ', 'simple-job-board') ),
+                        'sjb_application_enter_valid' => apply_filters( 'sjb_application_enter_valid', __('Please enter a valid ', 'simple-job-board') ),
+                    ),
+                    'file' => array(
+                        'browse' => esc_html__('Browse', 'simple-job-board'),
+                        'no_file_chosen' => esc_html__('No file chosen', 'simple-job-board'),
+                    ),
+                    'sjb_date_format' => $sjb_date_format,
+                    'is_required' => __('is required', 'simple-job-board'),
+                    'isPhoneFormattingdisabled' => $disable_sjb_ph_no_application_form_fields,
+                )
+            );
+        }
     }
 
     /**

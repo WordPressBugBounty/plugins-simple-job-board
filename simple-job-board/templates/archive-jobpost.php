@@ -68,6 +68,14 @@ $container_width = get_option('job_board_container_width');
             $paged = 1;
         }
 
+        $selected_category = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_category') : false;
+        $selected_jobtype  = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_jobtype') : false;
+        $selected_location = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_location') : false;
+
+        $category_arg = is_array($selected_category) ? implode(',', $selected_category) : ($selected_category ?: '');
+        $jobtype_arg  = is_array($selected_jobtype)  ? implode(',', $selected_jobtype)  : ($selected_jobtype ?: '');
+        $location_arg = is_array($selected_location) ? implode(',', $selected_location) : ($selected_location ?: '');
+
         // WP_Query Default Arguments
         $args = apply_filters(
             'sjb_archive_output_jobs_args', array(
@@ -75,9 +83,9 @@ $container_width = get_option('job_board_container_width');
                 'post_type' => 'jobpost',
                 'post_status' => 'publish',
                 'paged' => $paged,
-                'jobpost_category' => ( NULL != filter_input(INPUT_GET, 'selected_category') && -1 != filter_input(INPUT_GET, 'selected_category') ) ? sanitize_text_field(filter_input(INPUT_GET, 'selected_category')) : '',
-                'jobpost_job_type' => ( NULL != filter_input(INPUT_GET, 'selected_jobtype') && -1 != filter_input(INPUT_GET, 'selected_jobtype') ) ? sanitize_text_field(filter_input(INPUT_GET, 'selected_jobtype')) : '',
-                'jobpost_location' => ( NULL != filter_input(INPUT_GET, 'selected_location') && -1 != filter_input(INPUT_GET, 'selected_location') ) ? sanitize_text_field(filter_input(INPUT_GET, 'selected_location')) : '',
+                'jobpost_category' => $category_arg,
+                'jobpost_job_type' => $jobtype_arg,
+                'jobpost_location' => $location_arg,
                 's' => ( NULL != filter_input(INPUT_GET, 'search_keywords') ) ? sanitize_text_field( (filter_input(INPUT_GET, 'search_keywords') ) ) : '' ,
             )
         );

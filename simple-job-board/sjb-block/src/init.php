@@ -92,9 +92,13 @@ function sjb_joblisting_blocks_display($sjb_layout, $numberofposts, $order, $job
     );
 
     // Merge $arg array on each $_GET element
-    $args['jobpost_category'] = (!empty($_GET['selected_category']) && -1 != $_GET['selected_category']) ? sanitize_text_field($_GET['selected_category']) : sanitize_text_field( $default_args['category'] );
-    $args['jobpost_job_type'] = (!empty($_GET['selected_jobtype']) && -1 != $_GET['selected_jobtype']) ? sanitize_text_field($_GET['selected_jobtype']) : sanitize_text_field( $default_args['type'] );
-    $args['jobpost_location'] = (!empty($_GET['selected_location']) && -1 != $_GET['selected_location']) ? sanitize_text_field($_GET['selected_location']) : sanitize_text_field( $default_args['location'] );
+    $selected_category = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_category') : false;
+    $selected_jobtype  = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_jobtype') : false;
+    $selected_location = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_location') : false;
+
+    $args['jobpost_category'] = is_array($selected_category) ? implode(',', $selected_category) : ($selected_category ?: sanitize_text_field( $default_args['category'] ));
+    $args['jobpost_job_type'] = is_array($selected_jobtype)  ? implode(',', $selected_jobtype)  : ($selected_jobtype ?: sanitize_text_field( $default_args['type'] ));
+    $args['jobpost_location'] = is_array($selected_location) ? implode(',', $selected_location) : ($selected_location ?: sanitize_text_field( $default_args['location'] ));
 
     $args['s'] = (null != filter_input(INPUT_GET, 'search_keywords')) ? sanitize_text_field($_GET['search_keywords']) : '';
     $display_job_tags = get_option('display_job_tags') ? get_option('display_job_tags'):"";

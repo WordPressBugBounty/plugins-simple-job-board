@@ -1136,17 +1136,70 @@ if (!function_exists('sjb_is_filter_dropdowns')) {
 
 }
 
+if (!function_exists('sjb_is_multiselect_filter')) {
+
+    /**
+     * Check if Multi-Select Filters setting is enabled.
+     * 
+     * @since 2.14.5
+     * @return bool
+     */
+    function sjb_is_multiselect_filter() {
+        $is_multiselect = ('yes' === get_option('job_board_multiselect_filter')) ? TRUE : FALSE;
+        return apply_filters('sjb_is_multiselect_filter', $is_multiselect);
+    }
+
+}
+
+if (!function_exists('sjb_get_selected_filter_terms')) {
+
+    /**
+     * Get and sanitize selected terms for a filter parameter from GET request (handles string or array).
+     * 
+     * @since 2.14.5
+     * @param string $param_name GET parameter name (e.g., 'selected_category')
+     * @return array|string|false Array of sanitized term slugs, single term slug, or false if not set.
+     */
+    function sjb_get_selected_filter_terms($param_name) {
+        if (!isset($_GET[$param_name]) || empty($_GET[$param_name])) {
+            return false;
+        }
+
+        $raw_val = $_GET[$param_name];
+
+        if (is_array($raw_val)) {
+            $sanitized = array_map('sanitize_text_field', $raw_val);
+            $sanitized = array_filter($sanitized, function($v) {
+                return '' !== $v && '-1' !== (string)$v;
+            });
+            return !empty($sanitized) ? array_values($sanitized) : false;
+        } else {
+            $val = sanitize_text_field($raw_val);
+            if (strpos($val, ',') !== false) {
+                $parts = array_map('trim', explode(',', $val));
+                $parts = array_filter($parts, function($v) {
+                    return '' !== $v && '-1' !== (string)$v;
+                });
+                return !empty($parts) ? array_values($parts) : false;
+            }
+            return ('' !== $val && '-1' !== (string)$val) ? $val : false;
+        }
+    }
+
+}
+
 if (!function_exists('is_sjb')) {
 
     /**
-     * is_sjb - Returns TRUE when Viewing the Jobpost Pages.
+     * is_sjb - Returns TRUE when Viewing any SJB Frontend Context.
      * 
      * @since   2.4.0
+     * @since   2.14.5 Updated to include SJB configured page.
      * 
      * @return bool
      */
     function is_sjb() {
-        return apply_filters('is_sjb', ( is_jobpost() || is_jobpost_archive() || is_jobpost_taxonomy() || is_jobpost_shortcode() ) ? TRUE : FALSE);
+        return apply_filters('is_sjb', ( is_jobpost() || is_jobpost_archive() || is_jobpost_taxonomy() || is_jobpost_shortcode() || is_jobpost_page() ) ? TRUE : FALSE);
     }
 
 }
@@ -1187,11 +1240,32 @@ if (!function_exists('is_jobpost_taxonomy')) {
      * is_jobpost_taxonomy - Returns TRUE when Viewing the Job Taxonomies.
      * 
      * @since   2.4.0
+     * @since   2.14.5 Updated to check all registered taxonomies for jobpost.
      * 
      * @return bool
      */
     function is_jobpost_taxonomy() {
-        return is_tax(get_object_taxonomies('jobpost'));
+        $taxonomies = get_object_taxonomies('jobpost');
+        return !empty($taxonomies) && is_tax($taxonomies);
+    }
+
+}
+
+if (!function_exists('is_jobpost_page')) {
+
+    /**
+     * is_jobpost_page - Returns TRUE when viewing the page explicitly configured in SJB plugin settings.
+     * 
+     * @since   2.14.5
+     * 
+     * @return bool
+     */
+    function is_jobpost_page() {
+        $jobpost_page_id = get_option('sjb_job_post_page_id');
+        if ( ! empty( $jobpost_page_id ) && is_page( $jobpost_page_id ) ) {
+            return true;
+        }
+        return false;
     }
 
 }
@@ -1199,16 +1273,40 @@ if (!function_exists('is_jobpost_taxonomy')) {
 if (!function_exists('is_jobpost_shortcode')) {
 
     /**
-     * is_jobpost_shortcode - Returns TRUE when Viewing the Job Listing.
+     * is_jobpost_shortcode - Returns TRUE when Viewing any Page containing SJB shortcodes.
      * 
      * @since   2.4.0
+     * @since   2.14.5 Updated to check all SJB shortcodes and block editor signatures.
      * 
      * @return bool
      */
     function is_jobpost_shortcode() {
         global $post;
 
-        return is_a($post, 'WP_Post') && has_shortcode($post->post_content, 'jobpost');
+        if ( ! is_a( $post, 'WP_Post' ) ) {
+            return false;
+        }
+
+        $shortcodes = array(
+            'jobpost',
+            'job_details',
+            'frontend_signup',
+            'frontend_login',
+            'frontend_dashboard',
+            'frontend_jobpost',
+        );
+
+        foreach ( $shortcodes as $shortcode ) {
+            if ( has_shortcode( $post->post_content, $shortcode ) || strpos( $post->post_content, '[' . $shortcode ) !== false ) {
+                return true;
+            }
+        }
+
+        if ( strpos( $post->post_content, 'sjb-block' ) !== false || strpos( $post->post_content, 'simple-job-board' ) !== false ) {
+            return true;
+        }
+
+        return false;
     }
 
 }
@@ -1387,6 +1485,7 @@ if (!function_exists('sjb_get_allowed_html_tags')) {
                 'class' => array(),
                 'value' => array(),
                 'selected' => array(),
+                'disabled' => array(),
             ),
             'input' => array(
                 'type' => array(),
@@ -1401,6 +1500,7 @@ if (!function_exists('sjb_get_allowed_html_tags')) {
                 'class' => array(),
                 'id' => array(),
                 'name' => array(),
+                'multiple' => array(),
             ),
             'small' => array(),
             'i' => array(

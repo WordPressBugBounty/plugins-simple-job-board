@@ -109,6 +109,15 @@ class Simple_Job_Board_Settings_Filters {
                             </label>
                             
                         </div>
+                        <div class="sjb-form-group">
+                            <?php 
+                            $multiselect_filter = get_option('job_board_multiselect_filter') ? get_option('job_board_multiselect_filter') : 'no';
+                            ?>   
+                            <label>
+                            <input type="checkbox" name="job_board_multiselect_filter" value="yes" id="enable-multiselect-filter" <?php echo esc_attr($multiselect_filter == 'yes') ? 'checked' : '' ?>/><?php esc_html_e("Enable Multi-Select Filters", 'simple-job-board'); ?>
+                            </label>
+                            
+                        </div>
                         <?php
                         /**
                          * Action -> Add new fields at the end of job filters section.  
@@ -159,10 +168,12 @@ class Simple_Job_Board_Settings_Filters {
         $job_filters =  filter_input( INPUT_POST, 'job_filters', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
         $empty_filter = filter_input( INPUT_POST, 'empty_filter');
         $display_job_tags = filter_input(INPUT_POST,'display_job_tags');
+        $multiselect_filter = filter_input(INPUT_POST,'job_board_multiselect_filter');
         $selected_hidden_tag = filter_input(INPUT_POST,'selected_hidden_tag');
-        if(isset($selected_hidden_tag) || isset($display_job_tags) ){
+        if(isset($selected_hidden_tag) || isset($display_job_tags) || isset($multiselect_filter) ){
            
             ( !empty( $display_job_tags ) ) ? update_option( 'display_job_tags', $display_job_tags ) : update_option( 'display_job_tags', 'no' );
+            ( !empty( $multiselect_filter ) ) ? update_option( 'job_board_multiselect_filter', 'yes' ) : update_option( 'job_board_multiselect_filter', 'no' );
         }
         if ( !empty ( $job_filters ) || isset( $empty_filter ) ) {
 

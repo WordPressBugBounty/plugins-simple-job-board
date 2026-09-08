@@ -16,7 +16,10 @@ ob_start();
 
 // Check For Settings Option and the Term Existance
 if (sjb_is_type_filter()) {    
-    $selected_jobtype = ( NULL != filter_input( INPUT_GET, 'selected_jobtype' ) ) ? sanitize_text_field( filter_input( INPUT_GET, 'selected_jobtype' ) ) : FALSE;
+    $selected_jobtype = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_jobtype') : FALSE;
+    if (!$selected_jobtype && NULL != filter_input(INPUT_GET, 'selected_jobtype')) {
+        $selected_jobtype = sanitize_text_field( filter_input( INPUT_GET, 'selected_jobtype' ) );
+    }
     $allowed_tags = sjb_get_allowed_html_tags();
     /**
      * Creating list on non-empty job type
@@ -33,7 +36,7 @@ if (sjb_is_type_filter()) {
         'name'              => 'selected_jobtype',
         'id'                => 'jobtype',
         'class'             => 'form-control',
-        'selected'          => $selected_jobtype,
+        'selected'          => is_array($selected_jobtype) ? reset($selected_jobtype) : $selected_jobtype,
         'hierarchical'      => TRUE,
         'taxonomy'          => 'jobpost_job_type',
         'value_field'       => 'slug',
@@ -41,6 +44,26 @@ if (sjb_is_type_filter()) {
 
     // Display or retrieve the HTML dropdown list of job type     
     $jobtype_select = wp_dropdown_categories(apply_filters('sjb_job_type_filter_args', $jobtype_args, $atts));
+
+    if (!empty($jobtype_select) && function_exists('sjb_is_multiselect_filter') && sjb_is_multiselect_filter()) {
+        $jobtype_select = str_replace(
+            array("name='selected_jobtype'", 'name="selected_jobtype"'),
+            'name="selected_jobtype[]" multiple="multiple"',
+            $jobtype_select
+        );
+        $jobtype_select = str_replace(
+            array("class='form-control'", 'class="form-control"'),
+            'class="form-control sjb-multiselect-filter"',
+            $jobtype_select
+        );
+        if (is_array($selected_jobtype)) {
+            foreach ($selected_jobtype as $type_slug) {
+                if ('' !== $type_slug && '-1' !== (string)$type_slug) {
+                    $jobtype_select = str_replace('value="' . esc_attr($type_slug) . '"', 'value="' . esc_attr($type_slug) . '" selected="selected"', $jobtype_select);
+                }
+            }
+        }
+    }
     ?> 
 
     <!-- Job Type Filter -->

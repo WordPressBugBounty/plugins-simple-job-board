@@ -84,6 +84,14 @@ class Simple_Job_Board_Shortcode_Jobpost {
         }
 
 
+        $selected_category = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_category') : false;
+        $selected_jobtype  = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_jobtype') : false;
+        $selected_location = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_location') : false;
+
+        $category_arg = is_array($selected_category) ? implode(',', $selected_category) : ($selected_category ?: sanitize_text_field($shortcode_args['category']));
+        $jobtype_arg  = is_array($selected_jobtype)  ? implode(',', $selected_jobtype)  : ($selected_jobtype ?: sanitize_text_field($shortcode_args['type']));
+        $location_arg = is_array($selected_location) ? implode(',', $selected_location) : ($selected_location ?: sanitize_text_field($shortcode_args['location']));
+
         // WP Query Default Arguments
         $args = apply_filters(
             'sjb_output_jobs_args', array(
@@ -92,9 +100,9 @@ class Simple_Job_Board_Shortcode_Jobpost {
                 'post_type' => 'jobpost',
                 'paged' => $paged,
                 'order' => sanitize_text_field($shortcode_args['order']),
-                'jobpost_category' => (!empty($_GET['selected_category']) && -1 != $_GET['selected_category'] ) ? sanitize_text_field($_GET['selected_category']) : sanitize_text_field($shortcode_args['category']),
-                'jobpost_job_type' => (!empty($_GET['selected_jobtype']) && -1 != $_GET['selected_jobtype'] ) ? sanitize_text_field($_GET['selected_jobtype']) : sanitize_text_field($shortcode_args['type']),
-                'jobpost_location' => (!empty($_GET['selected_location']) && -1 != $_GET['selected_location'] ) ? sanitize_text_field($_GET['selected_location']) : sanitize_text_field($shortcode_args['location']),
+                'jobpost_category' => $category_arg,
+                'jobpost_job_type' => $jobtype_arg,
+                'jobpost_location' => $location_arg,
                 's' => ( NULL != filter_input(INPUT_GET, 'search_keywords') ) ? sanitize_text_field($_GET['search_keywords']) : '',
                 'jobpost_tag' => (!empty($_GET['selected_tag'])) ? str_replace(',', '+', sanitize_text_field($_GET['selected_tag'])) : '',
             ), $atts

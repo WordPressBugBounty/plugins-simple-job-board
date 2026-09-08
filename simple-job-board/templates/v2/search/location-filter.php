@@ -17,7 +17,10 @@ ob_start();
 // Check For Settings Option and the Term Existance
 if ( sjb_is_location_filter() ) {
     $allowed_tags = sjb_get_allowed_html_tags();
-    $selected_location = ( NULL != filter_input(INPUT_GET, 'selected_location') ) ? sanitize_text_field( filter_input(INPUT_GET, 'selected_location') ) : FALSE;
+    $selected_location = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_location') : FALSE;
+    if (!$selected_location && NULL != filter_input(INPUT_GET, 'selected_location')) {
+        $selected_location = sanitize_text_field( filter_input( INPUT_GET, 'selected_location' ) );
+    }
 
     /**
      * Creating list on non-empty job location
@@ -34,7 +37,7 @@ if ( sjb_is_location_filter() ) {
         'name' => 'selected_location',
         'id' => 'location',
         'class' => 'form-control',
-        'selected' => $selected_location,
+        'selected' => is_array($selected_location) ? reset($selected_location) : $selected_location,
         'hierarchical' => TRUE,
         'taxonomy' => 'jobpost_location',
         'value_field' => 'slug',
@@ -42,6 +45,26 @@ if ( sjb_is_location_filter() ) {
 
     // Display or retrieve the HTML dropdown list of job locations                  
     $jobloc_select = wp_dropdown_categories(apply_filters('sjb_job_location_filter_args', $jobloc_args, $atts));
+
+    if (!empty($jobloc_select) && function_exists('sjb_is_multiselect_filter') && sjb_is_multiselect_filter()) {
+        $jobloc_select = str_replace(
+            array("name='selected_location'", 'name="selected_location"'),
+            'name="selected_location[]" multiple="multiple"',
+            $jobloc_select
+        );
+        $jobloc_select = str_replace(
+            array("class='form-control'", 'class="form-control"'),
+            'class="form-control sjb-multiselect-filter"',
+            $jobloc_select
+        );
+        if (is_array($selected_location)) {
+            foreach ($selected_location as $loc_slug) {
+                if ('' !== $loc_slug && '-1' !== (string)$loc_slug) {
+                    $jobloc_select = str_replace('value="' . esc_attr($loc_slug) . '"', 'value="' . esc_attr($loc_slug) . '" selected="selected"', $jobloc_select);
+                }
+            }
+        }
+    }
     ?>
 
     <!-- Job Location Filter-->

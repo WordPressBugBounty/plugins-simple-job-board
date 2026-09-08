@@ -4,7 +4,7 @@ Donate link: https://www.presstigers.com
 Tags: careers, job-board, job listing, job manager, jobs, job portal
 Requires at least: 5.1
 Tested up to: 7.0
-Stable tag: 2.14.4
+Stable tag: 2.14.5
 License: GPLv3
 Requires PHP: 7.4
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -236,6 +236,10 @@ To remove formatting and flags from the phone number input, navigate to Settings
 21. **Modern Job details page** - Modified layout of Job board detail/single page. Icon based job features are placed on it.
 
 == Changelog ==
+
+= 2.14.5 =
+* Tweak - Added an option to enable the display of multiple filter values in Job Listing and Job Details pages using multiselect dropdown for job, location and category filters.
+* Tweak - Improved rendering of styles and scripts.
 
 = 2.14.4 =
 * Fix - Banner notification.

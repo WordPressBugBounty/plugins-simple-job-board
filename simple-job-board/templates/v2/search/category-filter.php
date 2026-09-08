@@ -18,7 +18,10 @@ ob_start();
 // Check for setting page option and the term existence
 if (sjb_is_category_filter()) {
 
-    $selected_category = ( NULL != filter_input(INPUT_GET, 'selected_category') ) ? sanitize_text_field( filter_input( INPUT_GET, 'selected_category' ) ) : FALSE;
+    $selected_category = function_exists('sjb_get_selected_filter_terms') ? sjb_get_selected_filter_terms('selected_category') : FALSE;
+    if (!$selected_category && NULL != filter_input(INPUT_GET, 'selected_category')) {
+        $selected_category = sanitize_text_field( filter_input( INPUT_GET, 'selected_category' ) );
+    }
     $allowed_tags = sjb_get_allowed_html_tags();
 
     // Get 'category' attribute from shortcode
@@ -35,7 +38,7 @@ if (sjb_is_category_filter()) {
         'name'             => 'selected_category',
         'id'               => 'category',
         'class'            => 'form-control',
-        'selected'         => $selected_category,
+        'selected'         => is_array($selected_category) ? reset($selected_category) : $selected_category,
         'taxonomy'         => 'jobpost_category',
         'value_field'      => 'slug',
     );
@@ -66,6 +69,26 @@ if (sjb_is_category_filter()) {
                 $category_select = wp_dropdown_categories(apply_filters('sjb_category_filter_args', $category_args, $atts));
             } else {
                 $category_select = '';
+            }
+        }
+    }
+
+    if (!empty($category_select) && function_exists('sjb_is_multiselect_filter') && sjb_is_multiselect_filter()) {
+        $category_select = str_replace(
+            array("name='selected_category'", 'name="selected_category"'),
+            'name="selected_category[]" multiple="multiple"',
+            $category_select
+        );
+        $category_select = str_replace(
+            array("class='form-control'", 'class="form-control"'),
+            'class="form-control sjb-multiselect-filter"',
+            $category_select
+        );
+        if (is_array($selected_category)) {
+            foreach ($selected_category as $cat_slug) {
+                if ('' !== $cat_slug && '-1' !== (string)$cat_slug) {
+                    $category_select = str_replace('value="' . esc_attr($cat_slug) . '"', 'value="' . esc_attr($cat_slug) . '" selected="selected"', $category_select);
+                }
             }
         }
     }

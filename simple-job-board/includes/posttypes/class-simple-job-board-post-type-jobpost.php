@@ -42,19 +42,14 @@ if (!class_exists('Simple_Job_Board_Post_Type_Jobpost')) {
          * @since   2.2.0
          */
         public function simple_job_board_init() {
-            
-            $count = 0;
 
-            if ( !post_type_exists('jobpost') ) {
+            // Register the custom post type and taxonomies
+            $this->createPostType();
 
-                // Register the custom post type
-                $this->createPostType();
-                if($count == 0){
-                    // Flush Rewrite Rules only when registering the custom post type
-                    flush_rewrite_rules();
-                    $count++;
-                }
-
+            // Flush Rewrite Rules only once per version using a soft flush
+            if ( get_option( 'sjb_rewrite_flushed' ) !== SJB_PLUGIN_VERSION ) {
+                flush_rewrite_rules( false );
+                update_option( 'sjb_rewrite_flushed', SJB_PLUGIN_VERSION );
             }
             // Select job pages layout
             if ($sjb_layout = get_option('job_board_pages_layout')) {

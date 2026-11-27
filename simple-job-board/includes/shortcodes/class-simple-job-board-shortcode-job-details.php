@@ -58,7 +58,7 @@ class Simple_Job_Board_Shortcode_job_details
         }
         
         if( isset( $atts['job_form_description'] ) && 'yes' === $atts['job_form_description'] ){
-            echo '<div class="sjb-job-description">'.$post->post_content.'</div>';
+            echo '<div class="sjb-job-description">'. apply_filters( 'the_content', get_the_content( null, false, $post ) ) .'</div>';
             
         }
 
@@ -69,19 +69,21 @@ class Simple_Job_Board_Shortcode_job_details
                 remove_action('sjb_single_job_listing_start', 'sjb_job_listing_meta_display', 30);
             }
 
-            if ($atts['show_job_features'] === 'yes') {
-                add_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
-            } else {
-                remove_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
-            }
+            if ( ! post_password_required( $post ) ) {
+                if ($atts['show_job_features'] === 'yes') {
+                    add_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
+                } else {
+                    remove_action('sjb_single_job_listing_end', 'sjb_job_listing_features', 20);
+                }
 
-            if ($atts['show_job_form'] === 'yes') {
-                add_action('sjb_single_job_listing_end', 'sjb_job_listing_application_form', 30);
-            } else {
-                remove_action('sjb_single_job_listing_end', 'sjb_job_listing_application_form', 30);
-            }
+                if ($atts['show_job_form'] === 'yes') {
+                    add_action('sjb_single_job_listing_end', 'sjb_job_listing_application_form', 30);
+                } else {
+                    remove_action('sjb_single_job_listing_end', 'sjb_job_listing_application_form', 30);
+                }
 
-            do_action('sjb_single_job_listing_end');
+                do_action('sjb_single_job_listing_end');
+            }
         }
 
         do_action('sjb_single_job_content_end');

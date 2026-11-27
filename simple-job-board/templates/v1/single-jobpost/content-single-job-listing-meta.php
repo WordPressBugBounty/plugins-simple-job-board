@@ -27,6 +27,15 @@ do_action('single_job_listing_meta_before');
 
 <!-- Start Company Meta
 ================================================== -->
+<?php if ( post_password_required() ) : ?>
+<header>
+    <div class="row">
+        <div class="col-md-12">
+            <?php get_simple_job_board_template( 'single-jobpost/job-meta/job-title.php' ); ?>
+        </div>
+    </div>
+</header>
+<?php else : ?>
 <header>
     <div class="row">            
         <?php
@@ -102,6 +111,7 @@ do_action('single_job_listing_meta_before');
         ?>
     </div>
 </header>
+<?php endif; ?>
 <!-- ==================================================
 End Company Meta -->
 

@@ -16,6 +16,10 @@
 ob_start();
 global $post;
 
+if ( post_password_required() ) {
+    return;
+}
+
 /**
  * Fires on job detail page before displaying job application section.
  *                  

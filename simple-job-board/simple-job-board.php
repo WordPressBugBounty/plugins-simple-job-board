@@ -15,7 +15,7 @@
  * Plugin Name:       Simple Job Board
  * Plugin URI:        https://market.presstigers.com
  * Description:       A lightweight WordPress job portal plugin to display job listings, manage applications, and create a professional career page using various taxonomies and company details — ideal for recruitment, hiring, and career management.
- * Version:           2.14.5
+ * Version:           2.14.6
  * Author:            PressTigers
  * Author URI:        https://market.presstigers.com
  * License:           GPL-3.0+
@@ -30,7 +30,7 @@ if (!defined('WPINC')) {
 
 // Define Plugin Contant
 if (!defined('SJB_PLUGIN_VERSION')) {
-    define('SJB_PLUGIN_VERSION', '2.14.5');
+    define('SJB_PLUGIN_VERSION', '2.14.6');
 }
 
 add_action('upgrader_process_complete', 'sjb_clean_options_on_update', 10, 2);
@@ -107,6 +107,7 @@ function sjb_wp_upe_upgrade_completed( $upgrader_object, $options ) {
 
         $sjbrObj = new Simple_Job_Board_Rewrite();
         $sjbrObj->job_board_rewrite(); 
+        delete_option( 'sjb_rewrite_flushed' ); 
    }
   }
  }

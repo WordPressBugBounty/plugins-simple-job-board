@@ -18,6 +18,10 @@
 ob_start();
 global $post;
 
+if ( post_password_required() ) {
+    return;
+}
+
 /**
  * Fires before displaying job features on job detail page .
  *                   

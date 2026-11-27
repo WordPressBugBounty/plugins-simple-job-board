@@ -63,7 +63,9 @@ if(!is_elementor_widget_added_to_jobpost('job-details')) {
  */
 
 if(!is_elementor_widget_added_to_jobpost('job-details')) {
-    do_action('sjb_single_job_listing_end');
+    if ( ! post_password_required() ) {
+        do_action('sjb_single_job_listing_end');
+    }
 }
 
 ?>

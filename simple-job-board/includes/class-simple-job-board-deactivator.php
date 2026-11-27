@@ -23,8 +23,9 @@ class Simple_Job_Board_Deactivator {
      */
     public static function deactivate() {
         update_option('default_fields_count', 0);
-        // Flush Rewrite Rules 
-        flush_rewrite_rules();
+        delete_option('sjb_rewrite_flushed');
+        // Soft Flush Rewrite Rules 
+        flush_rewrite_rules( false );
     }
 
 }

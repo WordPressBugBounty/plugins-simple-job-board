@@ -458,6 +458,9 @@ class Simple_Job_Board_Settings_General
             // Save Custom Post Type Slug in WP Option
             (!empty($job_archives_name)) ? update_option('job_archives_name', sanitize_text_field( $job_archives_name ) ) : update_option('job_archives_name', '');
             (!empty($delete_data_on_uninstall)) ? update_option('delete_data_on_uninstall','yes' ) : update_option('delete_data_on_uninstall', '');
+
+            // Ensure rewrite rules refresh when slugs change
+            delete_option( 'sjb_rewrite_flushed' );
         }
         if (isset($_POST['job_post_page'])) {
             $selected_page = intval($_POST['job_post_page']); 

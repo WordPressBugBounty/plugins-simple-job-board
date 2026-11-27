@@ -155,13 +155,39 @@ class Simple_Job_Board_Extensions_Package {
      */
     public function validate_request_update() {
 
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json( array( 'error' => __( 'You do not have permission to manage options.', 'simple-job-board' ) ), 403 );
+            return;
+        }
+
         if (isset($_POST['license_activation_nonce']) && wp_verify_nonce($_POST['license_activation_nonce'], 'license_activation_nonce')) {
 
             $data = array_map( 'sanitize_text_field', $_POST['data'] );
-            $addon = sanitize_text_field( $_POST['addon'] );
+            $addon = sanitize_key( $_POST['addon'] );
 
-            if (!is_array($data) || !is_string($addon) || empty($addon)) {
+            if (!is_array($data) || empty($addon)) {
                 return wp_send_json(array("An error occurred. Please try again later."), 401);
+            }
+
+            // Whitelist / Pattern Validation for $addon to prevent arbitrary option overwriting
+            $valid_addon = false;
+            if ( class_exists( 'Simple_Job_Board_Addons_Extensions' ) ) {
+                $extensions = Simple_Job_Board_Addons_Extensions::instance()->extensions();
+                if ( is_array( $extensions ) ) {
+                    foreach ( $extensions as $ext ) {
+                        if ( isset( $ext->slug ) && $ext->slug === $addon ) {
+                            $valid_addon = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if ( ! $valid_addon && ( preg_match( '/^sjb[-_][a-z0-9_-]+$/i', $addon ) || preg_match( '/^[a-z0-9_-]+[-_]add[-_]on$/i', $addon ) ) ) {
+                $valid_addon = true;
+            }
+
+            if ( ! $valid_addon ) {
+                return wp_send_json( array( "Invalid addon specified." ), 400 );
             }
 
             if (array_key_exists("user_id", $data))

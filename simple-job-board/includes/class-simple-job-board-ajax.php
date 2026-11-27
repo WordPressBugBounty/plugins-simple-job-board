@@ -149,17 +149,22 @@ class Simple_Job_Board_Ajax {
         do_action( 'sjb_applicants_insert_post_before' );
         
         $parent_id = sanitize_text_field( $_POST['job_id'] );
-        if(get_post_status($parent_id) == "publish"){
-        $args = apply_filters('sjb_applicant_insert_post_args', array(
-            'post_type'    => 'jobpost_applicants',
-            'post_content' => '',
-            'post_parent'  => intval( $parent_id ),
-            'post_title'   => trim( strip_tags( get_the_title( $parent_id ) ) ),
-            'post_status'  => 'publish',
-        ));
-        
-        $pid = wp_insert_post($args);
-    }
+        if(get_post_status($parent_id) == "publish" && ! post_password_required($parent_id)){
+            $args = apply_filters('sjb_applicant_insert_post_args', array(
+                'post_type'    => 'jobpost_applicants',
+                'post_content' => '',
+                'post_parent'  => intval( $parent_id ),
+                'post_title'   => trim( strip_tags( get_the_title( $parent_id ) ) ),
+                'post_status'  => 'publish',
+            ));
+            
+            $pid = wp_insert_post($args);
+        } else {
+            $response = json_encode( array( 'success' => FALSE, 'error' => esc_html__( 'This job is password protected or not available.', 'simple-job-board' ) ) );
+            header( "Content-Type: application/json" );
+            echo apply_filters( 'sjb_job_submit_validation_errors', $response );
+            die();
+        }
         
         /**
          * Fires before inserting applicant's post meta.
@@ -341,6 +346,11 @@ class Simple_Job_Board_Ajax {
             // Loop through the posts
             while ($query->have_posts()) {
                 $query->the_post();
+
+                if ( post_password_required() ) {
+                    echo '<div class="popup-outer"><div class="job-description">' . get_the_password_form() . '</div></div>';
+                    break;
+                }
                 // Output the post content or perform other actions
                 ?>
                 <div class="popup-outer">

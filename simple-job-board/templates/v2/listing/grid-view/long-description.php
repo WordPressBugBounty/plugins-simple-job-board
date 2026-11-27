@@ -18,7 +18,7 @@ global $post;
 ================================================== -->
 <div class="sjb_more_content" id="sjb_more_content_<?php echo $post->ID ?>">
     <?php echo get_the_content(); ?>
-    <?php //echo get_simple_job_board_template('single-jobpost/job-features.php'); ?>
+    <?php if ( ! post_password_required() ) : ?>
     <div class="row">
         <div class="job-features">
             <h3>
@@ -53,11 +53,11 @@ global $post;
                                     <div class="col-md-12">
                                         <div class="sjb-title-value">
                                             <h4>
-                                                <i class="<?php echo $icon; ?>" aria-hidden="true"></i>
-                                                <?php echo $label; ?>
+                                                <i class="<?php echo esc_attr( $icon ); ?>" aria-hidden="true"></i>
+                                                <?php echo esc_html( $label ); ?>
                                             </h4>
                                             <p>
-                                                <?php echo $value; ?>
+                                                <?php echo esc_html( $value ); ?>
                                             </p>
                                         </div>
                                     </div>
@@ -69,6 +69,7 @@ global $post;
                 } ?>
         </div>
     </div>
+    <?php endif; ?>
 </div>
 <!-- ==================================================
 View long content end  -->

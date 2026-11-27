@@ -902,6 +902,10 @@ if (!function_exists('sjb_job_listing_features')) {
      */
     function sjb_job_listing_features() {
 
+        if ( post_password_required() ) {
+            return;
+        }
+
         get_simple_job_board_template('single-jobpost/job-features.php', array());
     }
 
@@ -918,6 +922,10 @@ if (!function_exists('sjb_job_listing_application_form')) {
      * @since   2.1.0
      */
     function sjb_job_listing_application_form() {
+
+        if ( post_password_required() ) {
+            return;
+        }
 
         get_simple_job_board_template('single-jobpost/job-application.php', array());
     }

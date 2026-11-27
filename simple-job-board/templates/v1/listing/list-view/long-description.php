@@ -17,7 +17,11 @@ global $post;
 ================================================== -->
 <div class="sjb_more_content" id="sjb_more_content_<?php echo $post->ID ?>">
     <?php echo get_the_content(); ?>
-    <?php echo get_simple_job_board_template('single-jobpost/job-features.php'); ?>
+    <?php 
+    if ( ! post_password_required() ) {
+        echo get_simple_job_board_template('single-jobpost/job-features.php'); 
+    }
+    ?>
 </div>
 <!-- ==================================================
 View long content end  -->

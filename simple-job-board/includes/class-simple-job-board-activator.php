@@ -94,8 +94,8 @@ class Simple_Job_Board_Activator {
         $sjbrObj = new Simple_Job_Board_Rewrite();
         $sjbrObj->job_board_rewrite(); 
 
-        // Flush Rewrite Rules 
-        flush_rewrite_rules();
+        // Reset rewrite flushed flag so rewrite rules are regenerated cleanly
+        delete_option( 'sjb_rewrite_flushed' );
     }
 
     private static function create_jobpost_page()
